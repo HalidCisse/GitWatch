@@ -1,6 +1,7 @@
 PODS:
   - AFNetworking (1.3.4)
   - ISO8601DateFormatter (0.7)
+  - LTHPasscodeViewController (3.7.6)
   - Mantle (1.3.1):
     - Mantle/extobjc (= 1.3.1)
   - Mantle/extobjc (1.3.1)
@@ -17,15 +18,17 @@ PODS:
   - ReactiveCocoa/no-arc (2.2.4)
 
 DEPENDENCIES:
+  - LTHPasscodeViewController
   - OctoKit (~> 0.5)
 
 SPEC CHECKSUMS:
   AFNetworking: cf8e418e16f0c9c7e5c3150d019a3c679d015018
   ISO8601DateFormatter: ab926648eebe497f4d167c0fd083992f959f1274
+  LTHPasscodeViewController: 8fd65196b05f08f5278baddf436c3d26e189e90b
   Mantle: a516570b84c3cefb34b02647a6588a087dddc490
   OctoKit: 0ecbb097747eb801582dc89e34dbacc24d8ec1d1
   ReactiveCocoa: 78d9d1057f6e2595a67285b5adb0c90d0fc2237c
 
-PODFILE CHECKSUM: eb8dc3b51a49ec75d771912f3b0e770bd61364f3
+PODFILE CHECKSUM: 59453c31f6242d00918bb2ada3e954c226a1a350
 
 COCOAPODS: 1.0.0.rc.1
