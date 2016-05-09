@@ -96,9 +96,10 @@
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="repoIcon" id="SWr-Rd-Gww">
+                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" image="repoIcon" id="SWr-Rd-Gww">
                                             <rect key="frame" x="15" y="0.0" width="46" height="60"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <edgeInsets key="layoutMargins" top="15" left="8" bottom="8" right="8"/>
                                         </imageView>
                                     </subviews>
                                 </tableViewCellContentView>
