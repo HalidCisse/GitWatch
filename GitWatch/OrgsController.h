@@ -1,5 +1,5 @@
 //
-//  AppDelegate.h
+//  OrgsController.h
 //  GitWatch
 //
 //  Created by Halid Cisse on 5/9/16.
@@ -7,11 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <OctoKit/OctoKit.h>
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+@interface OrgsController : UITableViewController
 
-@property (strong, nonatomic) UIWindow *window;
-
+@property OCTClient *GitClient;
 
 @end
-

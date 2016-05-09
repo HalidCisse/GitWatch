@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "1F7380031CDB490B00D229F2"
+               BlueprintIdentifier = "1F9F5EA71CE086FF004D73D3"
                BuildableName = "GitWatch.app"
                BlueprintName = "GitWatch"
                ReferencedContainer = "container:GitWatch.xcodeproj">
@@ -32,7 +32,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "1F7380031CDB490B00D229F2"
+            BlueprintIdentifier = "1F9F5EA71CE086FF004D73D3"
             BuildableName = "GitWatch.app"
             BlueprintName = "GitWatch"
             ReferencedContainer = "container:GitWatch.xcodeproj">
@@ -55,7 +55,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "1F7380031CDB490B00D229F2"
+            BlueprintIdentifier = "1F9F5EA71CE086FF004D73D3"
             BuildableName = "GitWatch.app"
             BlueprintName = "GitWatch"
             ReferencedContainer = "container:GitWatch.xcodeproj">
@@ -74,7 +74,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "1F7380031CDB490B00D229F2"
+            BlueprintIdentifier = "1F9F5EA71CE086FF004D73D3"
             BuildableName = "GitWatch.app"
             BlueprintName = "GitWatch"
             ReferencedContainer = "container:GitWatch.xcodeproj">
