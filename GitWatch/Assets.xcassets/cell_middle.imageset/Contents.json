@@ -2,16 +2,13 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "repoIcon.png",
+      "filename" : "cell_middle.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "cell_middle@2x.png",
       "scale" : "2x"
-    },
-    {
-      "idiom" : "universal",
-      "scale" : "3x"
     }
   ],
   "info" : {
