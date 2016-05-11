@@ -1,5 +1,5 @@
 //
-//  RepositoriesController.h
+//  ReposController.h
 //  GitWatch
 //
 //  Created by Halid Cisse on 5/10/16.
@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <OctoKit/OctoKit.h>
 
 @interface RepositoriesController : UITableViewController
+
+@property OCTClient *GitClient;
+@property OCTOrganization *Organisation;
 
 @end

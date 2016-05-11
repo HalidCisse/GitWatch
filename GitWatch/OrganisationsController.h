@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <OctoKit/OctoKit.h>
 
-@interface OrgsController : UITableViewController
+@interface OrganisationsController : UITableViewController
 
 @property OCTClient *GitClient;
 

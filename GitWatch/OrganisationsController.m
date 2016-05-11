@@ -6,17 +6,17 @@
 //  Copyright © 2016 Halid Cisse. All rights reserved.
 //
 
-#import "OrgsController.h"
+#import "OrganisationsController.h"
 #import <OctoKit/OctoKit.h>
-#import "ReposController.h"
+#import "RepositoriesController.h"
 
-@interface OrgsController ()
+@interface OrganisationsController ()
 
 @property NSMutableArray *organisations;
 
 @end
 
-@implementation OrgsController
+@implementation OrganisationsController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -61,11 +61,12 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
     
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:simpleTableIdentifier];
     }
     
     OCTOrganization *org =[self.organisations objectAtIndex:indexPath.row];
     cell.textLabel.text = org.name;
+    cell.detailTextLabel.text = [[NSString alloc] initWithFormat:@"%lu repositories", org.publicRepoCount + org.privateRepoCount];
     
     cell.imageView.image = [UIImage imageNamed:@"repoIcon.png"];
     
@@ -80,12 +81,28 @@
     });
     
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    
+    //cell.accessoryView = [[UIImageView alloc]initWithImage:
+                          //[UIImage imageNamed:@"acces.png"]];
+    //cell.frame = CGRectMake(cell.frame.origin.x, cell.frame.origin.x, 5, 5);
+    
+//    UIImage *indicatorImage = [UIImage imageNamed:@"acces"];
+//    UIImageView *view = [[UIImageView alloc] initWithImage:indicatorImage];
+//    view.frame = CGRectMake(cell.frame.origin.x, cell.frame.origin.x, 5, 5);
+//    [view setContentMode:UIViewContentModeLeft];//without this line the image will just be stretched;
+//    cell.accessoryView = view;
+    
     return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 70;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    ReposController *view = [[ReposController alloc] init];
+    RepositoriesController *view = [[RepositoriesController alloc] init];
     view.GitClient = self.GitClient;
     view.Organisation = [self.organisations objectAtIndex:indexPath.row];
     [self.navigationController pushViewController:view animated:YES];

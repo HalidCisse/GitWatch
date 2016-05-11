@@ -8,7 +8,7 @@
 
 #import "ViewController.h"
 #import <OctoKit/OctoKit.h>
-#import "OrgsController.h"
+#import "OrganisationsController.h"
 
 @interface ViewController ()
 
@@ -28,7 +28,7 @@
      deliverOnMainThread]
      
      subscribeNext:^(OCTClient *authenticatedClient) {
-         OrgsController *orgsView = [[OrgsController alloc] init];
+         OrganisationsController *orgsView = [[OrganisationsController alloc] init];
          orgsView.GitClient = authenticatedClient;
          [self.navigationController pushViewController:orgsView animated:YES];
          

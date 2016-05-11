@@ -21,9 +21,11 @@
 		1F9F5ECA1CE087B8004D73D3 /* Mantle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F9F5EC51CE087B8004D73D3 /* Mantle.framework */; };
 		1F9F5ECB1CE087B8004D73D3 /* OctoKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F9F5EC61CE087B8004D73D3 /* OctoKit.framework */; };
 		1F9F5ECC1CE087B8004D73D3 /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F9F5EC71CE087B8004D73D3 /* ReactiveCocoa.framework */; };
-		1F9F5ED51CE09681004D73D3 /* OrgsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F9F5ED41CE09681004D73D3 /* OrgsController.m */; };
-		1FA87EE41CE1D56B00E0A7DE /* ReposController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FA87EE31CE1D56B00E0A7DE /* ReposController.m */; };
+		1F9F5ED51CE09681004D73D3 /* OrganisationsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F9F5ED41CE09681004D73D3 /* OrganisationsController.m */; };
+		1FA87EE41CE1D56B00E0A7DE /* RepositoriesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FA87EE31CE1D56B00E0A7DE /* RepositoriesController.m */; };
 		1FA87EE81CE1EC5300E0A7DE /* RepositoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FA87EE71CE1EC5300E0A7DE /* RepositoryCell.m */; };
+		1FBECB6C1CE36E8F00A057F8 /* OrganisationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FBECB6B1CE36E8F00A057F8 /* OrganisationCell.xib */; };
+		1FBECB6F1CE36EC500A057F8 /* OrganisationCellTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FBECB6E1CE36EC500A057F8 /* OrganisationCellTableViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,12 +48,15 @@
 		1F9F5EC51CE087B8004D73D3 /* Mantle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Mantle.framework; path = Carthage/Build/iOS/Mantle.framework; sourceTree = "<group>"; };
 		1F9F5EC61CE087B8004D73D3 /* OctoKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OctoKit.framework; path = Carthage/Build/iOS/OctoKit.framework; sourceTree = "<group>"; };
 		1F9F5EC71CE087B8004D73D3 /* ReactiveCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveCocoa.framework; path = Carthage/Build/iOS/ReactiveCocoa.framework; sourceTree = "<group>"; };
-		1F9F5ED31CE09681004D73D3 /* OrgsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrgsController.h; sourceTree = "<group>"; };
-		1F9F5ED41CE09681004D73D3 /* OrgsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrgsController.m; sourceTree = "<group>"; };
-		1FA87EE21CE1D56B00E0A7DE /* ReposController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReposController.h; sourceTree = "<group>"; };
-		1FA87EE31CE1D56B00E0A7DE /* ReposController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReposController.m; sourceTree = "<group>"; };
+		1F9F5ED31CE09681004D73D3 /* OrganisationsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrganisationsController.h; sourceTree = "<group>"; };
+		1F9F5ED41CE09681004D73D3 /* OrganisationsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrganisationsController.m; sourceTree = "<group>"; };
+		1FA87EE21CE1D56B00E0A7DE /* RepositoriesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RepositoriesController.h; sourceTree = "<group>"; };
+		1FA87EE31CE1D56B00E0A7DE /* RepositoriesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepositoriesController.m; sourceTree = "<group>"; };
 		1FA87EE61CE1EC5300E0A7DE /* RepositoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RepositoryCell.h; sourceTree = "<group>"; };
 		1FA87EE71CE1EC5300E0A7DE /* RepositoryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepositoryCell.m; sourceTree = "<group>"; };
+		1FBECB6B1CE36E8F00A057F8 /* OrganisationCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrganisationCell.xib; sourceTree = "<group>"; };
+		1FBECB6D1CE36EC500A057F8 /* OrganisationCellTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrganisationCellTableViewCell.h; sourceTree = "<group>"; };
+		1FBECB6E1CE36EC500A057F8 /* OrganisationCellTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrganisationCellTableViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,14 +75,28 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1F9B4B1D1CE3337600EAFD29 /* Repository */ = {
+		1F6F435A1CE36AC500FE84B1 /* Organisations */ = {
 			isa = PBXGroup;
 			children = (
+				1F9F5ED31CE09681004D73D3 /* OrganisationsController.h */,
+				1F9F5ED41CE09681004D73D3 /* OrganisationsController.m */,
+				1FBECB6B1CE36E8F00A057F8 /* OrganisationCell.xib */,
+				1FBECB6D1CE36EC500A057F8 /* OrganisationCellTableViewCell.h */,
+				1FBECB6E1CE36EC500A057F8 /* OrganisationCellTableViewCell.m */,
+			);
+			name = Organisations;
+			sourceTree = "<group>";
+		};
+		1F9B4B1D1CE3337600EAFD29 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				1FA87EE21CE1D56B00E0A7DE /* RepositoriesController.h */,
+				1FA87EE31CE1D56B00E0A7DE /* RepositoriesController.m */,
 				1FA87EE61CE1EC5300E0A7DE /* RepositoryCell.h */,
 				1FA87EE71CE1EC5300E0A7DE /* RepositoryCell.m */,
 				1F9B4B1E1CE3340D00EAFD29 /* RepositoryCell.xib */,
 			);
-			name = Repository;
+			name = Repositories;
 			sourceTree = "<group>";
 		};
 		1F9B4B201CE34BC800EAFD29 /* Data */ = {
@@ -121,10 +140,10 @@
 		1F9F5EAA1CE086FF004D73D3 /* GitWatch */ = {
 			isa = PBXGroup;
 			children = (
+				1F6F435A1CE36AC500FE84B1 /* Organisations */,
+				1F9B4B1D1CE3337600EAFD29 /* Repositories */,
 				1F9B4B231CE3572000EAFD29 /* Helpers */,
 				1F9B4B201CE34BC800EAFD29 /* Data */,
-				1FA87EE51CE1EC1300E0A7DE /* Customs */,
-				1F9F5ED61CE09C16004D73D3 /* Controllers */,
 				1F9F5EAE1CE086FF004D73D3 /* AppDelegate.h */,
 				1F9F5EAF1CE086FF004D73D3 /* AppDelegate.m */,
 				1F9F5EB11CE086FF004D73D3 /* ViewController.h */,
@@ -144,25 +163,6 @@
 				1F9F5EAC1CE086FF004D73D3 /* main.m */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		1F9F5ED61CE09C16004D73D3 /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				1F9F5ED31CE09681004D73D3 /* OrgsController.h */,
-				1F9F5ED41CE09681004D73D3 /* OrgsController.m */,
-				1FA87EE21CE1D56B00E0A7DE /* ReposController.h */,
-				1FA87EE31CE1D56B00E0A7DE /* ReposController.m */,
-			);
-			name = Controllers;
-			sourceTree = "<group>";
-		};
-		1FA87EE51CE1EC1300E0A7DE /* Customs */ = {
-			isa = PBXGroup;
-			children = (
-				1F9B4B1D1CE3337600EAFD29 /* Repository */,
-			);
-			name = Customs;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -226,6 +226,7 @@
 				1F9F5EBB1CE086FF004D73D3 /* LaunchScreen.storyboard in Resources */,
 				1F9F5EB81CE086FF004D73D3 /* Assets.xcassets in Resources */,
 				1F9B4B1F1CE3340D00EAFD29 /* RepositoryCell.xib in Resources */,
+				1FBECB6C1CE36E8F00A057F8 /* OrganisationCell.xib in Resources */,
 				1F9B4B221CE34BE800EAFD29 /* FavoriteRepository.plist in Resources */,
 				1F9F5EB61CE086FF004D73D3 /* Main.storyboard in Resources */,
 			);
@@ -261,10 +262,11 @@
 			files = (
 				1F9F5EB31CE086FF004D73D3 /* ViewController.m in Sources */,
 				1F9F5EB01CE086FF004D73D3 /* AppDelegate.m in Sources */,
-				1F9F5ED51CE09681004D73D3 /* OrgsController.m in Sources */,
+				1F9F5ED51CE09681004D73D3 /* OrganisationsController.m in Sources */,
+				1FBECB6F1CE36EC500A057F8 /* OrganisationCellTableViewCell.m in Sources */,
 				1F9F5EAD1CE086FF004D73D3 /* main.m in Sources */,
 				1F9B4B261CE3574A00EAFD29 /* Helper.m in Sources */,
-				1FA87EE41CE1D56B00E0A7DE /* ReposController.m in Sources */,
+				1FA87EE41CE1D56B00E0A7DE /* RepositoriesController.m in Sources */,
 				1FA87EE81CE1EC5300E0A7DE /* RepositoryCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
