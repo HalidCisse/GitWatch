@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		1F9B4B1F1CE3340D00EAFD29 /* RepositoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F9B4B1E1CE3340D00EAFD29 /* RepositoryCell.xib */; };
+		1F9B4B221CE34BE800EAFD29 /* FavoriteRepository.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1F9B4B211CE34BE800EAFD29 /* FavoriteRepository.plist */; };
+		1F9B4B261CE3574A00EAFD29 /* Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F9B4B251CE3574A00EAFD29 /* Helper.m */; };
 		1F9F5EAD1CE086FF004D73D3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F9F5EAC1CE086FF004D73D3 /* main.m */; };
 		1F9F5EB01CE086FF004D73D3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F9F5EAF1CE086FF004D73D3 /* AppDelegate.m */; };
 		1F9F5EB31CE086FF004D73D3 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F9F5EB21CE086FF004D73D3 /* ViewController.m */; };
@@ -26,6 +28,9 @@
 
 /* Begin PBXFileReference section */
 		1F9B4B1E1CE3340D00EAFD29 /* RepositoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RepositoryCell.xib; sourceTree = "<group>"; };
+		1F9B4B211CE34BE800EAFD29 /* FavoriteRepository.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = FavoriteRepository.plist; sourceTree = "<group>"; };
+		1F9B4B241CE3574A00EAFD29 /* Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Helper.h; sourceTree = "<group>"; };
+		1F9B4B251CE3574A00EAFD29 /* Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Helper.m; sourceTree = "<group>"; };
 		1F9F5EA81CE086FF004D73D3 /* GitWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GitWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F9F5EAC1CE086FF004D73D3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		1F9F5EAE1CE086FF004D73D3 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -75,6 +80,23 @@
 			name = Repository;
 			sourceTree = "<group>";
 		};
+		1F9B4B201CE34BC800EAFD29 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				1F9B4B211CE34BE800EAFD29 /* FavoriteRepository.plist */,
+			);
+			name = Data;
+			sourceTree = "<group>";
+		};
+		1F9B4B231CE3572000EAFD29 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				1F9B4B241CE3574A00EAFD29 /* Helper.h */,
+				1F9B4B251CE3574A00EAFD29 /* Helper.m */,
+			);
+			name = Helpers;
+			sourceTree = "<group>";
+		};
 		1F9F5E9F1CE086FF004D73D3 = {
 			isa = PBXGroup;
 			children = (
@@ -99,6 +121,8 @@
 		1F9F5EAA1CE086FF004D73D3 /* GitWatch */ = {
 			isa = PBXGroup;
 			children = (
+				1F9B4B231CE3572000EAFD29 /* Helpers */,
+				1F9B4B201CE34BC800EAFD29 /* Data */,
 				1FA87EE51CE1EC1300E0A7DE /* Customs */,
 				1F9F5ED61CE09C16004D73D3 /* Controllers */,
 				1F9F5EAE1CE086FF004D73D3 /* AppDelegate.h */,
@@ -202,6 +226,7 @@
 				1F9F5EBB1CE086FF004D73D3 /* LaunchScreen.storyboard in Resources */,
 				1F9F5EB81CE086FF004D73D3 /* Assets.xcassets in Resources */,
 				1F9B4B1F1CE3340D00EAFD29 /* RepositoryCell.xib in Resources */,
+				1F9B4B221CE34BE800EAFD29 /* FavoriteRepository.plist in Resources */,
 				1F9F5EB61CE086FF004D73D3 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -238,6 +263,7 @@
 				1F9F5EB01CE086FF004D73D3 /* AppDelegate.m in Sources */,
 				1F9F5ED51CE09681004D73D3 /* OrgsController.m in Sources */,
 				1F9F5EAD1CE086FF004D73D3 /* main.m in Sources */,
+				1F9B4B261CE3574A00EAFD29 /* Helper.m in Sources */,
 				1FA87EE41CE1D56B00E0A7DE /* ReposController.m in Sources */,
 				1FA87EE81CE1EC5300E0A7DE /* RepositoryCell.m in Sources */,
 			);

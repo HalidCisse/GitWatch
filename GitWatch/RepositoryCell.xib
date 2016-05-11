@@ -25,6 +25,9 @@
                     </label>
                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="N87-Z0-xzu">
                         <rect key="frame" x="347" y="34" width="51" height="31"/>
+                        <connections>
+                            <action selector="OnSwitch:" destination="J1p-Uv-Hk3" eventType="touchUpInside" id="RHS-lJ-xg5"/>
+                        </connections>
                     </switch>
                 </subviews>
             </tableViewCellContentView>

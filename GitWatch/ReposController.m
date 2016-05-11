@@ -8,6 +8,7 @@
 
 #import "ReposController.h"
 #import "RepositoryCell.h"
+#import "Helper.h"
 
 @interface ReposController ()
 
@@ -63,9 +64,10 @@
     
     OCTRepository *repo =[self.repositories objectAtIndex:indexPath.row];
     
+    
     cell.repositoryName.text = repo.name;
     cell.repositoryImage.image = [UIImage imageNamed:@"repoIcon.png"];;
-    cell.isFavoriteRepository.on = true;
+    cell.isFavoriteRepository.on = [Helper IsFavorite:repo.name];
     
     //cell.accessoryType = UITableViewCellAccessoryDetailButton;
     
@@ -131,19 +133,19 @@
     return view;
 }
 
-- (void)tableView:(UITableView *)tableView willDisplayCell:(RepositoryCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-        cell.contentView.backgroundColor = [UIColor clearColor];
-        UIView *whiteRoundedCornerView = [[UIView alloc] initWithFrame:CGRectMake(0,0, self.tableView.frame.size.width - 20,100)];
-        whiteRoundedCornerView.backgroundColor = [UIColor whiteColor];
-        whiteRoundedCornerView.layer.masksToBounds = NO;
-        whiteRoundedCornerView.layer.cornerRadius = 3.0;
-        whiteRoundedCornerView.layer.shadowOffset = CGSizeMake(-1, 1);
-        whiteRoundedCornerView.layer.shadowOpacity = 0.5;
-        [cell.contentView addSubview:whiteRoundedCornerView];
-        [cell.contentView sendSubviewToBack:whiteRoundedCornerView];
-        
-    
-}
+//- (void)tableView:(UITableView *)tableView willDisplayCell:(RepositoryCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//        cell.contentView.backgroundColor = [UIColor clearColor];
+//        UIView *whiteRoundedCornerView = [[UIView alloc] initWithFrame:CGRectMake(0,0, self.tableView.frame.size.width - 10,100)];
+//        whiteRoundedCornerView.backgroundColor = [UIColor whiteColor];
+//        whiteRoundedCornerView.layer.masksToBounds = NO;
+//        whiteRoundedCornerView.layer.cornerRadius = 3.0;
+//        whiteRoundedCornerView.layer.shadowOffset = CGSizeMake(-1, 1);
+//        whiteRoundedCornerView.layer.shadowOpacity = 0.5;
+//        [cell.contentView addSubview:whiteRoundedCornerView];
+//        [cell.contentView sendSubviewToBack:whiteRoundedCornerView];
+//        
+//    
+//}
 
 @end
