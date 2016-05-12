@@ -7,8 +7,27 @@
 //
 
 #import "Helper.h"
+#import <SSKeychain/SSKeychain.h>
 
 @implementation Helper
+
+
++ (NSString *)GetLogin
+{
+    return [SSKeychain passwordForService:@"GitHub.com" account:@"GitHub.com"];
+}
+
++ (NSString *)GetToken
+{
+    return [SSKeychain passwordForService:@"GitHub.com" account:@"Token"];
+}
+
++ (void)SaveCredentials:(OCTClient *)GitHubClient
+{
+    [SSKeychain setPassword:GitHubClient.user.rawLogin forService:@"GitHub.com" account:@"GitHub.com"];
+    
+    [SSKeychain setPassword:GitHubClient.token forService:@"GitHub.com" account:@"Token"];
+}
 
 + (BOOL)IsFavorite:(NSString *)repositoryName
 {
@@ -31,7 +50,7 @@
     
     if ([favoritesRepos indexOfObject:repositoryName] == NSNotFound) {
         return false;
-    }else{
+    } else {
         return true;
     }
 }

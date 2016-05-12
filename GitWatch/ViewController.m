@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import <OctoKit/OctoKit.h>
 #import "OrganisationsController.h"
+#import "Helper.h"
 
 @interface ViewController ()
 
@@ -30,8 +31,10 @@
      subscribeNext:^(OCTClient *authenticatedClient) {
          OrganisationsController *orgsView = [[OrganisationsController alloc] init];
          orgsView.GitClient = authenticatedClient;
-         [self.navigationController pushViewController:orgsView animated:YES];
          
+         [Helper SaveCredentials:authenticatedClient];
+     
+         [self.navigationController pushViewController:orgsView animated:YES];
      } error:^(NSError *error) {
          UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Error" message:[NSString stringWithFormat:@"Can't login please check your credentials"] preferredStyle:UIAlertControllerStyleAlert];
          
@@ -44,6 +47,23 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    NSString *login = [Helper GetLogin];
+    NSString *token =[Helper GetToken];
+    
+    if (login != nil) {
+        self.usernameText.text =login;
+    }
+    
+    if (login != nil && token != nil) {
+        OCTUser *user = [OCTUser userWithRawLogin:login server:OCTServer.dotComServer];
+        OCTClient *client = [OCTClient authenticatedClientWithUser:user token:token];
+        
+        OrganisationsController *orgsView = [[OrganisationsController alloc] init];
+        orgsView.GitClient = client;
+        
+        [self.navigationController pushViewController:orgsView animated:YES];
+    }
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender

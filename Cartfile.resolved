@@ -1,3 +1,4 @@
+github "kishikawakatsumi/KeychainAccess" "v2.3.5"
 github "Mantle/Mantle" "1.5.7"
 github "ReactiveCocoa/ReactiveCocoa" "v2.5"
 github "octokit/octokit.objc" "0.7.8"
