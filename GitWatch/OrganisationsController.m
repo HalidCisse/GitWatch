@@ -102,23 +102,22 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    RepositoriesController *view = [[RepositoriesController alloc] init];
-    view.GitClient = self.GitClient;
-    view.Organisation = [self.organisations objectAtIndex:indexPath.row];
-    [self.navigationController pushViewController:view animated:YES];
+//    RepositoriesController *view = [[RepositoriesController alloc] init];
+//    view.GitClient = self.GitClient;
+//    view.Organisation = [self.organisations objectAtIndex:indexPath.row];
+//    [self.navigationController pushViewController:view animated:YES];
     //[self performSegueWithIdentifier:@"GoToRepos" sender:indexPath];
 }
 
-//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-//{
-//    if ([segue.identifier isEqualToString:@"GoToRepos"])
-//    {
-//        NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
-//        ReposController *view = segue.destinationViewController;
-//        
-//        view.GitClient = self.GitClient;
-//        view.Organisation = [self.organisations objectAtIndex:indexPath.row];
-//    }
-//}
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"GoToRepos"])
+    {
+        RepositoriesController *view = segue.destinationViewController;
+        NSIndexPath *path = [self.tableView indexPathForSelectedRow];
+        view.GitClient = self.GitClient;
+        view.Organisation = [self.organisations objectAtIndex:path.row];
+    }
+}
 
 @end

@@ -10,6 +10,7 @@
 		1B1C6B86DFFAF5DFBD0B9100 /* Pods_GitWatch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D2E6FD241A817064A5FE52C /* Pods_GitWatch.framework */; };
 		1F0DA3791CE4763E005DBE35 /* RepositoryDetails.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F0DA3781CE4763E005DBE35 /* RepositoryDetails.xib */; };
 		1F0DA3841CE4878F005DBE35 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F0DA3831CE4878F005DBE35 /* Security.framework */; };
+		1F0DA3871CE490D5005DBE35 /* HomeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F0DA3861CE490D5005DBE35 /* HomeController.m */; };
 		1F9B4B1F1CE3340D00EAFD29 /* RepositoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F9B4B1E1CE3340D00EAFD29 /* RepositoryCell.xib */; };
 		1F9B4B221CE34BE800EAFD29 /* FavoriteRepository.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1F9B4B211CE34BE800EAFD29 /* FavoriteRepository.plist */; };
 		1F9B4B261CE3574A00EAFD29 /* Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F9B4B251CE3574A00EAFD29 /* Helper.m */; };
@@ -34,6 +35,8 @@
 /* Begin PBXFileReference section */
 		1F0DA3781CE4763E005DBE35 /* RepositoryDetails.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RepositoryDetails.xib; sourceTree = "<group>"; };
 		1F0DA3831CE4878F005DBE35 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		1F0DA3851CE490D5005DBE35 /* HomeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeController.h; sourceTree = "<group>"; };
+		1F0DA3861CE490D5005DBE35 /* HomeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeController.m; sourceTree = "<group>"; };
 		1F9B4B1E1CE3340D00EAFD29 /* RepositoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RepositoryCell.xib; sourceTree = "<group>"; };
 		1F9B4B211CE34BE800EAFD29 /* FavoriteRepository.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = FavoriteRepository.plist; sourceTree = "<group>"; };
 		1F9B4B241CE3574A00EAFD29 /* Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Helper.h; sourceTree = "<group>"; };
@@ -88,6 +91,8 @@
 		1F0DA37A1CE478D3005DBE35 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				1F0DA3851CE490D5005DBE35 /* HomeController.h */,
+				1F0DA3861CE490D5005DBE35 /* HomeController.m */,
 			);
 			name = Home;
 			sourceTree = "<group>";
@@ -356,6 +361,7 @@
 				1F9F5EAD1CE086FF004D73D3 /* main.m in Sources */,
 				1F9B4B261CE3574A00EAFD29 /* Helper.m in Sources */,
 				1FA87EE41CE1D56B00E0A7DE /* RepositoriesController.m in Sources */,
+				1F0DA3871CE490D5005DBE35 /* HomeController.m in Sources */,
 				1FA87EE81CE1EC5300E0A7DE /* RepositoryCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -10,6 +10,7 @@
 #import <OctoKit/OctoKit.h>
 #import "OrganisationsController.h"
 #import "Helper.h"
+#import "HomeController.h"
 
 @interface ViewController ()
 
@@ -28,13 +29,16 @@
     [[[OCTClient signInAsUser:gitUser password:self.passwordText.text oneTimePassword:nil scopes:OCTClientAuthorizationScopesRepository note:nil noteURL:nil fingerprint:nil]
      deliverOnMainThread]
      
-     subscribeNext:^(OCTClient *authenticatedClient) {
-         OrganisationsController *orgsView = [[OrganisationsController alloc] init];
-         orgsView.GitClient = authenticatedClient;
+     subscribeNext:^(OCTClient *client) {
+         //HomeController *view = [[HomeController alloc] init];
+         //view.GitClient = authenticatedClient;
+         //[self.navigationController pushViewController:view animated:YES];
          
-         [Helper SaveCredentials:authenticatedClient];
-     
-         [self.navigationController pushViewController:orgsView animated:YES];
+         [Helper SaveCredentials:client];
+         
+         HomeController *view = [self.storyboard instantiateViewControllerWithIdentifier:@"HomeController"];
+         view.GitClient = client;
+         [self.navigationController pushViewController:view animated:YES];
      } error:^(NSError *error) {
          UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Error" message:[NSString stringWithFormat:@"Can't login please check your credentials"] preferredStyle:UIAlertControllerStyleAlert];
          
@@ -48,22 +52,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    NSString *login = [Helper GetLogin];
-    NSString *token =[Helper GetToken];
-    
-    if (login != nil) {
-        self.usernameText.text =login;
-    }
-    
-    if (login != nil && token != nil) {
-        OCTUser *user = [OCTUser userWithRawLogin:login server:OCTServer.dotComServer];
-        OCTClient *client = [OCTClient authenticatedClientWithUser:user token:token];
-        
-        OrganisationsController *orgsView = [[OrganisationsController alloc] init];
-        orgsView.GitClient = client;
-        
-        [self.navigationController pushViewController:orgsView animated:YES];
-    }
+    [Helper ClearCredentials];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [self.navigationController setNavigationBarHidden:YES animated:animated];
+    [super viewWillAppear:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [self.navigationController setNavigationBarHidden:NO animated:animated];
+    [super viewWillDisappear:animated];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -80,4 +79,5 @@
        
     }
 }
+
 @end

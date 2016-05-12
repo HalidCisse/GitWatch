@@ -11,6 +11,12 @@
 
 @implementation Helper
 
++ (void)ClearCredentials
+{
+    [SSKeychain setPassword:@"" forService:@"GitHub.com" account:@"GitHub.com"];
+    
+    [SSKeychain setPassword:@"" forService:@"GitHub.com" account:@"Token"];
+}
 
 + (NSString *)GetLogin
 {

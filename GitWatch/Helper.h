@@ -11,6 +11,7 @@
 
 @interface Helper : NSObject
 
++ (void)ClearCredentials;
 + (NSString *)GetLogin;
 + (NSString *)GetToken;
 + (void)SaveCredentials:(OCTClient *)GitHubClient;
