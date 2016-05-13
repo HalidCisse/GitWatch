@@ -9,10 +9,12 @@
 #import <UIKit/UIKit.h>
 #import <OctoKit/OctoKit.h>
 
-@interface HomeController : UIViewController //UITableViewDelegate, UITableViewDataSource
-@property (weak, nonatomic) IBOutlet UIImageView *UserImage;
+@interface HomeController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
 @property OCTClient *GitClient;
+
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIImageView *UserImage;
 @property (weak, nonatomic) IBOutlet UILabel *UserName;
 @property (weak, nonatomic) IBOutlet UILabel *UserCompany;
 @property (weak, nonatomic) IBOutlet UILabel *UserCountry;

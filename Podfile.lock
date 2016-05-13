@@ -1,12 +1,17 @@
 PODS:
+  - SDWebImage (3.7.6):
+    - SDWebImage/Core (= 3.7.6)
+  - SDWebImage/Core (3.7.6)
   - SSKeychain (1.4.0)
 
 DEPENDENCIES:
+  - SDWebImage (~> 3.7)
   - SSKeychain
 
 SPEC CHECKSUMS:
+  SDWebImage: c325cf02c30337336b95beff20a13df489ec0ec9
   SSKeychain: c71293fa57216a40ab06c23f4085387583293de4
 
-PODFILE CHECKSUM: 2592c80257b442011b7d1123e1e4a9279e7d6807
+PODFILE CHECKSUM: cdb637cf4732fdd2424bbaa35a03f950c44685e2
 
 COCOAPODS: 1.0.0

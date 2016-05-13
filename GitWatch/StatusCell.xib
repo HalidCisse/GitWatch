@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="StatusCell"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="StatusCell" rowHeight="107" id="TU7-CM-40Y" customClass="StatusCell">
+            <rect key="frame" x="0.0" y="0.0" width="404" height="107"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="TU7-CM-40Y" id="jxk-xb-EfW">
+                <rect key="frame" x="0.0" y="0.0" width="404" height="106"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="repoIcon" translatesAutoresizingMaskIntoConstraints="NO" id="fio-ik-xX0">
+                        <rect key="frame" x="8" y="8" width="24" height="28"/>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="GitWatch" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nsb-4R-Am2">
+                        <rect key="frame" x="40" y="8" width="243" height="28"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jJN-cs-Yvp">
+                        <rect key="frame" x="8" y="36" width="309" height="20"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bOo-bG-1gE">
+                        <rect key="frame" x="362" y="8" width="30" height="30"/>
+                        <color key="backgroundColor" red="0.94891980229999995" green="0.94891980229999995" blue="0.94891980229999995" alpha="1" colorSpace="calibratedRGB"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                        <color key="textColor" red="0.93855628189999996" green="0.38354478600000003" blue="0.40391924099999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="open issues" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ydh-Af-KcZ">
+                        <rect key="frame" x="344" y="36" width="60" height="21"/>
+                        <fontDescription key="fontDescription" name="HelveticaNeue-UltraLight" family="Helvetica Neue" pointSize="10"/>
+                        <color key="textColor" red="0.93855628189999996" green="0.38354478600000003" blue="0.40391924099999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Update 3 hrs ago by Halid Cisse" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ROf-lu-Jvu">
+                        <rect key="frame" x="170" y="77" width="226" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="9"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+            </tableViewCellContentView>
+            <accessibility key="accessibilityConfiguration" identifier="StatusCell"/>
+            <connections>
+                <outlet property="IssuesCount" destination="bOo-bG-1gE" id="ZfW-EQ-uhc"/>
+                <outlet property="IssuesString" destination="Ydh-Af-KcZ" id="AZq-1h-jQZ"/>
+                <outlet property="LastUpdate" destination="ROf-lu-Jvu" id="wBJ-ND-DwL"/>
+                <outlet property="RepoDescription" destination="jJN-cs-Yvp" id="Nbm-NP-IOk"/>
+                <outlet property="RepoIcon" destination="fio-ik-xX0" id="qz1-jA-o42"/>
+                <outlet property="RepoName" destination="nsb-4R-Am2" id="5Ud-L9-Rl4"/>
+            </connections>
+            <point key="canvasLocation" x="424" y="303.5"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="repoIcon" width="231" height="303"/>
+    </resources>
+</document>

@@ -73,8 +73,6 @@
     dispatch_queue_t concurrentQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     dispatch_async(concurrentQueue, ^{
         NSData *image = [[NSData alloc] initWithContentsOfURL:org.avatarURL];
-        
-        //this will set the image when loading is finished
         dispatch_async(dispatch_get_main_queue(), ^{
             cell.imageView.image = [UIImage imageWithData:image];
         });
