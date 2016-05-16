@@ -12,6 +12,8 @@
 #import "OrganisationsController.h"
 #import "StatusCell.h"
 #import <SDWebImage/UIImageView+WebCache.h>
+#import <DateTools/DateTools.h>
+#import "RepositoryController.h"
 
 
 @interface HomeController ()
@@ -34,9 +36,6 @@
     
     if (login == nil || token == nil || login.length == 0 || token.length ==0)
     {
-        //ViewController *view = [[ViewController alloc] init];
-        //[self.navigationController pushViewController:view animated:YES];
-        
         ViewController *view = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginController"];
                 [self.navigationController pushViewController:view animated:YES];
         return;
@@ -71,7 +70,7 @@
          [self.navigationController pushViewController:view animated:YES];
      } completed:^{
          [self.tableView reloadData];
-     } ];
+     }];
 }
      
 - (void)FetRepos
@@ -88,13 +87,22 @@
                 [self.repositories insertObject:repository atIndex:0];
             }
         } completed:^{
-            [self.tableView reloadData];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableView reloadData];
+            });
         }];
     } completed:^{
-        [self.tableView reloadData];
+        dispatch_async(dispatch_get_main_queue(), ^{
+          [self.tableView reloadData];
+        });
     }];
 }
-     
+
+- (OCTCommit *)FetLastCommit : (OCTRepository *) forRepository
+{
+    return nil;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return [self.repositories count];
@@ -116,7 +124,9 @@
     cell.RepoIcon.image = [UIImage imageNamed:@"repoIcon.png"];
     cell.RepoName.text = repo.name;
     cell.RepoDescription.text = repo.repoDescription;
-    cell.IssuesCount.text = [[NSString alloc] initWithFormat:@"%lu", (unsigned long)repo.openIssuesCount] ;
+    cell.IssuesCount.text = [[NSString alloc] initWithFormat:@"%lu", (unsigned long)repo.openIssuesCount];
+    
+    cell.LastUpdate.text = [[NSString alloc] initWithFormat:@"last updated %@", repo.dateUpdated.timeAgoSinceNow];
     
     NSDate *daysAgo = [[NSCalendar currentCalendar] dateByAddingUnit:NSCalendarUnitDay value:-7 toDate:[NSDate date] options:0];
     
@@ -127,21 +137,12 @@
     if (repo.openIssuesCount <= 0) {
         cell.IssuesString.hidden = true;
         cell.IssuesCount.hidden = true;        
+    }else{
+        cell.IssuesString.hidden = false;
+        cell.IssuesCount.hidden = false;
     }
     
-    //repo.openIssuesCount
-    //repo.
-    
-    
-    //cell.accessoryType = UITableViewCellAccessoryDetailButton;
-    
-    // Assign our own background image for the cell
-    //    UIImage *background = [self cellBackgroundForRowAtIndexPath:indexPath];
-    //
-    //    UIImageView *cellBackgroundView = [[UIImageView alloc] initWithImage:background];
-    //    cellBackgroundView.image = background;
-    //    cell.backgroundView = cellBackgroundView;
-    
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
@@ -155,6 +156,18 @@
     return 100;
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    RepositoryController *view = [[RepositoryController alloc] init];
+    view.GitClient = self.GitClient;
+    
+    if (self.repositories == nil || [self.repositories count] == 0) {
+        return;
+    }
+    
+    [self performSegueWithIdentifier:@"RepositoryController" sender:indexPath];
+}
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.identifier isEqualToString:@"GoToOrgs"])
@@ -162,6 +175,17 @@
         OrganisationsController *view = segue.destinationViewController;
         view.GitClient = self.GitClient;
      }
+    
+    if ([segue.identifier isEqualToString:@"RepositoryController"])
+    {
+        RepositoryController *view = segue.destinationViewController;
+        NSIndexPath *index = [self.tableView indexPathForSelectedRow];
+        
+        OCTRepository *repository = [self.repositories objectAtIndex:index.row];
+        
+        view.GitClient = self.GitClient;
+        view.repository = repository;
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated{

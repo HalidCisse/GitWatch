@@ -29,6 +29,7 @@
 		1F9F5ED51CE09681004D73D3 /* OrganisationsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F9F5ED41CE09681004D73D3 /* OrganisationsController.m */; };
 		1FA87EE41CE1D56B00E0A7DE /* RepositoriesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FA87EE31CE1D56B00E0A7DE /* RepositoriesController.m */; };
 		1FA87EE81CE1EC5300E0A7DE /* RepositoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FA87EE71CE1EC5300E0A7DE /* RepositoryCell.m */; };
+		1FB4AD981CE9BF5B002B12A1 /* RepositoryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FB4AD971CE9BF5B002B12A1 /* RepositoryController.m */; };
 		1FBECB6C1CE36E8F00A057F8 /* OrganisationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FBECB6B1CE36E8F00A057F8 /* OrganisationCell.xib */; };
 		1FBECB6F1CE36EC500A057F8 /* OrganisationCellTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FBECB6E1CE36EC500A057F8 /* OrganisationCellTableViewCell.m */; };
 /* End PBXBuildFile section */
@@ -65,6 +66,8 @@
 		1FA87EE31CE1D56B00E0A7DE /* RepositoriesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepositoriesController.m; sourceTree = "<group>"; };
 		1FA87EE61CE1EC5300E0A7DE /* RepositoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RepositoryCell.h; sourceTree = "<group>"; };
 		1FA87EE71CE1EC5300E0A7DE /* RepositoryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepositoryCell.m; sourceTree = "<group>"; };
+		1FB4AD961CE9BF5B002B12A1 /* RepositoryController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RepositoryController.h; sourceTree = "<group>"; };
+		1FB4AD971CE9BF5B002B12A1 /* RepositoryController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepositoryController.m; sourceTree = "<group>"; };
 		1FBECB6B1CE36E8F00A057F8 /* OrganisationCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrganisationCell.xib; sourceTree = "<group>"; };
 		1FBECB6D1CE36EC500A057F8 /* OrganisationCellTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrganisationCellTableViewCell.h; sourceTree = "<group>"; };
 		1FBECB6E1CE36EC500A057F8 /* OrganisationCellTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrganisationCellTableViewCell.m; sourceTree = "<group>"; };
@@ -123,6 +126,8 @@
 				1F6A992B1CE5F37800B61F50 /* StatusCell.h */,
 				1F6A992C1CE5F37800B61F50 /* StatusCell.m */,
 				1F6A992D1CE5F37800B61F50 /* StatusCell.xib */,
+				1FB4AD961CE9BF5B002B12A1 /* RepositoryController.h */,
+				1FB4AD971CE9BF5B002B12A1 /* RepositoryController.m */,
 			);
 			name = Repositories;
 			sourceTree = "<group>";
@@ -365,6 +370,7 @@
 				1F9F5ED51CE09681004D73D3 /* OrganisationsController.m in Sources */,
 				1FBECB6F1CE36EC500A057F8 /* OrganisationCellTableViewCell.m in Sources */,
 				1F9F5EAD1CE086FF004D73D3 /* main.m in Sources */,
+				1FB4AD981CE9BF5B002B12A1 /* RepositoryController.m in Sources */,
 				1F9B4B261CE3574A00EAFD29 /* Helper.m in Sources */,
 				1FA87EE41CE1D56B00E0A7DE /* RepositoriesController.m in Sources */,
 				1F0DA3871CE490D5005DBE35 /* HomeController.m in Sources */,

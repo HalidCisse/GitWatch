@@ -2,4 +2,6 @@ use_frameworks!
 target ‘GitWatch’ do
   pod 'SSKeychain'
   pod 'SDWebImage', '~>3.7'
+  pod 'DateTools'
+  pod 'UAGithubEngine'
 end
