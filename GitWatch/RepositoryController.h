@@ -18,5 +18,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *RepoName;
 @property (weak, nonatomic) IBOutlet UILabel *RepoDescription;
 @property (weak, nonatomic) IBOutlet UILabel *IssuesLabel;
+@property (weak, nonatomic) IBOutlet UITextField *DaysInterval;
 
 @end

@@ -95,7 +95,6 @@
     return 100;
 }
 
-
 //- (UIImage *)cellBackgroundForRowAtIndexPath:(NSIndexPath *)indexPath
 //{
 //    NSInteger rowCount = [self tableView:[self tableView] numberOfRowsInSection:0];
@@ -144,8 +143,6 @@
 //        whiteRoundedCornerView.layer.shadowOpacity = 0.5;
 //        [cell.contentView addSubview:whiteRoundedCornerView];
 //        [cell.contentView sendSubviewToBack:whiteRoundedCornerView];
-//        
-//    
 //}
 
 @end
