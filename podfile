@@ -3,5 +3,5 @@ target ‘GitWatch’ do
   pod 'SSKeychain'
   pod 'SDWebImage', '~>3.7'
   pod 'DateTools'
-  pod 'RestKit', '~> 0.24.0'
+  #pod 'RestKit'
 end
