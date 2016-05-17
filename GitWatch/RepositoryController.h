@@ -23,6 +23,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *LastUpdated;
 @property (weak, nonatomic) IBOutlet UILabel *OpenPullRequest;
 
+@property (weak, nonatomic) IBOutlet UILabel *LinesAddition;
+@property (weak, nonatomic) IBOutlet UILabel *LinesRemoved;
+
 
 - (IBAction)IntervalChanged:(id)sender;
 

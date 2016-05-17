@@ -10,6 +10,7 @@
 		1B1C6B86DFFAF5DFBD0B9100 /* Pods_GitWatch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D2E6FD241A817064A5FE52C /* Pods_GitWatch.framework */; };
 		1F0DA3841CE4878F005DBE35 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F0DA3831CE4878F005DBE35 /* Security.framework */; };
 		1F0DA3871CE490D5005DBE35 /* HomeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F0DA3861CE490D5005DBE35 /* HomeController.m */; };
+		1F2BFAE61CEB5ADB0014ACCC /* ApiHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F2BFAE51CEB5ADB0014ACCC /* ApiHelper.m */; };
 		1F6A992E1CE5F37800B61F50 /* StatusCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F6A992C1CE5F37800B61F50 /* StatusCell.m */; };
 		1F6A992F1CE5F37800B61F50 /* StatusCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F6A992D1CE5F37800B61F50 /* StatusCell.xib */; };
 		1F9B4B1F1CE3340D00EAFD29 /* RepositoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F9B4B1E1CE3340D00EAFD29 /* RepositoryCell.xib */; };
@@ -39,6 +40,8 @@
 		1F0DA3831CE4878F005DBE35 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		1F0DA3851CE490D5005DBE35 /* HomeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeController.h; sourceTree = "<group>"; };
 		1F0DA3861CE490D5005DBE35 /* HomeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeController.m; sourceTree = "<group>"; };
+		1F2BFAE41CEB5ADB0014ACCC /* ApiHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApiHelper.h; sourceTree = "<group>"; };
+		1F2BFAE51CEB5ADB0014ACCC /* ApiHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApiHelper.m; sourceTree = "<group>"; };
 		1F6A992B1CE5F37800B61F50 /* StatusCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusCell.h; sourceTree = "<group>"; };
 		1F6A992C1CE5F37800B61F50 /* StatusCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusCell.m; sourceTree = "<group>"; };
 		1F6A992D1CE5F37800B61F50 /* StatusCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StatusCell.xib; sourceTree = "<group>"; };
@@ -148,6 +151,8 @@
 			children = (
 				1F9B4B241CE3574A00EAFD29 /* Helper.h */,
 				1F9B4B251CE3574A00EAFD29 /* Helper.m */,
+				1F2BFAE41CEB5ADB0014ACCC /* ApiHelper.h */,
+				1F2BFAE51CEB5ADB0014ACCC /* ApiHelper.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -368,6 +373,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F2BFAE61CEB5ADB0014ACCC /* ApiHelper.m in Sources */,
 				1F9F5EB31CE086FF004D73D3 /* ViewController.m in Sources */,
 				1F6A992E1CE5F37800B61F50 /* StatusCell.m in Sources */,
 				1F9F5EB01CE086FF004D73D3 /* AppDelegate.m in Sources */,

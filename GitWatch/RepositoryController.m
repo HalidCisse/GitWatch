@@ -14,7 +14,9 @@
 #import <FSNetworking/FSNConnection.h>
 
 @interface RepositoryController ()
-
+   @property long total;
+   @property long additions;
+   @property long deletions;
 @end
 
 @implementation RepositoryController
@@ -68,6 +70,52 @@
              }];
     
     [connection start];
+    
+    // To only get 5 last commits
+    NSString *commitsUrl =[[NSString alloc] initWithFormat:@"https://api.github.com/repos/%@/commits?page=1&per_page=5&sort=created&direction=desc", repoPath];
+    
+    FSNConnection *commitsRequest =
+    [FSNConnection withUrl:[[NSURL alloc] initWithString:commitsUrl]
+                    method:FSNRequestMethodGET
+                   headers:headers
+                parameters:parameters
+                parseBlock:^id(FSNConnection *c, NSError **error) {
+                    return [c.responseData arrayFromJSONWithError:error];
+                }
+           completionBlock:^(FSNConnection *commitsResponse)
+            {
+               for (NSDictionary *com in commitsResponse.parseResult) {
+                   NSString *sha =[com objectForKey:@"sha"];
+                   
+                   NSString *commitUrl =[[NSString alloc] initWithFormat:@"https://api.github.com/repos/%@/commits/%@", repoPath, sha];
+                   FSNConnection *commitRequest =
+                   [FSNConnection withUrl:[[NSURL alloc] initWithString:commitUrl]
+                                   method:FSNRequestMethodGET
+                                  headers:headers
+                               parameters:parameters
+                               parseBlock:^id(FSNConnection *c, NSError **error) {
+                                   return [c.responseData dictionaryFromJSONWithError:error];
+                               }
+                          completionBlock:^(FSNConnection *commitResponse)
+                    {
+                        NSDictionary *commitAsResponse = commitResponse.parseResult;
+                        NSDictionary *stats =[commitAsResponse objectForKey:@"stats"];
+                        
+                        self.total = self.total + [[stats objectForKey:@"total"] integerValue];
+                        self.additions = self.additions + [[stats objectForKey:@"additions"] integerValue];
+                        self.deletions = self.deletions + [[stats objectForKey:@"deletions"] integerValue];
+                        
+                        self.LinesAddition.text = [[NSString alloc] initWithFormat:@"%li", self.additions];
+                        self.LinesRemoved.text = [[NSString alloc] initWithFormat:@"%li", self.deletions];
+                    }
+                      progressBlock:^(FSNConnection *c) {
+                    }];
+                   
+                   [commitRequest start];
+               }
+           }progressBlock:^(FSNConnection *c) {
+             }];
+    [commitsRequest start];
 }
 
 - (IBAction)IntervalChanged:(id)sender {

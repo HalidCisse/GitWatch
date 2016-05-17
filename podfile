@@ -3,5 +3,6 @@ target ‘GitWatch’ do
   pod 'SSKeychain'
   pod 'SDWebImage', '~>3.7'
   pod 'DateTools'
+  pod 'FSNetworking'
   #pod 'RestKit'
 end

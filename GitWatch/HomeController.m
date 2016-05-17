@@ -79,7 +79,7 @@
     
     [[self.GitClient fetchUserOrganizations]
      subscribeNext:^(OCTOrganization *organization) {
-        NSMutableURLRequest *request = [self.GitClient requestWithMethod:@"GET" path:[NSString stringWithFormat:@"/orgs/%@/repos", organization.login] parameters:@{@"type":@"public"}];
+        NSMutableURLRequest *request = [self.GitClient requestWithMethod:@"GET" path:[NSString stringWithFormat:@"/orgs/%@/repos", organization.login] parameters:@{@"type":@"all"}];
         [[self.GitClient enqueueRequest:request resultClass:[OCTRepository class]] subscribeNext:^(OCTResponse *response) {
             OCTRepository *repository = response.parsedResult;
             
