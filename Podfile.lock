@@ -1,5 +1,6 @@
 PODS:
   - DateTools (1.7.0)
+  - FSNetworking (0.0.1)
   - SDWebImage (3.7.6):
     - SDWebImage/Core (= 3.7.6)
   - SDWebImage/Core (3.7.6)
@@ -7,14 +8,16 @@ PODS:
 
 DEPENDENCIES:
   - DateTools
+  - FSNetworking
   - SDWebImage (~> 3.7)
   - SSKeychain
 
 SPEC CHECKSUMS:
   DateTools: 53288ee8b905fdc75897a1e6b5cc0144b14cba60
+  FSNetworking: 596048151bffc5917b2bcfa3a840624f49e309fa
   SDWebImage: c325cf02c30337336b95beff20a13df489ec0ec9
   SSKeychain: c71293fa57216a40ab06c23f4085387583293de4
 
-PODFILE CHECKSUM: 5e0d5a8c03c5d841e50841840f07584949177ae6
+PODFILE CHECKSUM: b55deab76ab7e34d7ff6dae7448515ccf5adc219
 
 COCOAPODS: 1.0.0
