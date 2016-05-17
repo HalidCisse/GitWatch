@@ -128,10 +128,14 @@
     
     cell.LastUpdate.text = [[NSString alloc] initWithFormat:@"last updated %@", repo.dateUpdated.timeAgoSinceNow];
     
-    NSDate *daysAgo = [[NSCalendar currentCalendar] dateByAddingUnit:NSCalendarUnitDay value:-7 toDate:[NSDate date] options:0];
+    int repoInterval = [Helper GetInterval:repo.name];
     
-    if (repo.dateUpdated < daysAgo) {
+    NSDate *daysAgo = [[NSCalendar currentCalendar] dateByAddingUnit:NSCalendarUnitDay value:-repoInterval toDate:[NSDate date] options:0];
+    
+    if (repo.dateUpdated.timeIntervalSince1970 < daysAgo.timeIntervalSince1970) {
         cell.RepoName.textColor = [UIColor redColor];
+    }else{
+        cell.RepoName.textColor = [UIColor blackColor];
     }
     
     if (repo.openIssuesCount <= 0) {

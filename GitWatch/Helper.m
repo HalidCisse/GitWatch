@@ -12,8 +12,6 @@
 @implementation Helper
 
 
-
-
 + (void)ClearCredentials
 {
     [SSKeychain setPassword:@"" forService:@"GitHub.com" account:@"GitHub.com"];
@@ -37,7 +35,6 @@
     
     [SSKeychain setPassword:GitHubClient.token forService:@"GitHub.com" account:@"Token"];
 }
-
 
 + (BOOL)IsFavorite:(NSString *)repositoryName
 {
@@ -65,8 +62,7 @@
     }
 }
 
-
-+ (void)SaveRepoInterval:(NSString *)RepoName forDays: (NSNumber*) days
++ (void)SaveRepoInterval:(NSString *)RepoName forDays: (int) days
 {
     NSString *destPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
     destPath = [destPath stringByAppendingPathComponent:@"RepositoryInterval.plist"];
@@ -81,29 +77,42 @@
     
     NSMutableDictionary*plistDict=[[NSMutableDictionary alloc] initWithContentsOfFile:destPath];
     //Manipulate the dictionary
-    //NSString *obj = [[[NSString alloc] initWithFormat:] ]
-    [plistDict setObject:days forKey:RepoName];
-    //Again save in doc directory.
-    [plistDict writeToFile:destPath atomically:YES];
     
-    NSMutableArray *favoritesRepos = [[NSMutableArray alloc] initWithContentsOfFile:destPath];
-    
-    if (favoritesRepos == nil) {
-        favoritesRepos = [[NSMutableArray alloc] init];
+    if (days == 0) {
+        days = 7;
     }
     
-    NSString *key =[[NSString alloc]initWithFormat:@"%@",RepoName];
+    [plistDict setObject:[NSNumber numberWithInt:days] forKey:RepoName];
+    //Again save in doc directory.
+    [plistDict writeToFile:destPath atomically:YES];
+}
+
++ (int)GetInterval:(NSString *)RepoName
+{
+    NSString *destPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+    destPath = [destPath stringByAppendingPathComponent:@"RepositoryInterval.plist"];
     
-//    if (sender.on) {
-//        if ([favoritesRepos indexOfObject:key] == NSNotFound) {
-//            [favoritesRepos addObject:key];
-//        }
-//    } else {
-//        if ([favoritesRepos indexOfObject:key] != NSNotFound) {
-//            [favoritesRepos removeObject:key];
-//        }
-//    }
-//    [favoritesRepos writeToFile:destPath atomically:YES];
+    // If the file doesn't exist in the Documents Folder, copy it.
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    
+    if (![fileManager fileExistsAtPath:destPath]) {
+        NSString *sourcePath = [[NSBundle mainBundle] pathForResource:@"RepositoryInterval" ofType:@"plist"];
+        [fileManager copyItemAtPath:sourcePath toPath:destPath error:nil];
+    }
+    
+    NSMutableDictionary*plistDict=[[NSMutableDictionary alloc] initWithContentsOfFile:destPath];
+    //Manipulate the dictionary
+    
+    if (RepoName == nil || RepoName.length == 0) {
+        return 7;
+    }
+    
+    NSNumber *value =[plistDict objectForKey:RepoName];
+    if (value == nil || value == 0) {
+        return 7;
+    }
+    
+    return value.intValue;
 }
 
 

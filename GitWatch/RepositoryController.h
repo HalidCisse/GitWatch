@@ -14,10 +14,12 @@
 @property OCTClient *GitClient;
 @property OCTRepository *repository;
 
+
 @property (weak, nonatomic) IBOutlet UIImageView *RepoIcon;
 @property (weak, nonatomic) IBOutlet UILabel *RepoName;
 @property (weak, nonatomic) IBOutlet UILabel *RepoDescription;
 @property (weak, nonatomic) IBOutlet UILabel *IssuesLabel;
 @property (weak, nonatomic) IBOutlet UITextField *DaysInterval;
+- (IBAction)IntervalChanged:(id)sender;
 
 @end

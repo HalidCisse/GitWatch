@@ -9,6 +9,7 @@
 #import "RepositoryController.h"
 #import <OctoKit/OctoKit.h>
 #import <AFNetworking/AFNetworking.h>
+#import "Helper.h"
 
 @interface RepositoryController ()
 
@@ -29,14 +30,12 @@
     self.RepoDescription.text = self.repository.repoDescription;
     self.RepoIcon.image = [UIImage imageNamed:@"repoIcon.png"];
     self.IssuesLabel.text =[NSString stringWithFormat:@"%lu", (unsigned long)self.repository.openIssuesCount];
+    self.DaysInterval.text =[NSString stringWithFormat:@"%d", [Helper GetInterval:self.repository.name]];
     //cell.LastUpdate.text = [[NSString alloc] initWithFormat:@"last updated %@", repo.dateUpdated.timeAgoSinceNow];
-    
-    
-    
-    
-    
-    
-    
 }
 
+- (IBAction)IntervalChanged:(id)sender {
+    
+    [Helper SaveRepoInterval:self.RepoName.text forDays:self.DaysInterval.text.intValue];
+}
 @end

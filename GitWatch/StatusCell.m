@@ -11,9 +11,6 @@
 @implementation StatusCell
 
 
-
-
-
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code

@@ -113,7 +113,6 @@
 //}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    //array is your db, here we just need how many they are
     return 1;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -121,7 +120,6 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    //this is the space
     return 10;
 }
 
