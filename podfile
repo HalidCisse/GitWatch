@@ -5,5 +5,6 @@ target ‘GitWatch’ do
   pod 'DateTools'
   pod 'FSNetworking'
   pod 'ObjectiveSugar'
+  pod 'AMSmoothAlert', '~> 1.0'
   #pod 'RestKit'
 end
