@@ -12,6 +12,7 @@
 #import "Helper.h"
 #import <DateTools/DateTools.h>
 #import <FSNetworking/FSNConnection.h>
+#import <ObjectiveSugar/ObjectiveSugar.h>
 
 @interface RepositoryController ()
    @property long total;
@@ -35,7 +36,7 @@
     self.RepoIcon.image = [UIImage imageNamed:@"repoIcon.png"];
     self.IssuesLabel.text =[NSString stringWithFormat:@"%lu", (unsigned long)self.repository.openIssuesCount];
     self.DaysInterval.text =[NSString stringWithFormat:@"%d", [Helper GetInterval:self.repository.name]];
-    self.LastUpdated.text = [[NSString alloc] initWithFormat:@"last updated %@", self.repository.dateUpdated.timeAgoSinceNow];
+    //self.LastUpdated.text = [[NSString alloc] initWithFormat:@"last updated %@", self.repository.dateUpdated.timeAgoSinceNow];
     
     NSString *repoPath = [self.repository.HTMLURL.absoluteString stringByReplacingOccurrencesOfString:@"https://github.com/"
                                                         withString:@""];;
@@ -63,7 +64,7 @@
                NSDictionary *user = [firstPull objectForKey:@"user"];
                NSString *userName = [user objectForKey:@"login"];
                
-               self.LastUpdated.text = [[NSString alloc] initWithFormat:@"last updated by %@ %@", userName, self.repository.dateUpdated.timeAgoSinceNow];
+               self.LastUpdated.text = [[NSString alloc] initWithFormat:@"last updated by @%@ %@", userName, self.repository.dateUpdated.timeAgoSinceNow];
            }
              progressBlock:^(FSNConnection *c) {
                  NSLog(@"progress: %@: %.2f/%.2f", c, c.uploadProgress, c.downloadProgress);
@@ -84,7 +85,7 @@
                 }
            completionBlock:^(FSNConnection *commitsResponse)
             {
-               for (NSDictionary *com in commitsResponse.parseResult) {
+               for (NSDictionary<NSCopying> *com in (NSDictionary *)commitsResponse.parseResult) {
                    NSString *sha =[com objectForKey:@"sha"];
                    
                    NSString *commitUrl =[[NSString alloc] initWithFormat:@"https://api.github.com/repos/%@/commits/%@", repoPath, sha];
@@ -98,7 +99,7 @@
                                }
                           completionBlock:^(FSNConnection *commitResponse)
                     {
-                        NSDictionary *commitAsResponse = commitResponse.parseResult;
+                        NSDictionary<NSCopying>  *commitAsResponse = (NSDictionary *)commitResponse.parseResult;
                         NSDictionary *stats =[commitAsResponse objectForKey:@"stats"];
                         
                         self.total = self.total + [[stats objectForKey:@"total"] integerValue];

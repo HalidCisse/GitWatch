@@ -27,6 +27,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *LinesRemoved;
 
 
+
+
 - (IBAction)IntervalChanged:(id)sender;
 
 @end

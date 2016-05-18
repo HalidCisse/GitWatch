@@ -4,5 +4,6 @@ target ‘GitWatch’ do
   pod 'SDWebImage', '~>3.7'
   pod 'DateTools'
   pod 'FSNetworking'
+  pod 'ObjectiveSugar'
   #pod 'RestKit'
 end
