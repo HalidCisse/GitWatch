@@ -40,14 +40,14 @@ NSDictionary *parameters;
     
     self.openIssuesLabel.text =[NSString stringWithFormat:@"%lu", (unsigned long)self.repository.openIssuesCount];
     
-    self.expiryDateLabel.text = [[NSString alloc] initWithFormat:@"Show in red if not updated for %i days", (int)[Helper getInterval:self.repository.name]];
+    self.expiryDateLabel.text = [[NSString alloc] initWithFormat:@"Flag in red if not updated for %i days", (int)[Helper getInterval:self.repository.name]];
     
-    [self congigureStepper];
+    [self configureStepper];
     [self fetchPullRequestAndLastUpdate];
     [self fetchStats];
 }
 
-- (void)congigureStepper {
+- (void)configureStepper {
     self.expiryStepper.maximumValue = 1000;
     self.expiryStepper.minimumValue = 1;
     self.expiryStepper.stepValue = 1;
@@ -56,19 +56,9 @@ NSDictionary *parameters;
 
 - (IBAction)onStepChange:(id)sender {
     
-    self.expiryDateLabel.text = [[NSString alloc] initWithFormat:@"Show in red if not updated for %i days", (int)self.expiryStepper.value];
+    self.expiryDateLabel.text = [[NSString alloc] initWithFormat:@"Flag in red if not updated for %i days", (int)self.expiryStepper.value];
     
     [Helper saveRepoInterval:self.repository.name forDays:(int)self.expiryStepper.value];
-}
-
-- (NSIndexPath *)tableView:(UITableView *)tv willSelectRowAtIndexPath:(NSIndexPath *)path
-{
-    return nil;
-}
-
-- (BOOL)tableView:(UITableView *)tv shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return false;
 }
 
 - (void)fetchPullRequestAndLastUpdate
@@ -146,6 +136,16 @@ NSDictionary *parameters;
      }progressBlock:^(FSNConnection *c) {
      }];
     [commitsRequest start];
+}
+
+- (NSIndexPath *)tableView:(UITableView *)tv willSelectRowAtIndexPath:(NSIndexPath *)path
+{
+    return nil;
+}
+
+- (BOOL)tableView:(UITableView *)tv shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return false;
 }
 
 @end

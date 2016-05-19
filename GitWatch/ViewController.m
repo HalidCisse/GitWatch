@@ -12,6 +12,7 @@
 #import "Helper.h"
 #import "HomeController.h"
 #import <AMSmoothAlert/AMSmoothAlertView.h>
+#import "MWKProgressIndicator.h"
 
 @interface ViewController ()
 
@@ -24,18 +25,24 @@
 
 - (IBAction)OnLogin_Click:(id)sender
 {
+    [MWKProgressIndicator show];
+    [MWKProgressIndicator updateMessage:@"connecting ..."];
+    [MWKProgressIndicator updateProgress:0.5f];
+    
     OCTUser *gitUser = [OCTUser userWithRawLogin:self.usernameText.text server:OCTServer.dotComServer];
     
     [[[OCTClient signInAsUser:gitUser password:self.passwordText.text oneTimePassword:nil scopes:OCTClientAuthorizationScopesRepository note:nil noteURL:nil fingerprint:nil]
      deliverOnMainThread]
-     
      subscribeNext:^(OCTClient *client) {
+         [MWKProgressIndicator updateProgress:1.00f];
+         [MWKProgressIndicator showSuccessMessage:@"success"];
          [Helper saveCredentials:client];
          
          HomeController *view = [self.storyboard instantiateViewControllerWithIdentifier:@"HomeController"];
          view.gitClient = client;
          [self.navigationController pushViewController:view animated:YES];
      } error:^(NSError *error) {
+         [MWKProgressIndicator dismiss];
          AMSmoothAlertView *alert = [[AMSmoothAlertView alloc] initDropAlertWithTitle:@"Error" andText:@"Can't login please check your credentials" andCancelButton:false forAlertType:AlertFailure ];
          
          [alert setTitleFont:[UIFont fontWithName:@"Verdana" size:25.0f]];
