@@ -26,10 +26,10 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
-    self.title = [NSString stringWithFormat:@"%@ Organisations", self.GitClient.user.name];
+    self.title = [NSString stringWithFormat:@"%@ Organisations", self.gitClient.user.name];
     self.organisations = [[NSMutableArray alloc] init];
     
-    RACSignal *request = [self.GitClient fetchUserOrganizations];
+    RACSignal *request = [self.gitClient fetchUserOrganizations];
     
     [[request deliverOn:RACScheduler.mainThreadScheduler]
      subscribeNext:^(OCTOrganization *organisation) {
@@ -98,23 +98,14 @@
     return 70;
 }
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-//    RepositoriesController *view = [[RepositoriesController alloc] init];
-//    view.GitClient = self.GitClient;
-//    view.Organisation = [self.organisations objectAtIndex:indexPath.row];
-//    [self.navigationController pushViewController:view animated:YES];
-    //[self performSegueWithIdentifier:@"GoToRepos" sender:indexPath];
-}
-
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.identifier isEqualToString:@"GoToRepos"])
     {
         RepositoriesController *view = segue.destinationViewController;
         NSIndexPath *path = [self.tableView indexPathForSelectedRow];
-        view.GitClient = self.GitClient;
-        view.Organisation = [self.organisations objectAtIndex:path.row];
+        view.gitClient = self.gitClient;
+        view.organisation = [self.organisations objectAtIndex:path.row];
     }
 }
 

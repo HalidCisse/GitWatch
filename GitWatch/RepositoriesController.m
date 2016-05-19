@@ -26,11 +26,11 @@
     //self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.contentInset = UIEdgeInsetsMake(5, 0, 0, 0);
     
-    self.title = [NSString stringWithFormat:@"%@ Repositories", self.Organisation.name];
+    self.title = [NSString stringWithFormat:@"%@ Repositories", self.organisation.name];
     
     self.repositories = [[NSMutableArray alloc] init];
     
-    RACSignal *request = [self.GitClient fetchRepositoriesForOrganization:self.Organisation];
+    RACSignal *request = [self.gitClient fetchRepositoriesForOrganization:self.organisation];
     
     [[request deliverOn:RACScheduler.mainThreadScheduler]
      subscribeNext:^(OCTRepository *repository) {
@@ -63,10 +63,9 @@
     
     OCTRepository *repo =[self.repositories objectAtIndex:indexPath.row];
     
-    
     cell.repositoryName.text = repo.name;
     cell.repositoryImage.image = [UIImage imageNamed:@"repoIcon.png"];;
-    cell.isFavoriteRepository.on = [Helper IsFavorite:repo.name];
+    cell.isFavoriteRepository.on = [Helper isFavorite:repo.name];
     
     //cell.accessoryType = UITableViewCellAccessoryDetailButton;
     

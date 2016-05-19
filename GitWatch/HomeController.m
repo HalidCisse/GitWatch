@@ -31,8 +31,8 @@
     self.tableView.delegate = self;
     self.tableView.separatorColor = [UIColor clearColor];
     
-    NSString *login = [Helper GetLogin];
-    NSString *token =[Helper GetToken];
+    NSString *login = [Helper getLogin];
+    NSString *token =[Helper getToken];
     
     if (login == nil || token == nil || login.length == 0 || token.length ==0)
     {
@@ -42,27 +42,32 @@
     }
     
     OCTUser *lastUser = [OCTUser userWithRawLogin:login server:OCTServer.dotComServer];
-    self.GitClient = [OCTClient authenticatedClientWithUser:lastUser token:token];
+    self.gitClient = [OCTClient authenticatedClientWithUser:lastUser token:token];
+}
+
+- (void)viewDidAppear:(BOOL)animated{
+    [self FetProfile];
+    [self FetRepos];
 }
 
 - (void)FetProfile
 {
-    RACSignal *request = [self.GitClient fetchUserInfo];
+    RACSignal *request = [self.gitClient fetchUserInfo];
     
     [[request deliverOn:RACScheduler.mainThreadScheduler]
      subscribeNext:^(OCTUser *user) {
-         self.UserName.text    = user.name;
-         self.UserCompany.text = user.company;
-         self.UserCountry.text = user.location;
+         self.userName.text    = user.name;
+         self.userCompany.text = user.company;
+         self.userCountry.text = user.location;
          
-         self.UserFollowers.text = [NSString stringWithFormat:@"%lu", (unsigned long)user.followers];
+         self.userFollowers.text = [NSString stringWithFormat:@"%lu", (unsigned long)user.followers];
          
-         self.UserFollowing.text = [NSString stringWithFormat:@"%lu", (unsigned long)user.following];
+         self.userFollowing.text = [NSString stringWithFormat:@"%lu", (unsigned long)user.following];
          
-         self.UserCompany.text = user.company;
-         self.UserCompany.text = user.company;
-         self.UserCompany.text = user.company;
-         [self.UserImage sd_setImageWithURL:[NSURL URLWithString:user.avatarURL.absoluteString]
+         self.userCompany.text = user.company;
+         self.userCompany.text = user.company;
+         self.userCompany.text = user.company;
+         [self.userImage sd_setImageWithURL:[NSURL URLWithString:user.avatarURL.absoluteString]
                            placeholderImage:[UIImage imageNamed:@"octokat"]];
          
      } error:^(NSError *error) {
@@ -77,13 +82,13 @@
 {
     [self.repositories removeAllObjects];
     
-    [[self.GitClient fetchUserOrganizations]
+    [[self.gitClient fetchUserOrganizations]
      subscribeNext:^(OCTOrganization *organization) {
-        NSMutableURLRequest *request = [self.GitClient requestWithMethod:@"GET" path:[NSString stringWithFormat:@"/orgs/%@/repos", organization.login] parameters:@{@"type":@"all"}];
-        [[self.GitClient enqueueRequest:request resultClass:[OCTRepository class]] subscribeNext:^(OCTResponse *response) {
+        NSMutableURLRequest *request = [self.gitClient requestWithMethod:@"GET" path:[NSString stringWithFormat:@"/orgs/%@/repos", organization.login] parameters:@{@"type":@"all"}];
+        [[self.gitClient enqueueRequest:request resultClass:[OCTRepository class]] subscribeNext:^(OCTResponse *response) {
             OCTRepository *repository = response.parsedResult;
             
-            if ([Helper IsFavorite:repository.name]) {
+            if ([Helper isFavorite:repository.name]) {
                 [self.repositories insertObject:repository atIndex:0];
             }
         } completed:^{
@@ -122,20 +127,20 @@
     OCTRepository *repo =[self.repositories objectAtIndex:indexPath.row];
     
     cell.RepoIcon.image = [UIImage imageNamed:@"repoIcon.png"];
-    cell.RepoName.text = repo.name;
+    cell.repoName.text = repo.name;
     cell.RepoDescription.text = repo.repoDescription;
     cell.IssuesCount.text = [[NSString alloc] initWithFormat:@"%lu", (unsigned long)repo.openIssuesCount];
     
     cell.LastUpdate.text = [[NSString alloc] initWithFormat:@"last updated %@", repo.dateUpdated.timeAgoSinceNow];
     
-    int repoInterval = [Helper GetInterval:repo.name];
+    int repoInterval = [Helper getInterval:repo.name];
     
     NSDate *daysAgo = [[NSCalendar currentCalendar] dateByAddingUnit:NSCalendarUnitDay value:-repoInterval toDate:[NSDate date] options:0];
     
     if (repo.dateUpdated.timeIntervalSince1970 < daysAgo.timeIntervalSince1970) {
-        cell.RepoName.textColor = [UIColor redColor];
+        cell.repoName.textColor = [UIColor redColor];
     }else{
-        cell.RepoName.textColor = [UIColor blackColor];
+        cell.repoName.textColor = [UIColor blackColor];
     }
     
     if (repo.openIssuesCount <= 0) {
@@ -163,7 +168,7 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     RepositoryController *view = [[RepositoryController alloc] init];
-    view.GitClient = self.GitClient;
+    view.gitClient = self.gitClient;
     
     if (self.repositories == nil || [self.repositories count] == 0) {
         return;
@@ -177,7 +182,7 @@
     if ([segue.identifier isEqualToString:@"GoToOrgs"])
      {
         OrganisationsController *view = segue.destinationViewController;
-        view.GitClient = self.GitClient;
+        view.gitClient = self.gitClient;
      }
     
     if ([segue.identifier isEqualToString:@"RepositoryController"])
@@ -187,13 +192,10 @@
         
         OCTRepository *repository = [self.repositories objectAtIndex:index.row];
         
-        view.GitClient = self.GitClient;
+        view.gitClient = self.gitClient;
         view.repository = repository;
     }
 }
 
-- (void)viewDidAppear:(BOOL)animated{
-    [self FetProfile];
-    [self FetRepos];
-}
+
 @end

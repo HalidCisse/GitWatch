@@ -11,14 +11,14 @@
 
 @interface HomeController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
-@property OCTClient *GitClient;
+@property OCTClient *gitClient;
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (weak, nonatomic) IBOutlet UIImageView *UserImage;
-@property (weak, nonatomic) IBOutlet UILabel *UserName;
-@property (weak, nonatomic) IBOutlet UILabel *UserCompany;
-@property (weak, nonatomic) IBOutlet UILabel *UserCountry;
-@property (weak, nonatomic) IBOutlet UILabel *UserFollowers;
-@property (weak, nonatomic) IBOutlet UILabel *UserFollowing;
+@property (weak, nonatomic) IBOutlet UIImageView *userImage;
+@property (weak, nonatomic) IBOutlet UILabel *userName;
+@property (weak, nonatomic) IBOutlet UILabel *userCompany;
+@property (weak, nonatomic) IBOutlet UILabel *userCountry;
+@property (weak, nonatomic) IBOutlet UILabel *userFollowers;
+@property (weak, nonatomic) IBOutlet UILabel *userFollowing;
 
 @end

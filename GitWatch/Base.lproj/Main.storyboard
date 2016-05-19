@@ -238,13 +238,13 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="UserCompany" destination="KW4-Lb-V7H" id="R2F-Sp-LSC"/>
-                        <outlet property="UserCountry" destination="H4D-6Z-Uf0" id="ai8-Wr-wZS"/>
-                        <outlet property="UserFollowers" destination="3eB-2l-aiw" id="yaN-Zh-Zcc"/>
-                        <outlet property="UserFollowing" destination="EeK-nu-DLL" id="iRR-1k-snH"/>
-                        <outlet property="UserImage" destination="TJz-6B-OKn" id="vcY-Gn-djV"/>
-                        <outlet property="UserName" destination="z25-8z-2Vd" id="E1k-xx-nZB"/>
                         <outlet property="tableView" destination="d7Q-nu-lsT" id="H0q-oR-eKq"/>
+                        <outlet property="userCompany" destination="KW4-Lb-V7H" id="AFz-cy-YF4"/>
+                        <outlet property="userCountry" destination="H4D-6Z-Uf0" id="IOi-57-lvu"/>
+                        <outlet property="userFollowers" destination="3eB-2l-aiw" id="ZNF-Cv-7P4"/>
+                        <outlet property="userFollowing" destination="EeK-nu-DLL" id="Omu-1z-kF0"/>
+                        <outlet property="userImage" destination="TJz-6B-OKn" id="Lau-iI-7Du"/>
+                        <outlet property="userName" destination="z25-8z-2Vd" id="Noy-PH-gO6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sjQ-58-Adf" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -576,7 +576,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
-                                    <action selector="IntervalChanged:" destination="ZzV-5E-dAp" eventType="editingChanged" id="mxF-5i-EUq"/>
+                                    <action selector="intervalChanged:" destination="ZzV-5E-dAp" eventType="editingChanged" id="uxe-QB-z7z"/>
                                 </connections>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="days" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CWQ-qD-bOk">
@@ -760,15 +760,15 @@
                         </variation>
                     </view>
                     <connections>
-                        <outlet property="DaysInterval" destination="qPB-jS-uvl" id="TpC-Ic-fwu"/>
-                        <outlet property="IssuesLabel" destination="eDb-t0-09t" id="nO0-hr-aUC"/>
-                        <outlet property="LastUpdated" destination="qxz-RR-9Qx" id="CQr-Rn-BHw"/>
-                        <outlet property="LinesAddition" destination="lij-KR-lHx" id="b8H-nq-NHH"/>
-                        <outlet property="LinesRemoved" destination="SNT-IK-dFq" id="s7Q-zb-dAp"/>
-                        <outlet property="OpenPullRequest" destination="zOu-iJ-10o" id="45a-Og-aKb"/>
-                        <outlet property="RepoDescription" destination="Pyh-eM-5bn" id="uoj-0r-eju"/>
-                        <outlet property="RepoIcon" destination="ZWK-sc-Zfq" id="7kI-Ud-Xga"/>
-                        <outlet property="RepoName" destination="dCe-5g-y5E" id="lzS-gd-sis"/>
+                        <outlet property="daysInterval" destination="qPB-jS-uvl" id="pcy-z6-JNq"/>
+                        <outlet property="issuesLabel" destination="eDb-t0-09t" id="AFq-cE-mdc"/>
+                        <outlet property="lastUpdated" destination="qxz-RR-9Qx" id="s7f-8z-HGJ"/>
+                        <outlet property="linesAddition" destination="lij-KR-lHx" id="6Bt-dq-Ctv"/>
+                        <outlet property="linesRemoved" destination="SNT-IK-dFq" id="Lzw-jh-aIp"/>
+                        <outlet property="openPullRequest" destination="zOu-iJ-10o" id="g65-in-WBT"/>
+                        <outlet property="repoDescription" destination="Pyh-eM-5bn" id="ENV-QY-BbZ"/>
+                        <outlet property="repoIcon" destination="ZWK-sc-Zfq" id="acb-eQ-9sL"/>
+                        <outlet property="repoName" destination="dCe-5g-y5E" id="nUa-eQ-gnw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="U84-za-3X7" userLabel="First Responder" sceneMemberID="firstResponder"/>

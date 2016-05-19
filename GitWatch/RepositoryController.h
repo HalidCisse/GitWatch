@@ -11,24 +11,22 @@
 
 @interface RepositoryController : UIViewController
 
-@property OCTClient *GitClient;
+@property OCTClient *gitClient;
 @property OCTRepository *repository;
 
 
-@property (weak, nonatomic) IBOutlet UIImageView *RepoIcon;
-@property (weak, nonatomic) IBOutlet UILabel *RepoName;
-@property (weak, nonatomic) IBOutlet UILabel *RepoDescription;
-@property (weak, nonatomic) IBOutlet UILabel *IssuesLabel;
-@property (weak, nonatomic) IBOutlet UITextField *DaysInterval;
-@property (weak, nonatomic) IBOutlet UILabel *LastUpdated;
-@property (weak, nonatomic) IBOutlet UILabel *OpenPullRequest;
+@property (weak, nonatomic) IBOutlet UIImageView *repoIcon;
+@property (weak, nonatomic) IBOutlet UILabel *repoName;
+@property (weak, nonatomic) IBOutlet UILabel *repoDescription;
+@property (weak, nonatomic) IBOutlet UILabel *issuesLabel;
+@property (weak, nonatomic) IBOutlet UITextField *daysInterval;
+@property (weak, nonatomic) IBOutlet UILabel *lastUpdated;
+@property (weak, nonatomic) IBOutlet UILabel *openPullRequest;
 
-@property (weak, nonatomic) IBOutlet UILabel *LinesAddition;
-@property (weak, nonatomic) IBOutlet UILabel *LinesRemoved;
-
-
+@property (weak, nonatomic) IBOutlet UILabel *linesAddition;
+@property (weak, nonatomic) IBOutlet UILabel *linesRemoved;
 
 
-- (IBAction)IntervalChanged:(id)sender;
+- (IBAction)intervalChanged:(id)sender;
 
 @end

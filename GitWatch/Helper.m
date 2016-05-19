@@ -12,31 +12,31 @@
 @implementation Helper
 
 
-+ (void)ClearCredentials
++ (void)clearCredentials
 {
     [SSKeychain setPassword:@"" forService:@"GitHub.com" account:@"GitHub.com"];
     
     [SSKeychain setPassword:@"" forService:@"GitHub.com" account:@"Token"];
 }
 
-+ (NSString *)GetLogin
++ (NSString *)getLogin
 {
     return [SSKeychain passwordForService:@"GitHub.com" account:@"GitHub.com"];
 }
 
-+ (NSString *)GetToken
++ (NSString *)getToken
 {
     return [SSKeychain passwordForService:@"GitHub.com" account:@"Token"];
 }
 
-+ (void)SaveCredentials:(OCTClient *)GitHubClient
++ (void)saveCredentials:(OCTClient *)gitHubClient
 {
-    [SSKeychain setPassword:GitHubClient.user.rawLogin forService:@"GitHub.com" account:@"GitHub.com"];
+    [SSKeychain setPassword:gitHubClient.user.rawLogin forService:@"GitHub.com" account:@"GitHub.com"];
     
-    [SSKeychain setPassword:GitHubClient.token forService:@"GitHub.com" account:@"Token"];
+    [SSKeychain setPassword:gitHubClient.token forService:@"GitHub.com" account:@"Token"];
 }
 
-+ (BOOL)IsFavorite:(NSString *)repositoryName
++ (BOOL)isFavorite:(NSString *)repositoryName
 {
     NSString *destPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
     destPath = [destPath stringByAppendingPathComponent:@"FavoriteRepository.plist"];
@@ -62,7 +62,7 @@
     }
 }
 
-+ (void)SaveRepoInterval:(NSString *)RepoName forDays: (int) days
++ (void)saveRepoInterval:(NSString *)repoName forDays: (int) days
 {
     NSString *destPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
     destPath = [destPath stringByAppendingPathComponent:@"RepositoryInterval.plist"];
@@ -82,12 +82,12 @@
         days = 7;
     }
     
-    [plistDict setObject:[NSNumber numberWithInt:days] forKey:RepoName];
+    [plistDict setObject:[NSNumber numberWithInt:days] forKey:repoName];
     //Again save in doc directory.
     [plistDict writeToFile:destPath atomically:YES];
 }
 
-+ (int)GetInterval:(NSString *)RepoName
++ (int)getInterval:(NSString *)repoName
 {
     NSString *destPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
     destPath = [destPath stringByAppendingPathComponent:@"RepositoryInterval.plist"];
@@ -103,11 +103,11 @@
     NSMutableDictionary*plistDict=[[NSMutableDictionary alloc] initWithContentsOfFile:destPath];
     //Manipulate the dictionary
     
-    if (RepoName == nil || RepoName.length == 0) {
+    if (repoName == nil || repoName.length == 0) {
         return 7;
     }
     
-    NSNumber *value =[plistDict objectForKey:RepoName];
+    NSNumber *value =[plistDict objectForKey:repoName];
     if (value == nil || value == 0) {
         return 7;
     }

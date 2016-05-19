@@ -92,7 +92,7 @@
                 <outlet property="LastUpdate" destination="ROf-lu-Jvu" id="wBJ-ND-DwL"/>
                 <outlet property="RepoDescription" destination="jJN-cs-Yvp" id="Nbm-NP-IOk"/>
                 <outlet property="RepoIcon" destination="fio-ik-xX0" id="qz1-jA-o42"/>
-                <outlet property="RepoName" destination="nsb-4R-Am2" id="5Ud-L9-Rl4"/>
+                <outlet property="repoName" destination="nsb-4R-Am2" id="5Ud-L9-Rl4"/>
             </connections>
             <point key="canvasLocation" x="424" y="303.5"/>
         </tableViewCell>

@@ -11,7 +11,7 @@
 @interface StatusCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UIImageView *RepoIcon;
-@property (weak, nonatomic) IBOutlet UILabel *RepoName;
+@property (weak, nonatomic) IBOutlet UILabel *repoName;
 @property (weak, nonatomic) IBOutlet UILabel *RepoDescription;
 @property (weak, nonatomic) IBOutlet UILabel *IssuesCount;
 @property (weak, nonatomic) IBOutlet UILabel *IssuesString;

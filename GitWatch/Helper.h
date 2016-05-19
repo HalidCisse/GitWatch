@@ -11,12 +11,12 @@
 
 @interface Helper : NSObject
 
-+ (void)ClearCredentials;
-+ (NSString *)GetLogin;
-+ (NSString *)GetToken;
-+ (void)SaveCredentials:(OCTClient *)GitHubClient;
-+ (BOOL)IsFavorite:(NSString *)repositoryName;
-+ (void)SaveRepoInterval:(NSString *)RepoName forDays: (int) days;
-+ (int)GetInterval:(NSString *)RepoName;
++ (void)clearCredentials;
++ (NSString *)getLogin;
++ (NSString *)getToken;
++ (void)saveCredentials:(OCTClient *)gitHubClient;
++ (BOOL)isFavorite:(NSString *)repositoryName;
++ (void)saveRepoInterval:(NSString *)repoName forDays: (int) days;
++ (int)getInterval:(NSString *)repoName;
 
 @end

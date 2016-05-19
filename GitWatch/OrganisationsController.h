@@ -11,6 +11,6 @@
 
 @interface OrganisationsController : UITableViewController
 
-@property OCTClient *GitClient;
+@property OCTClient *gitClient;
 
 @end

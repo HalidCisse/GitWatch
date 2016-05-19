@@ -26,23 +26,23 @@
 {
     [super viewDidLoad];
     
-    [self ShowRepoDetails];
+    [self showRepoDetails];
 }
 
-- (void)ShowRepoDetails
+- (void)showRepoDetails
 {
-    self.RepoName.text = self.repository.name;
-    self.RepoDescription.text = self.repository.repoDescription;
-    self.RepoIcon.image = [UIImage imageNamed:@"repoIcon.png"];
-    self.IssuesLabel.text =[NSString stringWithFormat:@"%lu", (unsigned long)self.repository.openIssuesCount];
-    self.DaysInterval.text =[NSString stringWithFormat:@"%d", [Helper GetInterval:self.repository.name]];
+    self.repoName.text = self.repository.name;
+    self.repoDescription.text = self.repository.repoDescription;
+    self.repoIcon.image = [UIImage imageNamed:@"repoIcon.png"];
+    self.issuesLabel.text =[NSString stringWithFormat:@"%lu", (unsigned long)self.repository.openIssuesCount];
+    self.daysInterval.text =[NSString stringWithFormat:@"%d", [Helper getInterval:self.repository.name]];
     //self.LastUpdated.text = [[NSString alloc] initWithFormat:@"last updated %@", self.repository.dateUpdated.timeAgoSinceNow];
     
     NSString *repoPath = [self.repository.HTMLURL.absoluteString stringByReplacingOccurrencesOfString:@"https://github.com/"
                                                         withString:@""];;
     NSString *url =[[NSString alloc] initWithFormat:@"https://api.github.com/search/issues?q=+type:pr+repo:%@", repoPath];
     
-    NSString *tokenHeader = [[NSString alloc] initWithFormat:@"Bearer %@", self.GitClient.token];
+    NSString *tokenHeader = [[NSString alloc] initWithFormat:@"Bearer %@", self.gitClient.token];
     NSDictionary *headers     = [NSDictionary dictionaryWithObjectsAndKeys:
                                  tokenHeader, @"Authorization", nil];
 
@@ -57,14 +57,14 @@
                     return [c.responseData dictionaryFromJSONWithError:error];
                 }
            completionBlock:^(FSNConnection *c) {
-               self.OpenPullRequest.text = [NSString stringWithFormat:@"%@", c.parseResult[@"total_count"]];
+               self.openPullRequest.text = [NSString stringWithFormat:@"%@", c.parseResult[@"total_count"]];
                
                NSArray *pull = c.parseResult[@"items"];
                NSDictionary *firstPull = pull.firstObject;
                NSDictionary *user = [firstPull objectForKey:@"user"];
                NSString *userName = [user objectForKey:@"login"];
                
-               self.LastUpdated.text = [[NSString alloc] initWithFormat:@"last updated by @%@ %@", userName, self.repository.dateUpdated.timeAgoSinceNow];
+               self.lastUpdated.text = [[NSString alloc] initWithFormat:@"last updated by @%@ %@", userName, self.repository.dateUpdated.timeAgoSinceNow];
            }
              progressBlock:^(FSNConnection *c) {
                  NSLog(@"progress: %@: %.2f/%.2f", c, c.uploadProgress, c.downloadProgress);
@@ -106,8 +106,8 @@
                         self.additions = self.additions + [[stats objectForKey:@"additions"] integerValue];
                         self.deletions = self.deletions + [[stats objectForKey:@"deletions"] integerValue];
                         
-                        self.LinesAddition.text = [[NSString alloc] initWithFormat:@"%li", self.additions];
-                        self.LinesRemoved.text = [[NSString alloc] initWithFormat:@"%li", self.deletions];
+                        self.linesAddition.text = [[NSString alloc] initWithFormat:@"%li", self.additions];
+                        self.linesRemoved.text = [[NSString alloc] initWithFormat:@"%li", self.deletions];
                     }
                       progressBlock:^(FSNConnection *c) {
                     }];
@@ -119,8 +119,8 @@
     [commitsRequest start];
 }
 
-- (IBAction)IntervalChanged:(id)sender {
-    
-    [Helper SaveRepoInterval:self.RepoName.text forDays:self.DaysInterval.text.intValue];
+- (IBAction)intervalChanged:(id)sender
+{
+    [Helper saveRepoInterval:self.repoName.text forDays:self.daysInterval.text.intValue];
 }
 @end

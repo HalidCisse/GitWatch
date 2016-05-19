@@ -11,7 +11,7 @@
 
 @interface RepositoriesController : UITableViewController
 
-@property OCTClient *GitClient;
-@property OCTOrganization *Organisation;
+@property OCTClient *gitClient;
+@property OCTOrganization *organisation;
 
 @end
