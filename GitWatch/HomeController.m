@@ -187,7 +187,7 @@
     
     if ([segue.identifier isEqualToString:@"RepositoryController"])
     {
-        RepositoryController *view = segue.destinationViewController;
+        RepositoryController *view = (RepositoryController *) segue.destinationViewController;
         NSIndexPath *index = [self.tableView indexPathForSelectedRow];
         
         OCTRepository *repository = [self.repositories objectAtIndex:index.row];

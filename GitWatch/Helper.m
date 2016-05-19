@@ -65,43 +65,40 @@
 + (void)saveRepoInterval:(NSString *)repoName forDays: (int) days
 {
     NSString *destPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-    destPath = [destPath stringByAppendingPathComponent:@"RepositoryInterval.plist"];
+    destPath = [destPath stringByAppendingPathComponent:@"RepositoryIntervals.plist"];
     
     // If the file doesn't exist in the Documents Folder, copy it.
     NSFileManager *fileManager = [NSFileManager defaultManager];
     
     if (![fileManager fileExistsAtPath:destPath]) {
-        NSString *sourcePath = [[NSBundle mainBundle] pathForResource:@"RepositoryInterval" ofType:@"plist"];
+        NSString *sourcePath = [[NSBundle mainBundle] pathForResource:@"RepositoryIntervals" ofType:@"plist"];
         [fileManager copyItemAtPath:sourcePath toPath:destPath error:nil];
     }
     
     NSMutableDictionary*plistDict=[[NSMutableDictionary alloc] initWithContentsOfFile:destPath];
-    //Manipulate the dictionary
     
     if (days == 0) {
         days = 7;
     }
     
     [plistDict setObject:[NSNumber numberWithInt:days] forKey:repoName];
-    //Again save in doc directory.
     [plistDict writeToFile:destPath atomically:YES];
 }
 
 + (int)getInterval:(NSString *)repoName
 {
     NSString *destPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-    destPath = [destPath stringByAppendingPathComponent:@"RepositoryInterval.plist"];
+    destPath = [destPath stringByAppendingPathComponent:@"RepositoryIntervals.plist"];
     
     // If the file doesn't exist in the Documents Folder, copy it.
     NSFileManager *fileManager = [NSFileManager defaultManager];
     
     if (![fileManager fileExistsAtPath:destPath]) {
-        NSString *sourcePath = [[NSBundle mainBundle] pathForResource:@"RepositoryInterval" ofType:@"plist"];
+        NSString *sourcePath = [[NSBundle mainBundle] pathForResource:@"RepositoryIntervals" ofType:@"plist"];
         [fileManager copyItemAtPath:sourcePath toPath:destPath error:nil];
     }
     
     NSMutableDictionary*plistDict=[[NSMutableDictionary alloc] initWithContentsOfFile:destPath];
-    //Manipulate the dictionary
     
     if (repoName == nil || repoName.length == 0) {
         return 7;

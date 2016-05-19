@@ -13,6 +13,7 @@
 #import <DateTools/DateTools.h>
 #import <FSNetworking/FSNConnection.h>
 #import <ObjectiveSugar/ObjectiveSugar.h>
+#import "StatusController.h"
 
 @interface RepositoryController ()
    @property long total;
@@ -26,20 +27,16 @@
 {
     [super viewDidLoad];
     
-    [self showRepoDetails];
+    [self fetchLastUpdate];
 }
 
-- (void)showRepoDetails
+- (void)fetchLastUpdate
 {
     self.repoName.text = self.repository.name;
     self.repoDescription.text = self.repository.repoDescription;
     self.repoIcon.image = [UIImage imageNamed:@"repoIcon.png"];
-    self.issuesLabel.text =[NSString stringWithFormat:@"%lu", (unsigned long)self.repository.openIssuesCount];
-    self.daysInterval.text =[NSString stringWithFormat:@"%d", [Helper getInterval:self.repository.name]];
-    //self.LastUpdated.text = [[NSString alloc] initWithFormat:@"last updated %@", self.repository.dateUpdated.timeAgoSinceNow];
     
-    NSString *repoPath = [self.repository.HTMLURL.absoluteString stringByReplacingOccurrencesOfString:@"https://github.com/"
-                                                        withString:@""];;
+    NSString *repoPath = [self.repository.HTMLURL.absoluteString stringByReplacingOccurrencesOfString:@"https://github.com/" withString:@""];
     NSString *url =[[NSString alloc] initWithFormat:@"https://api.github.com/search/issues?q=+type:pr+repo:%@", repoPath];
     
     NSString *tokenHeader = [[NSString alloc] initWithFormat:@"Bearer %@", self.gitClient.token];
@@ -57,7 +54,6 @@
                     return [c.responseData dictionaryFromJSONWithError:error];
                 }
            completionBlock:^(FSNConnection *c) {
-               self.openPullRequest.text = [NSString stringWithFormat:@"%@", c.parseResult[@"total_count"]];
                
                NSArray *pull = c.parseResult[@"items"];
                NSDictionary *firstPull = pull.firstObject;
@@ -71,56 +67,18 @@
              }];
     
     [connection start];
-    
-    // To only get 5 last commits
-    NSString *commitsUrl =[[NSString alloc] initWithFormat:@"https://api.github.com/repos/%@/commits?page=1&per_page=5&sort=created&direction=desc", repoPath];
-    
-    FSNConnection *commitsRequest =
-    [FSNConnection withUrl:[[NSURL alloc] initWithString:commitsUrl]
-                    method:FSNRequestMethodGET
-                   headers:headers
-                parameters:parameters
-                parseBlock:^id(FSNConnection *c, NSError **error) {
-                    return [c.responseData arrayFromJSONWithError:error];
-                }
-           completionBlock:^(FSNConnection *commitsResponse)
-            {
-               for (NSDictionary<NSCopying> *com in (NSDictionary *)commitsResponse.parseResult) {
-                   NSString *sha =[com objectForKey:@"sha"];
-                   
-                   NSString *commitUrl =[[NSString alloc] initWithFormat:@"https://api.github.com/repos/%@/commits/%@", repoPath, sha];
-                   FSNConnection *commitRequest =
-                   [FSNConnection withUrl:[[NSURL alloc] initWithString:commitUrl]
-                                   method:FSNRequestMethodGET
-                                  headers:headers
-                               parameters:parameters
-                               parseBlock:^id(FSNConnection *c, NSError **error) {
-                                   return [c.responseData dictionaryFromJSONWithError:error];
-                               }
-                          completionBlock:^(FSNConnection *commitResponse)
-                    {
-                        NSDictionary<NSCopying>  *commitAsResponse = (NSDictionary *)commitResponse.parseResult;
-                        NSDictionary *stats =[commitAsResponse objectForKey:@"stats"];
-                        
-                        self.total = self.total + [[stats objectForKey:@"total"] integerValue];
-                        self.additions = self.additions + [[stats objectForKey:@"additions"] integerValue];
-                        self.deletions = self.deletions + [[stats objectForKey:@"deletions"] integerValue];
-                        
-                        self.linesAddition.text = [[NSString alloc] initWithFormat:@"%li", self.additions];
-                        self.linesRemoved.text = [[NSString alloc] initWithFormat:@"%li", self.deletions];
-                    }
-                      progressBlock:^(FSNConnection *c) {
-                    }];
-                   
-                   [commitRequest start];
-               }
-           }progressBlock:^(FSNConnection *c) {
-             }];
-    [commitsRequest start];
 }
 
-- (IBAction)intervalChanged:(id)sender
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    [Helper saveRepoInterval:self.repoName.text forDays:self.daysInterval.text.intValue];
+    if ([segue.identifier isEqualToString:@"statusView_embed"])
+    {
+        StatusController *view = (StatusController *) segue.destinationViewController;
+        
+        view.gitClient = self.gitClient;
+        view.repository = self.repository;
+    }
 }
+
+
 @end

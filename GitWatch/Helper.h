@@ -15,7 +15,9 @@
 + (NSString *)getLogin;
 + (NSString *)getToken;
 + (void)saveCredentials:(OCTClient *)gitHubClient;
+
 + (BOOL)isFavorite:(NSString *)repositoryName;
+
 + (void)saveRepoInterval:(NSString *)repoName forDays: (int) days;
 + (int)getInterval:(NSString *)repoName;
 
