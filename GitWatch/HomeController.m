@@ -12,6 +12,8 @@
 #import "OrganisationsController.h"
 #import "StatusCell.h"
 #import <SDWebImage/UIImageView+WebCache.h>
+#import <AMSmoothAlert/AMSmoothAlertView.h>
+#import "MWKProgressIndicator.h"
 #import <DateTools/DateTools.h>
 #import "RepositoryController.h"
 
@@ -36,8 +38,32 @@
     
     if (login == nil || token == nil || login.length == 0 || token.length ==0)
     {
-        ViewController *view = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginController"];
-                [self.navigationController pushViewController:view animated:YES];
+//        ViewController *view = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginController"];
+//                [self.navigationController pushViewController:view animated:YES];
+        
+        [MWKProgressIndicator show];
+        [MWKProgressIndicator updateMessage:@"connecting ..."];
+        [MWKProgressIndicator updateProgress:0.5f];
+        
+        [[[OCTClient
+           signInToServerUsingWebBrowser:OCTServer.dotComServer scopes:OCTClientAuthorizationScopesRepository | OCTClientAuthorizationScopesUser | OCTClientAuthorizationScopesNotifications] deliverOnMainThread]
+         subscribeNext:^(OCTClient *client) {
+             [MWKProgressIndicator showSuccessMessage:@"success"];
+             [Helper saveCredentials:client];
+             
+             HomeController *view = [self.storyboard instantiateViewControllerWithIdentifier:@"HomeController"];
+             view.gitClient = client;
+             [self.navigationController pushViewController:view animated:YES];
+         } error:^(NSError *error) {
+             [MWKProgressIndicator dismiss];
+             AMSmoothAlertView *alert = [[AMSmoothAlertView alloc] initDropAlertWithTitle:@"Error" andText:@"Can't login please check your credentials" andCancelButton:false forAlertType:AlertFailure ];
+             
+             [alert setTitleFont:[UIFont fontWithName:@"Verdana" size:25.0f]];
+             [alert setTextFont:[UIFont fontWithName:@"Futura-Medium" size:13.0f]];
+             [alert.logoView setImage:[UIImage imageNamed:@"checkmark"]];
+             
+             [alert show];
+         }];
         return;
     }
     
