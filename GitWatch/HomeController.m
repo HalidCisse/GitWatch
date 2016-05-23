@@ -38,37 +38,12 @@
     
     if (login == nil || token == nil || login.length == 0 || token.length ==0)
     {
-//        ViewController *view = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginController"];
-//                [self.navigationController pushViewController:view animated:YES];
-        
-        [MWKProgressIndicator show];
-        [MWKProgressIndicator updateMessage:@"connecting ..."];
-        [MWKProgressIndicator updateProgress:0.5f];
-        
-        [[[OCTClient
-           signInToServerUsingWebBrowser:OCTServer.dotComServer scopes:OCTClientAuthorizationScopesRepository | OCTClientAuthorizationScopesUser | OCTClientAuthorizationScopesNotifications] deliverOnMainThread]
-         subscribeNext:^(OCTClient *client) {
-             [MWKProgressIndicator showSuccessMessage:@"success"];
-             [Helper saveCredentials:client];
-             
-             HomeController *view = [self.storyboard instantiateViewControllerWithIdentifier:@"HomeController"];
-             view.gitClient = client;
-             [self.navigationController pushViewController:view animated:YES];
-         } error:^(NSError *error) {
-             [MWKProgressIndicator dismiss];
-             AMSmoothAlertView *alert = [[AMSmoothAlertView alloc] initDropAlertWithTitle:@"Error" andText:@"Can't login please check your credentials" andCancelButton:false forAlertType:AlertFailure ];
-             
-             [alert setTitleFont:[UIFont fontWithName:@"Verdana" size:25.0f]];
-             [alert setTextFont:[UIFont fontWithName:@"Futura-Medium" size:13.0f]];
-             [alert.logoView setImage:[UIImage imageNamed:@"checkmark"]];
-             
-             [alert show];
-         }];
-        return;
+        ViewController *view = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginController"];
+                [self.navigationController pushViewController:view animated:YES];
+    } else if (self.gitClient == nil) {        
+        OCTUser *lastUser = [OCTUser userWithRawLogin:login server:OCTServer.dotComServer];
+        self.gitClient = [OCTClient authenticatedClientWithUser:lastUser token:token];
     }
-    
-    OCTUser *lastUser = [OCTUser userWithRawLogin:login server:OCTServer.dotComServer];
-    self.gitClient = [OCTClient authenticatedClientWithUser:lastUser token:token];
 }
 
 - (void)viewDidAppear:(BOOL)animated{
@@ -90,9 +65,6 @@
          
          self.userFollowing.text = [NSString stringWithFormat:@"%lu", (unsigned long)user.following];
          
-         self.userCompany.text = user.company;
-         self.userCompany.text = user.company;
-         self.userCompany.text = user.company;
          [self.userImage sd_setImageWithURL:[NSURL URLWithString:user.avatarURL.absoluteString]
                            placeholderImage:[UIImage imageNamed:@"octokat"]];
          
@@ -127,11 +99,6 @@
           [self.tableView reloadData];
         });
     }];
-}
-
-- (OCTCommit *)FetchLastCommit : (OCTRepository *) forRepository
-{
-    return nil;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

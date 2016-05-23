@@ -40,6 +40,7 @@
 		1FB4AD9A1CEA256D002B12A1 /* RepositoryIntervals.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1FB4AD991CEA256D002B12A1 /* RepositoryIntervals.plist */; };
 		1FBECB6C1CE36E8F00A057F8 /* OrganisationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FBECB6B1CE36E8F00A057F8 /* OrganisationCell.xib */; };
 		1FBECB6F1CE36EC500A057F8 /* OrganisationCellTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FBECB6E1CE36EC500A057F8 /* OrganisationCellTableViewCell.m */; };
+		1FDA29351CF34BFA00528BA6 /* SettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FDA29341CF34BFA00528BA6 /* SettingsController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -93,6 +94,8 @@
 		1FBECB6B1CE36E8F00A057F8 /* OrganisationCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrganisationCell.xib; sourceTree = "<group>"; };
 		1FBECB6D1CE36EC500A057F8 /* OrganisationCellTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrganisationCellTableViewCell.h; sourceTree = "<group>"; };
 		1FBECB6E1CE36EC500A057F8 /* OrganisationCellTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrganisationCellTableViewCell.m; sourceTree = "<group>"; };
+		1FDA29331CF34BFA00528BA6 /* SettingsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsController.h; sourceTree = "<group>"; };
+		1FDA29341CF34BFA00528BA6 /* SettingsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsController.m; sourceTree = "<group>"; };
 		2D2E6FD241A817064A5FE52C /* Pods_GitWatch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GitWatch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		74CFC32613E86747D0926C34 /* Pods-GitWatch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GitWatch.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GitWatch/Pods-GitWatch.debug.xcconfig"; sourceTree = "<group>"; };
 		AA5517E749A749797A42FC10 /* Pods-GitWatch.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GitWatch.release.xcconfig"; path = "Pods/Target Support Files/Pods-GitWatch/Pods-GitWatch.release.xcconfig"; sourceTree = "<group>"; };
@@ -187,6 +190,8 @@
 				1F6A992D1CE5F37800B61F50 /* StatusCell.xib */,
 				1FB4AD961CE9BF5B002B12A1 /* RepositoryController.h */,
 				1FB4AD971CE9BF5B002B12A1 /* RepositoryController.m */,
+				1FDA29331CF34BFA00528BA6 /* SettingsController.h */,
+				1FDA29341CF34BFA00528BA6 /* SettingsController.m */,
 			);
 			name = Repositories;
 			sourceTree = "<group>";
@@ -438,6 +443,7 @@
 				1FB4AD981CE9BF5B002B12A1 /* RepositoryController.m in Sources */,
 				1F0DE9721CEE050800C5315F /* PullRequestsController.m in Sources */,
 				1FA95AA01CEDC32A0028BDEC /* StatusController.m in Sources */,
+				1FDA29351CF34BFA00528BA6 /* SettingsController.m in Sources */,
 				1F9B4B261CE3574A00EAFD29 /* Helper.m in Sources */,
 				1F0DE9761CEE129600C5315F /* MWKProgressIndicator.m in Sources */,
 				1FA87EE41CE1D56B00E0A7DE /* RepositoriesController.m in Sources */,

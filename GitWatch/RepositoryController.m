@@ -14,6 +14,7 @@
 #import <FSNetworking/FSNConnection.h>
 #import <ObjectiveSugar/ObjectiveSugar.h>
 #import "StatusController.h"
+#import "SettingsController.h"
 
 @interface RepositoryController ()
    @property long total;
@@ -23,9 +24,12 @@
 
 @implementation RepositoryController
 
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Settings" style:UIBarButtonItemStyleDone target:self action: @selector(settingsClicked:)];
     
     [self fetchLastUpdate];
 }
@@ -77,5 +81,13 @@
     }
 }
 
+-(void)settingsClicked:(UIBarButtonItem *)sender {
+    //[self.navigationController popToRootViewControllerAnimated:YES];
+    
+    SettingsController *view = [[SettingsController alloc] init];
+    view.gitClient = self.gitClient;
+    view.repository = self.repository;
+    [self.navigationController pushViewController:view animated:YES];
+}
 
 @end
