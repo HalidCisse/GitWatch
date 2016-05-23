@@ -17,6 +17,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *openIssuesLabel;
 @property (weak, nonatomic) IBOutlet UILabel *openPullsLabel;
 
+@property (weak, nonatomic) IBOutlet UITableViewCell *pullCell;
+
 @property (weak, nonatomic) IBOutlet UILabel *locTotal;
 @property (weak, nonatomic) IBOutlet UILabel *locAdditions;
 @property (weak, nonatomic) IBOutlet UILabel *locDeletions;

@@ -46,11 +46,11 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated{
-    [self FetProfile];
-    [self FetRepos];
+    [self FetchProfile];
+    [self FetchRepos];
 }
 
-- (void)FetProfile
+- (void)FetchProfile
 {
     RACSignal *request = [self.gitClient fetchUserInfo];
     
@@ -78,7 +78,7 @@
      }];
 }
      
-- (void)FetRepos
+- (void)FetchRepos
 {
     [self.repositories removeAllObjects];
     
@@ -103,7 +103,7 @@
     }];
 }
 
-- (OCTCommit *)FetLastCommit : (OCTRepository *) forRepository
+- (OCTCommit *)FetchLastCommit : (OCTRepository *) forRepository
 {
     return nil;
 }

@@ -61,10 +61,7 @@
                NSString *userName = [user objectForKey:@"login"];
                
                self.lastUpdated.text = [[NSString alloc] initWithFormat:@"last updated by @%@ %@", userName, self.repository.dateUpdated.timeAgoSinceNow];
-           }
-             progressBlock:^(FSNConnection *c) {
-                 NSLog(@"progress: %@: %.2f/%.2f", c, c.uploadProgress, c.downloadProgress);
-             }];
+           }progressBlock:^(FSNConnection *c) {}];
     
     [connection start];
 }

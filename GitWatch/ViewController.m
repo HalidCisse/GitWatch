@@ -16,8 +16,8 @@
 
 @interface ViewController ()
 
-@property (weak, nonatomic) IBOutlet UITextField *usernameText;
-@property (weak, nonatomic) IBOutlet UITextField *passwordText;
+  @property (weak, nonatomic) IBOutlet UITextField *usernameText;
+  @property (weak, nonatomic) IBOutlet UITextField *passwordText;
 
 @end
 
@@ -34,7 +34,6 @@
     [[[OCTClient signInAsUser:gitUser password:self.passwordText.text oneTimePassword:nil scopes:OCTClientAuthorizationScopesRepository note:nil noteURL:nil fingerprint:nil]
      deliverOnMainThread]
      subscribeNext:^(OCTClient *client) {
-         [MWKProgressIndicator updateProgress:1.00f];
          [MWKProgressIndicator showSuccessMessage:@"success"];
          [Helper saveCredentials:client];
          

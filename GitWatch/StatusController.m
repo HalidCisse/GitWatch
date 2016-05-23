@@ -13,6 +13,7 @@
 #import <DateTools/DateTools.h>
 #import <FSNetworking/FSNConnection.h>
 #import <ObjectiveSugar/ObjectiveSugar.h>
+#import "PullRequestsController.h"
 
 @interface StatusController ()
 
@@ -74,7 +75,15 @@ NSDictionary *parameters;
                     return [c.responseData dictionaryFromJSONWithError:error];
                 }
            completionBlock:^(FSNConnection *c) {
-               self.openPullsLabel.text = [NSString stringWithFormat:@"%@", c.parseResult[@"total_count"]];
+               
+               NSString *pullString = [NSString stringWithFormat:@"%@", c.parseResult[@"total_count"]];
+               self.openPullsLabel.text = pullString;
+               
+               if (pullString.integerValue > 0) {
+                   self.pullCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+               } else {
+                   self.pullCell.accessoryType = UITableViewCellAccessoryNone;
+               }
                
                //NSArray *pull = c.parseResult[@"items"];
                //NSDictionary *firstPull = pull.firstObject;
@@ -140,12 +149,30 @@ NSDictionary *parameters;
 
 - (NSIndexPath *)tableView:(UITableView *)tv willSelectRowAtIndexPath:(NSIndexPath *)path
 {
+    if (path.row == 2) {
+        return path;
+    }
+    
     return nil;
 }
 
 - (BOOL)tableView:(UITableView *)tv shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (indexPath.row == 2) {
+        return true;
+    }
     return false;
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"GoToPulls"])
+    {
+        PullRequestsController *view = (PullRequestsController *) segue.destinationViewController;
+        
+        view.gitClient = self.gitClient;
+        view.repository = self.repository;
+    }
 }
 
 @end

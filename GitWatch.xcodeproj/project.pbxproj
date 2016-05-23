@@ -14,6 +14,10 @@
 		1F0DE9761CEE129600C5315F /* MWKProgressIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F0DE9751CEE129600C5315F /* MWKProgressIndicator.m */; };
 		1F6A992E1CE5F37800B61F50 /* StatusCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F6A992C1CE5F37800B61F50 /* StatusCell.m */; };
 		1F6A992F1CE5F37800B61F50 /* StatusCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F6A992D1CE5F37800B61F50 /* StatusCell.xib */; };
+		1F7BE7D31CEF14A4008A61BE /* CommitCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F7BE7D11CEF14A4008A61BE /* CommitCell.m */; };
+		1F7BE7D41CEF14A4008A61BE /* CommitCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F7BE7D21CEF14A4008A61BE /* CommitCell.xib */; };
+		1F7BE7D81CEF179B008A61BE /* PullModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F7BE7D71CEF179B008A61BE /* PullModel.m */; };
+		1F7BE7DB1CEF17AC008A61BE /* CommitModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F7BE7DA1CEF17AC008A61BE /* CommitModel.m */; };
 		1F9B4B1F1CE3340D00EAFD29 /* RepositoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F9B4B1E1CE3340D00EAFD29 /* RepositoryCell.xib */; };
 		1F9B4B221CE34BE800EAFD29 /* FavoriteRepository.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1F9B4B211CE34BE800EAFD29 /* FavoriteRepository.plist */; };
 		1F9B4B261CE3574A00EAFD29 /* Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F9B4B251CE3574A00EAFD29 /* Helper.m */; };
@@ -49,6 +53,13 @@
 		1F6A992B1CE5F37800B61F50 /* StatusCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusCell.h; sourceTree = "<group>"; };
 		1F6A992C1CE5F37800B61F50 /* StatusCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusCell.m; sourceTree = "<group>"; };
 		1F6A992D1CE5F37800B61F50 /* StatusCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StatusCell.xib; sourceTree = "<group>"; };
+		1F7BE7D01CEF14A4008A61BE /* CommitCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommitCell.h; sourceTree = "<group>"; };
+		1F7BE7D11CEF14A4008A61BE /* CommitCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommitCell.m; sourceTree = "<group>"; };
+		1F7BE7D21CEF14A4008A61BE /* CommitCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommitCell.xib; sourceTree = "<group>"; };
+		1F7BE7D61CEF179B008A61BE /* PullModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PullModel.h; sourceTree = "<group>"; };
+		1F7BE7D71CEF179B008A61BE /* PullModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PullModel.m; sourceTree = "<group>"; };
+		1F7BE7D91CEF17AC008A61BE /* CommitModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommitModel.h; sourceTree = "<group>"; };
+		1F7BE7DA1CEF17AC008A61BE /* CommitModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommitModel.m; sourceTree = "<group>"; };
 		1F9B4B1E1CE3340D00EAFD29 /* RepositoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RepositoryCell.xib; sourceTree = "<group>"; };
 		1F9B4B211CE34BE800EAFD29 /* FavoriteRepository.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = FavoriteRepository.plist; sourceTree = "<group>"; };
 		1F9B4B241CE3574A00EAFD29 /* Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Helper.h; sourceTree = "<group>"; };
@@ -119,8 +130,12 @@
 		1F0DE96F1CEE04CC00C5315F /* PullRequests */ = {
 			isa = PBXGroup;
 			children = (
+				1F7BE7D51CEF177F008A61BE /* Model */,
 				1F0DE9701CEE050800C5315F /* PullRequestsController.h */,
 				1F0DE9711CEE050800C5315F /* PullRequestsController.m */,
+				1F7BE7D01CEF14A4008A61BE /* CommitCell.h */,
+				1F7BE7D11CEF14A4008A61BE /* CommitCell.m */,
+				1F7BE7D21CEF14A4008A61BE /* CommitCell.xib */,
 			);
 			name = PullRequests;
 			sourceTree = "<group>";
@@ -144,6 +159,17 @@
 				1FBECB6E1CE36EC500A057F8 /* OrganisationCellTableViewCell.m */,
 			);
 			name = Organisations;
+			sourceTree = "<group>";
+		};
+		1F7BE7D51CEF177F008A61BE /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				1F7BE7D61CEF179B008A61BE /* PullModel.h */,
+				1F7BE7D71CEF179B008A61BE /* PullModel.m */,
+				1F7BE7D91CEF17AC008A61BE /* CommitModel.h */,
+				1F7BE7DA1CEF17AC008A61BE /* CommitModel.m */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 		1F9B4B1D1CE3337600EAFD29 /* Repositories */ = {
@@ -322,6 +348,7 @@
 				1F9B4B221CE34BE800EAFD29 /* FavoriteRepository.plist in Resources */,
 				1F9F5EB61CE086FF004D73D3 /* Main.storyboard in Resources */,
 				1FB4AD9A1CEA256D002B12A1 /* RepositoryIntervals.plist in Resources */,
+				1F7BE7D41CEF14A4008A61BE /* CommitCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -399,10 +426,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F7BE7D31CEF14A4008A61BE /* CommitCell.m in Sources */,
 				1F9F5EB31CE086FF004D73D3 /* ViewController.m in Sources */,
 				1F6A992E1CE5F37800B61F50 /* StatusCell.m in Sources */,
 				1F9F5EB01CE086FF004D73D3 /* AppDelegate.m in Sources */,
+				1F7BE7D81CEF179B008A61BE /* PullModel.m in Sources */,
 				1F9F5ED51CE09681004D73D3 /* OrganisationsController.m in Sources */,
+				1F7BE7DB1CEF17AC008A61BE /* CommitModel.m in Sources */,
 				1FBECB6F1CE36EC500A057F8 /* OrganisationCellTableViewCell.m in Sources */,
 				1F9F5EAD1CE086FF004D73D3 /* main.m in Sources */,
 				1FB4AD981CE9BF5B002B12A1 /* RepositoryController.m in Sources */,

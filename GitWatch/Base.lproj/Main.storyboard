@@ -555,6 +555,9 @@
                                                 <constraint firstItem="yhg-8t-y7S" firstAttribute="top" secondItem="6dg-ed-63A" secondAttribute="topMargin" constant="-1" id="yQX-nI-T2x"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="MaO-G4-M6p" kind="show" identifier="GoToPulls" id="dB9-FX-jQz"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="cc0-W6-7YS">
                                         <rect key="frame" x="0.0" y="132" width="600" height="44"/>
@@ -755,11 +758,30 @@
                         <outlet property="locTotal" destination="jC9-Ng-CHq" id="Nkm-FL-cfW"/>
                         <outlet property="openIssuesLabel" destination="xfw-I1-B0N" id="4IN-Be-jwF"/>
                         <outlet property="openPullsLabel" destination="yhg-8t-y7S" id="FTv-Yr-Swj"/>
+                        <outlet property="pullCell" destination="ygO-5D-yBB" id="f5Q-Ws-gUC"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="m7L-3F-fVj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3445" y="-363"/>
+            <point key="canvasLocation" x="3636" y="-363"/>
+        </scene>
+        <!--Pull Requests Controller-->
+        <scene sceneID="JoI-be-ncj">
+            <objects>
+                <tableViewController id="MaO-G4-M6p" customClass="PullRequestsController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="Isd-iW-a5D">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="420"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <connections>
+                            <outlet property="dataSource" destination="MaO-G4-M6p" id="jrK-sX-7d7"/>
+                            <outlet property="delegate" destination="MaO-G4-M6p" id="W2O-ay-Wgz"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KTB-sX-dH1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4419" y="-363"/>
         </scene>
         <!--Organisations Controller-->
         <scene sceneID="LnB-Av-1Q7">
