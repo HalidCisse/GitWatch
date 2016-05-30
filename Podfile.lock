@@ -2,6 +2,7 @@ PODS:
   - AMSmoothAlert (1.1):
     - GPUImage
   - DateTools (1.7.0)
+  - DCKit (1.0.4)
   - FSNetworking (0.0.1)
   - GPUImage (0.1.7)
   - ObjectiveSugar (1.1.0)
@@ -13,6 +14,7 @@ PODS:
 DEPENDENCIES:
   - AMSmoothAlert (~> 1.0)
   - DateTools
+  - DCKit
   - FSNetworking
   - ObjectiveSugar
   - SDWebImage (~> 3.7)
@@ -21,12 +23,13 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   AMSmoothAlert: 108cf0fc3eea9256ccfdcd9deaa283999ac1e47e
   DateTools: 53288ee8b905fdc75897a1e6b5cc0144b14cba60
+  DCKit: 0c3fb43b5fa98664e20c760d2c9545d7eeec10dc
   FSNetworking: 596048151bffc5917b2bcfa3a840624f49e309fa
   GPUImage: 733a5f0fab92df9de1c37ba9df520a833ccb406d
   ObjectiveSugar: a6a25f23d657c19df0a0b972466d5b5ca9f5295c
   SDWebImage: c325cf02c30337336b95beff20a13df489ec0ec9
   SSKeychain: c71293fa57216a40ab06c23f4085387583293de4
 
-PODFILE CHECKSUM: 5db7680cbba908f250b437aecf3887360629cd4e
+PODFILE CHECKSUM: 81ace1b808db5e95282cd3b77377d868b9ba2782
 
 COCOAPODS: 1.0.0

@@ -16,15 +16,27 @@
 
 @interface ViewController ()
 
+@property (weak, nonatomic) IBOutlet UIButton *loginButton;
+
 @end
 
 @implementation ViewController
 
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
+}
+
+
 - (IBAction)OnLogin_Click:(id)sender
 {
-    [MWKProgressIndicator show];
-    [MWKProgressIndicator updateMessage:@"connecting ..."];
-    [MWKProgressIndicator updateProgress:0.5f];
+    [self setNeedsStatusBarAppearanceUpdate];
+    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
+    
+    
+//    [MWKProgressIndicator show];
+//    [MWKProgressIndicator updateMessage:@"connecting ..."];
+//    [MWKProgressIndicator updateProgress:0.5f];
     
     [[[OCTClient
        signInToServerUsingWebBrowser:OCTServer.dotComServer scopes:OCTClientAuthorizationScopesRepository | OCTClientAuthorizationScopesUser | OCTClientAuthorizationScopesRepositoryStatus] deliverOnMainThread]
@@ -58,36 +70,13 @@
              [alert show];
          }
      }];
-    
-    
-//    [MWKProgressIndicator show];
-//    [MWKProgressIndicator updateMessage:@"connecting ..."];
-//    [MWKProgressIndicator updateProgress:0.5f];
-//    
-//    [[[OCTClient
-//      signInToServerUsingWebBrowser:OCTServer.dotComServer scopes:OCTClientAuthorizationScopesRepository | OCTClientAuthorizationScopesUser | OCTClientAuthorizationScopesNotifications] deliverOnMainThread]
-//     subscribeNext:^(OCTClient *client) {
-//                  [MWKProgressIndicator showSuccessMessage:@"success"];
-//                  [Helper saveCredentials:client];
-//         
-//                  HomeController *view = [self.storyboard instantiateViewControllerWithIdentifier:@"HomeController"];
-//                  view.gitClient = client;
-//                  [self.navigationController pushViewController:view animated:YES];
-//     } error:^(NSError *error) {
-//         [MWKProgressIndicator dismiss];
-//                  AMSmoothAlertView *alert = [[AMSmoothAlertView alloc] initDropAlertWithTitle:@"Error" andText:@"Can't login please check your credentials" andCancelButton:false forAlertType:AlertFailure ];
-//         
-//                  [alert setTitleFont:[UIFont fontWithName:@"Verdana" size:25.0f]];
-//                  [alert setTextFont:[UIFont fontWithName:@"Futura-Medium" size:13.0f]];
-//                  [alert.logoView setImage:[UIImage imageNamed:@"checkmark"]];
-//                  
-//                  [alert show];
-//     }];
-    
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.loginButton.layer.cornerRadius = 27.5;
+    self.loginButton.clipsToBounds = YES;
     
     [Helper clearCredentials];
 }

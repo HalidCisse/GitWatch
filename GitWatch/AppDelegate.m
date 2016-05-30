@@ -19,6 +19,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
+    [NSThread sleepForTimeInterval:3.0];
     // set the github Auth client
     [OCTClient setClientID:@"84291409629d7f93ab31" clientSecret:@"299b432a32332b5926c5bb12887ac89b46bbcfa4"];
     return YES;

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" initialViewController="01J-lp-oVM">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -16,7 +16,45 @@
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg" translatesAutoresizingMaskIntoConstraints="NO" id="wxq-bM-M6t">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Graphic Illustration" translatesAutoresizingMaskIntoConstraints="NO" id="LhA-OA-f65">
+                                <rect key="frame" x="0.0" y="429" width="600" height="171"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="GitWatch" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rjg-wV-eDz">
+                                <rect key="frame" x="243" y="289" width="115" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="wxf-f4-KhP"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="GitHub-Mark-Light-64px" translatesAutoresizingMaskIntoConstraints="NO" id="Crg-2A-e9Q">
+                                <rect key="frame" x="269" y="204" width="63" height="63"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="63" id="kSc-8Q-NyT"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="LhA-OA-f65" firstAttribute="bottom" secondItem="xb3-aO-Qok" secondAttribute="top" id="10C-AC-051"/>
+                            <constraint firstItem="wxq-bM-M6t" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="529-Xu-Fmv"/>
+                            <constraint firstItem="rjg-wV-eDz" firstAttribute="top" secondItem="Crg-2A-e9Q" secondAttribute="bottom" constant="22" id="5fb-H4-UYa"/>
+                            <constraint firstItem="wxq-bM-M6t" firstAttribute="leading" secondItem="LhA-OA-f65" secondAttribute="leading" id="HqO-ut-kVq"/>
+                            <constraint firstItem="Crg-2A-e9Q" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="184" id="L0j-2v-l3A"/>
+                            <constraint firstItem="Crg-2A-e9Q" firstAttribute="centerX" secondItem="rjg-wV-eDz" secondAttribute="centerX" id="Mpx-QD-FSX"/>
+                            <constraint firstAttribute="trailing" secondItem="wxq-bM-M6t" secondAttribute="trailing" id="QGn-jX-Diw"/>
+                            <constraint firstItem="wxq-bM-M6t" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="SI2-l8-dVi"/>
+                            <constraint firstItem="wxq-bM-M6t" firstAttribute="trailing" secondItem="LhA-OA-f65" secondAttribute="trailing" id="Tne-9O-vR3"/>
+                            <constraint firstItem="rjg-wV-eDz" firstAttribute="centerX" secondItem="LhA-OA-f65" secondAttribute="centerX" id="bVn-Xd-hBK"/>
+                            <constraint firstItem="wxq-bM-M6t" firstAttribute="bottom" secondItem="xb3-aO-Qok" secondAttribute="top" id="fjv-Vh-5eA"/>
+                            <constraint firstItem="wxq-bM-M6t" firstAttribute="centerY" secondItem="rjg-wV-eDz" secondAttribute="centerY" id="qwj-hx-GK7"/>
+                            <constraint firstItem="LhA-OA-f65" firstAttribute="top" secondItem="rjg-wV-eDz" secondAttribute="bottom" constant="119" id="yOt-yw-hIA"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -24,4 +62,9 @@
             <point key="canvasLocation" x="53" y="375"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="GitHub-Mark-Light-64px" width="64" height="64"/>
+        <image name="Graphic Illustration" width="375" height="190"/>
+        <image name="bg" width="375" height="667"/>
+    </resources>
 </document>

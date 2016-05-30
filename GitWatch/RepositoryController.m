@@ -29,7 +29,7 @@
 {
     [super viewDidLoad];
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Settings" style:UIBarButtonItemStyleDone target:self action: @selector(settingsClicked:)];
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"settings" style:UIBarButtonItemStyleDone target:self action: @selector(settingsClicked:)];
     
     [self fetchLastUpdate];
 }
@@ -75,6 +75,12 @@
     if ([segue.identifier isEqualToString:@"statusView_embed"])
     {
         StatusController *view = (StatusController *) segue.destinationViewController;
+        
+        view.gitClient = self.gitClient;
+        view.repository = self.repository;
+    } else if ([segue.identifier isEqualToString:@"GoToSettings"])
+    {
+        SettingsController *view = (SettingsController *) segue.destinationViewController;
         
         view.gitClient = self.gitClient;
         view.repository = self.repository;
