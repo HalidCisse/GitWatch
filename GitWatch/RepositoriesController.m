@@ -9,6 +9,7 @@
 #import "RepositoriesController.h"
 #import "RepositoryCell.h"
 #import "Helper.h"
+#import "ColorHelper.h"
 
 @interface RepositoriesController ()
 
@@ -21,10 +22,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    //[self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-    //self.parentViewController.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"common_bg"]];
-    //self.tableView.backgroundColor = [UIColor clearColor];
-    self.tableView.contentInset = UIEdgeInsetsMake(5, 0, 0, 0);
+    self.tableView.tableFooterView = [UIView new];
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    
+    //self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
+    self.navigationController.navigationBar.backgroundColor = [ColorHelper colorFromHexString:@"313B47"];
+    
+    //self.tableView.contentInset = UIEdgeInsetsMake(5, 0, 0, 0);
     
     self.title = [NSString stringWithFormat:@"%@ Repositories", self.organisation.name];
     
@@ -61,22 +65,39 @@
         cell = [nib objectAtIndex:0];
     }
     
+    cell.contentView.userInteractionEnabled = true;
+    
+//    [cell.checkbox setBackgroundImage:[UIImage imageNamed:@"normalCheckbox"]
+//                         forState:UIControlStateNormal];
+//    
+//    [cell.checkbox setBackgroundImage:[UIImage imageNamed:@"selectedCheckbox"]
+//                         forState:UIControlStateSelected];
+//    
+//    [cell.checkbox setBackgroundImage:[UIImage imageNamed:@"selectedCheckbox"]
+//                         forState:UIControlStateHighlighted];
+    
+    [cell.checkbox setImage:[UIImage imageNamed:@"normalCheckbox"] forState:UIControlStateNormal];
+    [cell.checkbox setImage:[UIImage imageNamed:@"selectedCheckbox"] forState:UIControlStateHighlighted];
+    [cell.checkbox setImage:[UIImage imageNamed:@"selectedCheckbox"] forState:UIControlStateSelected];
+    
+    [cell.checkbox setImage:[UIImage imageNamed:@"normalCheckbox"] forState:UIControlStateSelected | UIControlStateHighlighted];
+    
+    
     OCTRepository *repo =[self.repositories objectAtIndex:indexPath.row];
     
     cell.repositoryName.text = repo.name;
-    cell.repositoryImage.image = [UIImage imageNamed:@"repoIcon.png"];;
-    cell.isFavoriteRepository.on = [Helper isFavorite:repo.name];
+    cell.repositoryImage.image = [UIImage imageNamed:@"repoIcon.png"];
     
-    //cell.accessoryType = UITableViewCellAccessoryDetailButton;
+    [cell.checkbox setSelected:[Helper isFavorite:repo.name]];
+        
+    cell.repositoryImage.layer.cornerRadius = 5;
+    cell.repositoryImage.layer.masksToBounds = YES;
     
-    // Assign our own background image for the cell
-//    UIImage *background = [self cellBackgroundForRowAtIndexPath:indexPath];
-//    
-//    UIImageView *cellBackgroundView = [[UIImageView alloc] initWithImage:background];
-//    cellBackgroundView.image = background;
-//    cell.backgroundView = cellBackgroundView;
-    
+    cell.layoutMargins = UIEdgeInsetsZero;
+    cell.preservesSuperviewLayoutMargins = NO;
+    cell.accessoryType = UITableViewCellAccessoryNone;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
     return cell;
 }
 
@@ -90,25 +111,8 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 100;
+    return 75;
 }
-
-//- (UIImage *)cellBackgroundForRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    NSInteger rowCount = [self tableView:[self tableView] numberOfRowsInSection:0];
-//    NSInteger rowIndex = indexPath.row;
-//    UIImage *background = nil;
-//    
-//    if (rowIndex == 0) {
-//        background = [UIImage imageNamed:@"cell_top.png"];
-//    } else if (rowIndex == rowCount - 1) {
-//        background = [UIImage imageNamed:@"cell_bottom.png"];
-//    } else {
-//        background = [UIImage imageNamed:@"cell_middle.png"];
-//    }
-//    
-//    return background;
-//}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
@@ -127,18 +131,5 @@
     [view setAlpha:0.0F];
     return view;
 }
-
-//- (void)tableView:(UITableView *)tableView willDisplayCell:(RepositoryCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//        cell.contentView.backgroundColor = [UIColor clearColor];
-//        UIView *whiteRoundedCornerView = [[UIView alloc] initWithFrame:CGRectMake(0,0, self.tableView.frame.size.width - 10,100)];
-//        whiteRoundedCornerView.backgroundColor = [UIColor whiteColor];
-//        whiteRoundedCornerView.layer.masksToBounds = NO;
-//        whiteRoundedCornerView.layer.cornerRadius = 3.0;
-//        whiteRoundedCornerView.layer.shadowOffset = CGSizeMake(-1, 1);
-//        whiteRoundedCornerView.layer.shadowOpacity = 0.5;
-//        [cell.contentView addSubview:whiteRoundedCornerView];
-//        [cell.contentView sendSubviewToBack:whiteRoundedCornerView];
-//}
 
 @end

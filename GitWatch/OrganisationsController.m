@@ -9,10 +9,22 @@
 #import "OrganisationsController.h"
 #import <OctoKit/OctoKit.h>
 #import "RepositoriesController.h"
+#import <SDWebImage/UIImageView+WebCache.h>
+#import "NS-Extensions.h"
+#import "OrganizationCell.h"
+#import "ColorHelper.h"
+#import "HomeController.h"
+#import "ViewController.h"
+#import "Helper.h"
 
 @interface OrganisationsController ()
 
+
+@property (weak, nonatomic) IBOutlet UIView *tableFooterView;
+
 @property NSMutableArray *organisations;
+
+- (IBAction)onDoneClick:(id)sender;
 
 @end
 
@@ -20,13 +32,22 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Uncomment the following line to preserve selection between presentations.
+    
     self.clearsSelectionOnViewWillAppear = NO;
+    self.tableView.tableFooterView = [UIView new];
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
+    self.navigationController.navigationBar.backgroundColor = [ColorHelper colorFromHexString:@"313B47"];
     
-    self.title = [NSString stringWithFormat:@"%@ Organisations", self.gitClient.user.name];
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setImage:[UIImage imageNamed:@"logout"] forState:UIControlStateNormal];
+    button.frame = CGRectMake(0, 0, 30, 30);
+    [button addTarget:self action:@selector(onLogout:) forControlEvents:UIControlEventTouchUpInside];
+    
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+    
+    self.title = @"Organizations";
     self.organisations = [[NSMutableArray alloc] init];
     
     RACSignal *request = [self.gitClient fetchUserOrganizations];
@@ -46,6 +67,7 @@
     } ];
 }
 
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
@@ -56,46 +78,51 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    static NSString *simpleTableIdentifier = @"cell";
+    static NSString *identifier = @"OrganizationCell";
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
-    
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:simpleTableIdentifier];
+    OrganizationCell *cell = (OrganizationCell *)[tableView dequeueReusableCellWithIdentifier:identifier];
+    if (cell == nil)
+    {
+        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"OrganizationCell" owner:self options:nil];
+        cell = [nib objectAtIndex:0];
     }
     
     OCTOrganization *org =[self.organisations objectAtIndex:indexPath.row];
-    cell.textLabel.text = org.name;
-    cell.detailTextLabel.text = [[NSString alloc] initWithFormat:@"%lu repositories", org.publicRepoCount + org.privateRepoCount];
+    cell.organizationName.text = org.name;
+    [cell.organizationLogo sd_setImageWithURL:org.avatarURL placeholderImage:[UIImage imageNamed:@"repoIcon.png"]];
     
-    cell.imageView.image = [UIImage imageNamed:@"repoIcon.png"];
     
-    dispatch_queue_t concurrentQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    dispatch_async(concurrentQueue, ^{
-        NSData *image = [[NSData alloc] initWithContentsOfURL:org.avatarURL];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            cell.imageView.image = [UIImage imageWithData:image];
-        });
-    });
+    cell.organizationLogo.layer.cornerRadius = 5;
+    cell.organizationLogo.layer.masksToBounds = YES;
     
+    cell.layoutMargins = UIEdgeInsetsZero;
+    cell.preservesSuperviewLayoutMargins = NO;
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    
-    //cell.accessoryView = [[UIImageView alloc]initWithImage:
-                          //[UIImage imageNamed:@"acces.png"]];
-    //cell.frame = CGRectMake(cell.frame.origin.x, cell.frame.origin.x, 5, 5);
-    
-//    UIImage *indicatorImage = [UIImage imageNamed:@"acces"];
-//    UIImageView *view = [[UIImageView alloc] initWithImage:indicatorImage];
-//    view.frame = CGRectMake(cell.frame.origin.x, cell.frame.origin.x, 5, 5);
-//    [view setContentMode:UIViewContentModeLeft];//without this line the image will just be stretched;
-//    cell.accessoryView = view;
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 70;
+    return 60;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self performSegueWithIdentifier:@"GoToRepos" sender:self];
+}
+
+- (void)onLogout:(id)sender{
+    [Helper clearCredentials];
+    ViewController *view = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginController"];
+    [self.navigationController pushViewController:view animated:YES];
+}
+
+- (void)onDoneClick:(id)sender{
+    
+    HomeController *view = [self.storyboard instantiateViewControllerWithIdentifier:@"HomeController"];
+    view.gitClient = self.gitClient;
+    [self.navigationController pushViewController:view animated:YES];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender

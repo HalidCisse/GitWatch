@@ -11,7 +11,9 @@
 @interface RepositoryCell : UITableViewCell
 
 @property (nonatomic, weak) IBOutlet UILabel *repositoryName;
-@property (nonatomic, weak) IBOutlet UISwitch *isFavoriteRepository;
+@property (weak, nonatomic) IBOutlet UIButton *checkbox;
 @property (nonatomic, weak) IBOutlet UIImageView *repositoryImage;
+
+- (IBAction)checkboxSelected:(id)sender;
 
 @end

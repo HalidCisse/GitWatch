@@ -22,6 +22,25 @@
 
 @implementation ViewController
 
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
+    
+    self.loginButton.layer.cornerRadius = 27.5;
+    self.loginButton.clipsToBounds = YES;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [self.navigationController setNavigationBarHidden:YES animated:animated];
+    [super viewWillAppear:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [self.navigationController setNavigationBarHidden:NO animated:animated];
+    [super viewWillDisappear:animated];
+}
+
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
     return UIStatusBarStyleLightContent;
@@ -30,8 +49,8 @@
 
 - (IBAction)OnLogin_Click:(id)sender
 {
-    [self setNeedsStatusBarAppearanceUpdate];
-    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
+    //[self setNeedsStatusBarAppearanceUpdate];
+    
     
     
 //    [MWKProgressIndicator show];
@@ -41,7 +60,7 @@
     [[[OCTClient
        signInToServerUsingWebBrowser:OCTServer.dotComServer scopes:OCTClientAuthorizationScopesRepository | OCTClientAuthorizationScopesUser | OCTClientAuthorizationScopesRepositoryStatus] deliverOnMainThread]
      subscribeNext:^(OCTClient *client) {
-         [MWKProgressIndicator showSuccessMessage:@"success"];
+         //[MWKProgressIndicator showSuccessMessage:@"success"];
          [Helper saveCredentials:client];
          
          HomeController *view = [self.storyboard instantiateViewControllerWithIdentifier:@"HomeController"];
@@ -70,25 +89,6 @@
              [alert show];
          }
      }];
-}
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    
-    self.loginButton.layer.cornerRadius = 27.5;
-    self.loginButton.clipsToBounds = YES;
-    
-    [Helper clearCredentials];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [self.navigationController setNavigationBarHidden:YES animated:animated];
-    [super viewWillAppear:animated];
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [self.navigationController setNavigationBarHidden:NO animated:animated];
-    [super viewWillDisappear:animated];
 }
 
 @end

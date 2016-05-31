@@ -197,8 +197,7 @@
     cell.additions.text = commit.additions;
     cell.deletions.text = commit.deletions;
     
-    [cell.commiterImage sd_setImageWithURL:[NSURL URLWithString: commit.authorImage]
-                      placeholderImage:[UIImage imageNamed:@"octokat"]];
+    [cell.commiterImage sd_setImageWithURL:[NSURL URLWithString: commit.authorImage] placeholderImage:[UIImage imageNamed:@"octokat"]];
     
     cell.accessoryType = UITableViewCellAccessoryNone;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;

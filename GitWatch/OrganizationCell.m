@@ -1,14 +1,14 @@
 //
-//  OrganisationCellTableViewCell.m
+//  OrganizationCell.m
 //  GitWatch
 //
-//  Created by Halid Cisse on 5/11/16.
+//  Created by Halid Cisse on 5/31/16.
 //  Copyright © 2016 Halid Cisse. All rights reserved.
 //
 
-#import "OrganisationCellTableViewCell.h"
+#import "OrganizationCell.h"
 
-@implementation OrganisationCellTableViewCell
+@implementation OrganizationCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -20,6 +20,5 @@
 
     // Configure the view for the selected state
 }
-
 
 @end
