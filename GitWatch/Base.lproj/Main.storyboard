@@ -860,45 +860,16 @@
         <!--Organisations Controller-->
         <scene sceneID="LnB-Av-1Q7">
             <objects>
-                <tableViewController id="gZP-Xi-VXG" customClass="OrganisationsController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="70" sectionHeaderHeight="28" sectionFooterHeight="28" id="w3X-wk-76b">
+                <tableViewController storyboardIdentifier="OrganisationsController" id="gZP-Xi-VXG" customClass="OrganisationsController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="70" sectionHeaderHeight="28" sectionFooterHeight="28" id="w3X-wk-76b">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="D7s-zS-9om">
-                            <rect key="frame" x="0.0" y="162" width="600" height="5"/>
+                            <rect key="frame" x="0.0" y="64" width="600" height="0.0"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </view>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" textLabel="e2I-fj-jrt" imageView="1Mg-DD-fYW" style="IBUITableViewCellStyleDefault" id="cA8-Xg-NhP">
-                                <rect key="frame" x="0.0" y="92" width="600" height="70"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cA8-Xg-NhP" id="uqb-sn-5pz">
-                                    <rect key="frame" x="0.0" y="0.0" width="567" height="69"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Hidden Founders" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="e2I-fj-jrt">
-                                            <rect key="frame" x="83" y="0.0" width="482" height="69"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="repoIcon" id="1Mg-DD-fYW">
-                                            <rect key="frame" x="15" y="0.0" width="53" height="69"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <accessibility key="accessibilityConfiguration" identifier="orgCell"/>
-                                        </imageView>
-                                    </subviews>
-                                </tableViewCellContentView>
-                                <accessibility key="accessibilityConfiguration" identifier="cell"/>
-                                <connections>
-                                    <segue destination="WoK-id-kRM" kind="show" identifier="GoToRepos" id="ZYZ-m3-YKi"/>
-                                </connections>
-                            </tableViewCell>
-                        </prototypes>
                         <sections/>
                         <connections>
                             <outlet property="dataSource" destination="gZP-Xi-VXG" id="ScX-BH-nOs"/>
@@ -907,6 +878,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="eGV-W8-zpA">
                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="7px-t3-eHf">
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="onDoneClick:" destination="gZP-Xi-VXG" id="x2C-Ko-FoQ"/>
                             </connections>
@@ -914,6 +886,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="tableFooterView" destination="D7s-zS-9om" id="MLb-yF-1Sz"/>
+                        <segue destination="WoK-id-kRM" kind="show" identifier="GoToRepos" id="5NT-9b-s7a"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rGz-wA-yjR" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -992,12 +965,12 @@
         <scene sceneID="3JU-Vk-JBF">
             <objects>
                 <tableViewController id="WoK-id-kRM" customClass="RepositoriesController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="100" sectionHeaderHeight="28" sectionFooterHeight="28" id="dJK-mi-tcM">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="100" sectionHeaderHeight="1" sectionFooterHeight="1" id="dJK-mi-tcM">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="gdc-NJ-PP1">
-                            <rect key="frame" x="0.0" y="64" width="600" height="5"/>
+                            <rect key="frame" x="0.0" y="64" width="600" height="0.0"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </view>
@@ -1043,6 +1016,5 @@
         <image name="Octocat" width="800" height="665"/>
         <image name="bg" width="375" height="667"/>
         <image name="flech" width="20" height="19"/>
-        <image name="repoIcon" width="231" height="303"/>
     </resources>
 </document>

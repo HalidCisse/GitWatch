@@ -8,6 +8,7 @@
 
 #import "RepositoriesController.h"
 #import "RepositoryCell.h"
+#import "OrganisationsController.h"
 #import "Helper.h"
 #import "ColorHelper.h"
 
@@ -24,13 +25,22 @@
     
     self.tableView.tableFooterView = [UIView new];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-    UIImage *temp = [[UIImage imageNamed:@"BackChevron"] imageWithRenderingMode: UIImageRenderingModeAlwaysOriginal];
-    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithImage:temp style:UIBarButtonItemStyleBordered target:self action:@selector(onBackClick)];
-    self.navigationController.navigationBar. = backButton;
+    
+    self.tableView.delegate = self;
+    [self.tableView reloadData];
+    
+    UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [backButton setFrame:CGRectMake(0,0,12.5,21)];
+    backButton.userInteractionEnabled = YES;
+    [backButton setImage:[UIImage imageNamed:@"BackChevron"] forState:UIControlStateNormal];
+    
+    [backButton addTarget:self action:@selector(onBackClick:) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIBarButtonItem *refreshBarButton = [[UIBarButtonItem alloc] initWithCustomView:backButton];
+    self.navigationItem.leftBarButtonItem = refreshBarButton;
+    
     
     self.navigationController.navigationBar.backgroundColor = [ColorHelper colorFromHexString:@"313B47"];
-    
-    //self.tableView.contentInset = UIEdgeInsetsMake(5, 0, 0, 0);
     
     self.title = [NSString stringWithFormat:@"%@ Repositories", self.organisation.name];
     
@@ -70,11 +80,8 @@
     cell.contentView.userInteractionEnabled = true;
     
     [cell.checkbox setImage:[UIImage imageNamed:@"normalCheckbox"] forState:UIControlStateNormal];
-    
     [cell.checkbox setImage:[UIImage imageNamed:@"selectedCheckbox"] forState:UIControlStateSelected];
-    
     [cell.checkbox setImage:[UIImage imageNamed:@"selectedCheckbox"] forState:UIControlStateHighlighted];
-    
     [cell.checkbox setImage:[UIImage imageNamed:@"selectedCheckbox"] forState:UIControlStateSelected | UIControlStateHighlighted];
     
     
@@ -112,6 +119,7 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
 }
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return [self.repositories count];
 }
@@ -128,11 +136,9 @@
 }
 
 - (void)onBackClick:(id)sender{
-    
-    HomeController *view = [self.storyboard instantiateViewControllerWithIdentifier:@"HomeController"];
+    OrganisationsController *view = [self.storyboard instantiateViewControllerWithIdentifier:@"OrganisationsController"];
     view.gitClient = self.gitClient;
-    [self.navigationController pushViewController:view animated:YES];
+    [self.navigationController popViewControllerAnimated:YES];
 }
-
 
 @end
