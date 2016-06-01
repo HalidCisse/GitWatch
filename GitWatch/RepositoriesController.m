@@ -11,6 +11,7 @@
 #import "OrganisationsController.h"
 #import "Helper.h"
 #import "ColorHelper.h"
+#import "Dashboard.h"
 
 @interface RepositoriesController ()
 
@@ -28,9 +29,6 @@
     self.tableView.tableFooterView = [UIView new];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     
-    //self.tableView.delegate = self;
-    //[self.tableView reloadData];
-    
     UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [backButton setFrame:CGRectMake(0,0,12.5,21)];
     backButton.userInteractionEnabled = YES;
@@ -41,7 +39,7 @@
     UIBarButtonItem *refreshBarButton = [[UIBarButtonItem alloc] initWithCustomView:backButton];
     self.navigationItem.leftBarButtonItem = refreshBarButton;
     
-    
+    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
     self.navigationController.navigationBar.backgroundColor = [ColorHelper colorFromHexString:@"313B47"];
     
     self.title = [NSString stringWithFormat:@"%@ Repositories", self.organisation.name];
@@ -144,11 +142,8 @@
 }
 
 - (IBAction)onDone:(id)sender {
-    OrganisationsController *view = [self.storyboard instantiateViewControllerWithIdentifier:@"HomeController"];
-    //view.gitClient = self.gitClient;
-    //[self.navigationController popViewControllerAnimated:YES];
-    
-    //AboutShowViewController *aboutShowViewController = [[AboutShowViewController alloc] initWithNibName:@"AboutShowViewController" bundle:[NSBundle mainBundle]];
+    Dashboard *view = [self.storyboard instantiateViewControllerWithIdentifier:@"Dashboard"];
+    view.refresh = true;
     
     [UIView beginAnimations:@"View Flip" context:nil];
     [UIView setAnimationDuration:0.80];
@@ -160,4 +155,6 @@
     [self.navigationController pushViewController:view animated:YES];
     [UIView commitAnimations];
 }
+
+
 @end

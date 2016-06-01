@@ -32,8 +32,8 @@
     self.navigationController.navigationBar.barStyle = UIBarStyleDefault;
     
     self.repositories = [[NSMutableArray alloc] init];
-    self.tableView.dataSource = self;
-    self.tableView.delegate = self;
+    //self.tableView.dataSource = self;
+    //self.tableView.delegate = self;
     self.tableView.separatorColor = [UIColor clearColor];
     
     NSString *login = [Helper getLogin];
@@ -158,7 +158,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 100;
+    return 66;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

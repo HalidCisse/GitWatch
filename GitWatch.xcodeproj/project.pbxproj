@@ -12,6 +12,11 @@
 		1F0DA3871CE490D5005DBE35 /* HomeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F0DA3861CE490D5005DBE35 /* HomeController.m */; };
 		1F0DE9721CEE050800C5315F /* PullRequestsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F0DE9711CEE050800C5315F /* PullRequestsController.m */; };
 		1F0DE9761CEE129600C5315F /* MWKProgressIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F0DE9751CEE129600C5315F /* MWKProgressIndicator.m */; };
+		1F147D821CFEFE9A0024F773 /* Dashboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F147D811CFEFE9A0024F773 /* Dashboard.m */; };
+		1F147D861CFEFEEF0024F773 /* DashCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F147D841CFEFEEF0024F773 /* DashCell.m */; };
+		1F147D871CFEFEEF0024F773 /* DashCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F147D851CFEFEEF0024F773 /* DashCell.xib */; };
+		1F147D8D1CFF27170024F773 /* Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F147D8C1CFF27170024F773 /* Settings.m */; };
+		1F147D901CFF27E40024F773 /* RepoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F147D8F1CFF27E40024F773 /* RepoView.m */; };
 		1F6A992E1CE5F37800B61F50 /* StatusCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F6A992C1CE5F37800B61F50 /* StatusCell.m */; };
 		1F6A992F1CE5F37800B61F50 /* StatusCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F6A992D1CE5F37800B61F50 /* StatusCell.xib */; };
 		1F7BE7D31CEF14A4008A61BE /* CommitCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F7BE7D11CEF14A4008A61BE /* CommitCell.m */; };
@@ -53,6 +58,15 @@
 		1F0DE9711CEE050800C5315F /* PullRequestsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PullRequestsController.m; sourceTree = "<group>"; };
 		1F0DE9741CEE129600C5315F /* MWKProgressIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWKProgressIndicator.h; sourceTree = "<group>"; };
 		1F0DE9751CEE129600C5315F /* MWKProgressIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKProgressIndicator.m; sourceTree = "<group>"; };
+		1F147D801CFEFE9A0024F773 /* Dashboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Dashboard.h; sourceTree = "<group>"; };
+		1F147D811CFEFE9A0024F773 /* Dashboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Dashboard.m; sourceTree = "<group>"; };
+		1F147D831CFEFEEF0024F773 /* DashCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashCell.h; sourceTree = "<group>"; };
+		1F147D841CFEFEEF0024F773 /* DashCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashCell.m; sourceTree = "<group>"; };
+		1F147D851CFEFEEF0024F773 /* DashCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DashCell.xib; sourceTree = "<group>"; };
+		1F147D8B1CFF27170024F773 /* Settings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Settings.h; sourceTree = "<group>"; };
+		1F147D8C1CFF27170024F773 /* Settings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Settings.m; sourceTree = "<group>"; };
+		1F147D8E1CFF27E40024F773 /* RepoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RepoView.h; sourceTree = "<group>"; };
+		1F147D8F1CFF27E40024F773 /* RepoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepoView.m; sourceTree = "<group>"; };
 		1F6A992B1CE5F37800B61F50 /* StatusCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusCell.h; sourceTree = "<group>"; };
 		1F6A992C1CE5F37800B61F50 /* StatusCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusCell.m; sourceTree = "<group>"; };
 		1F6A992D1CE5F37800B61F50 /* StatusCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StatusCell.xib; sourceTree = "<group>"; };
@@ -132,6 +146,13 @@
 				1F9F5EB21CE086FF004D73D3 /* ViewController.m */,
 				1F0DA3851CE490D5005DBE35 /* HomeController.h */,
 				1F0DA3861CE490D5005DBE35 /* HomeController.m */,
+				1F147D801CFEFE9A0024F773 /* Dashboard.h */,
+				1F147D811CFEFE9A0024F773 /* Dashboard.m */,
+				1F147D831CFEFEEF0024F773 /* DashCell.h */,
+				1F147D841CFEFEEF0024F773 /* DashCell.m */,
+				1F147D851CFEFEEF0024F773 /* DashCell.xib */,
+				1F147D8B1CFF27170024F773 /* Settings.h */,
+				1F147D8C1CFF27170024F773 /* Settings.m */,
 			);
 			name = Home;
 			sourceTree = "<group>";
@@ -198,6 +219,8 @@
 				1FB4AD971CE9BF5B002B12A1 /* RepositoryController.m */,
 				1FDA29331CF34BFA00528BA6 /* SettingsController.h */,
 				1FDA29341CF34BFA00528BA6 /* SettingsController.m */,
+				1F147D8E1CFF27E40024F773 /* RepoView.h */,
+				1F147D8F1CFF27E40024F773 /* RepoView.m */,
 			);
 			name = Repositories;
 			sourceTree = "<group>";
@@ -357,6 +380,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1F9F5EBB1CE086FF004D73D3 /* LaunchScreen.storyboard in Resources */,
+				1F147D871CFEFEEF0024F773 /* DashCell.xib in Resources */,
 				1F9F5EB81CE086FF004D73D3 /* Assets.xcassets in Resources */,
 				1F6A992F1CE5F37800B61F50 /* StatusCell.xib in Resources */,
 				1FE63DF51CFD91B300CE28FA /* OrganizationCell.xib in Resources */,
@@ -448,6 +472,7 @@
 				1F9F5EB01CE086FF004D73D3 /* AppDelegate.m in Sources */,
 				1F7BE7D81CEF179B008A61BE /* PullModel.m in Sources */,
 				1FE63DF01CFD8EC300CE28FA /* NS-Extensions.m in Sources */,
+				1F147D821CFEFE9A0024F773 /* Dashboard.m in Sources */,
 				1F9F5ED51CE09681004D73D3 /* OrganisationsController.m in Sources */,
 				1F7BE7DB1CEF17AC008A61BE /* CommitModel.m in Sources */,
 				1F9F5EAD1CE086FF004D73D3 /* main.m in Sources */,
@@ -455,11 +480,14 @@
 				1F0DE9721CEE050800C5315F /* PullRequestsController.m in Sources */,
 				1FA95AA01CEDC32A0028BDEC /* StatusController.m in Sources */,
 				1FE63DF41CFD91B300CE28FA /* OrganizationCell.m in Sources */,
+				1F147D901CFF27E40024F773 /* RepoView.m in Sources */,
 				1FDA29351CF34BFA00528BA6 /* SettingsController.m in Sources */,
 				1F9B4B261CE3574A00EAFD29 /* Helper.m in Sources */,
 				1FE63DF81CFDA10400CE28FA /* ColorHelper.m in Sources */,
+				1F147D861CFEFEEF0024F773 /* DashCell.m in Sources */,
 				1F0DE9761CEE129600C5315F /* MWKProgressIndicator.m in Sources */,
 				1FA87EE41CE1D56B00E0A7DE /* RepositoriesController.m in Sources */,
+				1F147D8D1CFF27170024F773 /* Settings.m in Sources */,
 				1F0DA3871CE490D5005DBE35 /* HomeController.m in Sources */,
 				1FA87EE81CE1EC5300E0A7DE /* RepositoryCell.m in Sources */,
 			);

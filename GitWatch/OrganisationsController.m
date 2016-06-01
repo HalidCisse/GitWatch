@@ -24,7 +24,6 @@
 
 @property NSMutableArray *organisations;
 
-- (IBAction)onDoneClick:(id)sender;
 
 @end
 
