@@ -24,8 +24,10 @@
     
     self.tableView.tableFooterView = [UIView new];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    UIImage *temp = [[UIImage imageNamed:@"BackChevron"] imageWithRenderingMode: UIImageRenderingModeAlwaysOriginal];
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithImage:temp style:UIBarButtonItemStyleBordered target:self action:@selector(onBackClick)];
+    self.navigationController.navigationBar. = backButton;
     
-    //self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
     self.navigationController.navigationBar.backgroundColor = [ColorHelper colorFromHexString:@"313B47"];
     
     //self.tableView.contentInset = UIEdgeInsetsMake(5, 0, 0, 0);
@@ -67,20 +69,13 @@
     
     cell.contentView.userInteractionEnabled = true;
     
-//    [cell.checkbox setBackgroundImage:[UIImage imageNamed:@"normalCheckbox"]
-//                         forState:UIControlStateNormal];
-//    
-//    [cell.checkbox setBackgroundImage:[UIImage imageNamed:@"selectedCheckbox"]
-//                         forState:UIControlStateSelected];
-//    
-//    [cell.checkbox setBackgroundImage:[UIImage imageNamed:@"selectedCheckbox"]
-//                         forState:UIControlStateHighlighted];
-    
     [cell.checkbox setImage:[UIImage imageNamed:@"normalCheckbox"] forState:UIControlStateNormal];
-    [cell.checkbox setImage:[UIImage imageNamed:@"selectedCheckbox"] forState:UIControlStateHighlighted];
+    
     [cell.checkbox setImage:[UIImage imageNamed:@"selectedCheckbox"] forState:UIControlStateSelected];
     
-    [cell.checkbox setImage:[UIImage imageNamed:@"normalCheckbox"] forState:UIControlStateSelected | UIControlStateHighlighted];
+    [cell.checkbox setImage:[UIImage imageNamed:@"selectedCheckbox"] forState:UIControlStateHighlighted];
+    
+    [cell.checkbox setImage:[UIImage imageNamed:@"selectedCheckbox"] forState:UIControlStateSelected | UIControlStateHighlighted];
     
     
     OCTRepository *repo =[self.repositories objectAtIndex:indexPath.row];
@@ -111,7 +106,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 75;
+    return 64;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -131,5 +126,13 @@
     [view setAlpha:0.0F];
     return view;
 }
+
+- (void)onBackClick:(id)sender{
+    
+    HomeController *view = [self.storyboard instantiateViewControllerWithIdentifier:@"HomeController"];
+    view.gitClient = self.gitClient;
+    [self.navigationController pushViewController:view animated:YES];
+}
+
 
 @end

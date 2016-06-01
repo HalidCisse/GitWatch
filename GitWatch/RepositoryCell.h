@@ -14,6 +14,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *checkbox;
 @property (nonatomic, weak) IBOutlet UIImageView *repositoryImage;
 
-- (IBAction)checkboxSelected:(id)sender;
+- (IBAction)checkboxSelected:(UIButton*)sender;
 
 @end
