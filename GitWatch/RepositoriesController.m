@@ -14,6 +14,8 @@
 
 @interface RepositoriesController ()
 
+- (IBAction)onDone:(id)sender;
+
 @property NSMutableArray *repositories;
 
 @end
@@ -26,8 +28,8 @@
     self.tableView.tableFooterView = [UIView new];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     
-    self.tableView.delegate = self;
-    [self.tableView reloadData];
+    //self.tableView.delegate = self;
+    //[self.tableView reloadData];
     
     UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [backButton setFrame:CGRectMake(0,0,12.5,21)];
@@ -141,4 +143,21 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (IBAction)onDone:(id)sender {
+    OrganisationsController *view = [self.storyboard instantiateViewControllerWithIdentifier:@"HomeController"];
+    //view.gitClient = self.gitClient;
+    //[self.navigationController popViewControllerAnimated:YES];
+    
+    //AboutShowViewController *aboutShowViewController = [[AboutShowViewController alloc] initWithNibName:@"AboutShowViewController" bundle:[NSBundle mainBundle]];
+    
+    [UIView beginAnimations:@"View Flip" context:nil];
+    [UIView setAnimationDuration:0.80];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+    
+    [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromRight
+                           forView:self.navigationController.view cache:NO];
+    
+    [self.navigationController pushViewController:view animated:YES];
+    [UIView commitAnimations];
+}
 @end

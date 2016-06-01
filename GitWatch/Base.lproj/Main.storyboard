@@ -876,14 +876,6 @@
                             <outlet property="delegate" destination="gZP-Xi-VXG" id="bHL-3L-s8a"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="eGV-W8-zpA">
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="7px-t3-eHf">
-                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                            <connections>
-                                <action selector="onDoneClick:" destination="gZP-Xi-VXG" id="x2C-Ko-FoQ"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
                     <connections>
                         <outlet property="tableFooterView" destination="D7s-zS-9om" id="MLb-yF-1Sz"/>
                         <segue destination="WoK-id-kRM" kind="show" identifier="GoToRepos" id="5NT-9b-s7a"/>
@@ -961,7 +953,7 @@
             </objects>
             <point key="canvasLocation" x="2791" y="-1138"/>
         </scene>
-        <!--Repositories Controller-->
+        <!--Repositories-->
         <scene sceneID="3JU-Vk-JBF">
             <objects>
                 <tableViewController id="WoK-id-kRM" customClass="RepositoriesController" sceneMemberID="viewController">
@@ -980,10 +972,18 @@
                             <outlet property="delegate" destination="WoK-id-kRM" id="jgp-2y-Zf4"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="Repositories" id="Bgx-PY-5Tt">
+                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="bY3-xC-q83">
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="onDone:" destination="WoK-id-kRM" id="ERP-4d-Nyv"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ayf-Rh-Vc1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3576" y="328"/>
+            <point key="canvasLocation" x="2791" y="1236"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="hmz-De-4M3">
