@@ -1,1 +1,3 @@
 language: objective-c
+xcode_project: GitWatch.xcworkspace # path to your xcodeproj folder
+xcode_scheme: GitWatch
