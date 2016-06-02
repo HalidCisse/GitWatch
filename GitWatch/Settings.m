@@ -7,6 +7,7 @@
 //
 
 #import "Settings.h"
+#import "SettingsHelper.h"
 
 @interface Settings ()
 
@@ -17,82 +18,42 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
+    [self initiateSettings];
+}
+
+- (void)initiateSettings {
+    self.activitiesStepper.maximumValue = 1000;
+    self.activitiesStepper.minimumValue = 1;
+    self.activitiesStepper.stepValue = 1;
+    self.activitiesStepper.value = [SettingsHelper getActivitiesInterval];
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-#pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Incomplete implementation, return the number of sections
-    return 0;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete implementation, return the number of rows
-    return 0;
-}
-
-/*
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+    self.issuesStepper.maximumValue = 1000;
+    self.issuesStepper.minimumValue = 1;
+    self.issuesStepper.stepValue = 1;
+    self.issuesStepper.value = [SettingsHelper getIssuesInterval];
     
-    // Configure the cell...
+    self.pullRequestSwitch.on = [SettingsHelper getPullsOption];
     
-    return cell;
+    self.activitiesLabel.text = [[NSString alloc] initWithFormat:@"Flag if no activity for %i days", (int)self.activitiesStepper.value];
+    
+    self.issuesLabel.text = [[NSString alloc] initWithFormat:@"Flag if any issues older than %i days", (int)self.issuesStepper.value];
 }
-*/
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+- (IBAction)activitiesStepperOnValueChanged:(id)sender {
+    self.activitiesLabel.text = [[NSString alloc] initWithFormat:@"Flag if no activity for %i days", (int)self.activitiesStepper.value];
+    
+    [SettingsHelper saveActivitiesInterval:self.activitiesStepper.value];
 }
-*/
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+- (IBAction)issuesSteeperOnValueChanged:(id)sender {
+    self.issuesLabel.text = [[NSString alloc] initWithFormat:@"Flag if any issues older than %i days", (int)self.issuesStepper.value];
+    
+    [SettingsHelper saveIssuesInterval:self.issuesStepper.value];
 }
-*/
 
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
+- (IBAction)pullRequestSwitchOnValueChanged:(id)sender {
+    
+    [SettingsHelper savePullsOption:self.pullRequestSwitch.isOn];
 }
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

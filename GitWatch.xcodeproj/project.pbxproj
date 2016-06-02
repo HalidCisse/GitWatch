@@ -23,6 +23,9 @@
 		1F7BE7D41CEF14A4008A61BE /* CommitCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F7BE7D21CEF14A4008A61BE /* CommitCell.xib */; };
 		1F7BE7D81CEF179B008A61BE /* PullModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F7BE7D71CEF179B008A61BE /* PullModel.m */; };
 		1F7BE7DB1CEF17AC008A61BE /* CommitModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F7BE7DA1CEF17AC008A61BE /* CommitModel.m */; };
+		1F81EFFB1D00322800271D28 /* SettingsHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F81EFFA1D00322800271D28 /* SettingsHelper.m */; };
+		1F81EFFD1D00336D00271D28 /* SettingsList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1F81EFFC1D00336D00271D28 /* SettingsList.plist */; };
+		1F81F0001D00343D00271D28 /* PlistHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F81EFFF1D00343D00271D28 /* PlistHelper.m */; };
 		1F9B4B1F1CE3340D00EAFD29 /* RepositoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F9B4B1E1CE3340D00EAFD29 /* RepositoryCell.xib */; };
 		1F9B4B221CE34BE800EAFD29 /* FavoriteRepository.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1F9B4B211CE34BE800EAFD29 /* FavoriteRepository.plist */; };
 		1F9B4B261CE3574A00EAFD29 /* Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F9B4B251CE3574A00EAFD29 /* Helper.m */; };
@@ -77,6 +80,11 @@
 		1F7BE7D71CEF179B008A61BE /* PullModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PullModel.m; sourceTree = "<group>"; };
 		1F7BE7D91CEF17AC008A61BE /* CommitModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommitModel.h; sourceTree = "<group>"; };
 		1F7BE7DA1CEF17AC008A61BE /* CommitModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommitModel.m; sourceTree = "<group>"; };
+		1F81EFF91D00322800271D28 /* SettingsHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsHelper.h; sourceTree = "<group>"; };
+		1F81EFFA1D00322800271D28 /* SettingsHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsHelper.m; sourceTree = "<group>"; };
+		1F81EFFC1D00336D00271D28 /* SettingsList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SettingsList.plist; sourceTree = "<group>"; };
+		1F81EFFE1D00343D00271D28 /* PlistHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlistHelper.h; sourceTree = "<group>"; };
+		1F81EFFF1D00343D00271D28 /* PlistHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlistHelper.m; sourceTree = "<group>"; };
 		1F9B4B1E1CE3340D00EAFD29 /* RepositoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RepositoryCell.xib; sourceTree = "<group>"; };
 		1F9B4B211CE34BE800EAFD29 /* FavoriteRepository.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = FavoriteRepository.plist; sourceTree = "<group>"; };
 		1F9B4B241CE3574A00EAFD29 /* Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Helper.h; sourceTree = "<group>"; };
@@ -230,6 +238,7 @@
 			children = (
 				1F9B4B211CE34BE800EAFD29 /* FavoriteRepository.plist */,
 				1FB4AD991CEA256D002B12A1 /* RepositoryIntervals.plist */,
+				1F81EFFC1D00336D00271D28 /* SettingsList.plist */,
 			);
 			name = Data;
 			sourceTree = "<group>";
@@ -243,6 +252,10 @@
 				1FE63DEF1CFD8EC300CE28FA /* NS-Extensions.m */,
 				1FE63DF61CFDA10400CE28FA /* ColorHelper.h */,
 				1FE63DF71CFDA10400CE28FA /* ColorHelper.m */,
+				1F81EFF91D00322800271D28 /* SettingsHelper.h */,
+				1F81EFFA1D00322800271D28 /* SettingsHelper.m */,
+				1F81EFFE1D00343D00271D28 /* PlistHelper.h */,
+				1F81EFFF1D00343D00271D28 /* PlistHelper.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -386,6 +399,7 @@
 				1FE63DF51CFD91B300CE28FA /* OrganizationCell.xib in Resources */,
 				1F9B4B1F1CE3340D00EAFD29 /* RepositoryCell.xib in Resources */,
 				1F9B4B221CE34BE800EAFD29 /* FavoriteRepository.plist in Resources */,
+				1F81EFFD1D00336D00271D28 /* SettingsList.plist in Resources */,
 				1F9F5EB61CE086FF004D73D3 /* Main.storyboard in Resources */,
 				1FB4AD9A1CEA256D002B12A1 /* RepositoryIntervals.plist in Resources */,
 				1F7BE7D41CEF14A4008A61BE /* CommitCell.xib in Resources */,
@@ -484,9 +498,11 @@
 				1FDA29351CF34BFA00528BA6 /* SettingsController.m in Sources */,
 				1F9B4B261CE3574A00EAFD29 /* Helper.m in Sources */,
 				1FE63DF81CFDA10400CE28FA /* ColorHelper.m in Sources */,
+				1F81F0001D00343D00271D28 /* PlistHelper.m in Sources */,
 				1F147D861CFEFEEF0024F773 /* DashCell.m in Sources */,
 				1F0DE9761CEE129600C5315F /* MWKProgressIndicator.m in Sources */,
 				1FA87EE41CE1D56B00E0A7DE /* RepositoriesController.m in Sources */,
+				1F81EFFB1D00322800271D28 /* SettingsHelper.m in Sources */,
 				1F147D8D1CFF27170024F773 /* Settings.m in Sources */,
 				1F0DA3871CE490D5005DBE35 /* HomeController.m in Sources */,
 				1FA87EE81CE1EC5300E0A7DE /* RepositoryCell.m in Sources */,
