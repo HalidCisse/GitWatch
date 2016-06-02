@@ -8,6 +8,7 @@
 
 #import "Settings.h"
 #import "SettingsHelper.h"
+#import "Dashboard.h"
 
 @interface Settings ()
 
@@ -18,6 +19,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self customBackButton];
     [self initiateSettings];
 }
 
@@ -56,4 +58,19 @@
     [SettingsHelper savePullsOption:self.pullRequestSwitch.isOn];
 }
 
+- (void) customBackButton {
+    UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [backButton setFrame:CGRectMake(0,0,12.5,21)];
+    backButton.userInteractionEnabled = YES;
+    [backButton setImage:[UIImage imageNamed:@"BackChevron"] forState:UIControlStateNormal];
+    
+    [backButton addTarget:self action:@selector(onBackClick:) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIBarButtonItem *refreshBarButton = [[UIBarButtonItem alloc] initWithCustomView:backButton];
+    self.navigationItem.leftBarButtonItem = refreshBarButton;
+}
+
+- (void)onBackClick:(id)sender{
+    [self.navigationController popViewControllerAnimated:YES];
+}
 @end

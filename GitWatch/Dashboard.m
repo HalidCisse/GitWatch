@@ -17,6 +17,8 @@
 #import <DateTools/DateTools.h>
 #import "RepositoryController.h"
 #import "ColorHelper.h"
+#import "SettingsHelper.h"
+#import <OctoKit/OctoKit.h>
 
 #define UIColorFromRGB(rgbValue) \
 [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 \
@@ -98,6 +100,8 @@ alpha:1.0]
     return [self.repositories count];
 }
 
+
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     static NSString *identifier = @"DashCell";
@@ -109,34 +113,48 @@ alpha:1.0]
         cell = [nib objectAtIndex:0];
     }
     
-    OCTRepository *repo =[self.repositories objectAtIndex:indexPath.row];
+    cell.repository =[self.repositories objectAtIndex:indexPath.row];
     
-    cell.repoName.text = repo.name;
+    cell.repoName.text = cell.repository.name;
     cell.statusIcon.image = [UIImage imageNamed:@"greenStatus"];
     cell.pullsIcons.image = [UIImage imageNamed:@"pullsNormal"];
+    cell.issuesIcon.image = [UIImage imageNamed:@"issuesNormal"];
+    cell.activitiesIcon.image = [UIImage imageNamed:@"activityNormal"];
     
-    int repoInterval = [Helper getInterval:repo.name];
-    NSDate *daysAgo = [[NSCalendar currentCalendar] dateByAddingUnit:NSCalendarUnitDay value:-repoInterval toDate:[NSDate date] options:0];
-    
-    if (repo.openIssuesCount > 0) {
-        cell.statusIcon.image = [UIImage imageNamed:@"redStatus"];
-        cell.issuesIcon.image = [UIImage imageNamed:@"issuesRed"];
-    }else{
-        cell.issuesIcon.image = [UIImage imageNamed:@"issuesNormal"];
-    }
-    
-    if (repo.dateUpdated.timeIntervalSince1970 < daysAgo.timeIntervalSince1970) {
-        cell.statusIcon.image = [UIImage imageNamed:@"redStatus"];
-        cell.activitiesIcon.image = [UIImage imageNamed:@"activityRed"];
-    }else{
-        cell.activitiesIcon.image = [UIImage imageNamed:@"activityNormal"];
-    }
+    [self resolvePullsRequest:cell];
+    [self resolveIssues:cell];
+    [self resolveActivities:cell];
     
     cell.layoutMargins = UIEdgeInsetsZero;
     cell.preservesSuperviewLayoutMargins = NO;
     cell.accessoryType = UITableViewCellAccessoryNone;
     cell.selectionStyle = UITableViewCellSelectionStyleDefault;
     return cell;
+}
+
+- (void)resolvePullsRequest:(DashCell *)cell{
+    
+}
+
+- (void)resolveIssues:(DashCell *)cell{
+    if (cell.repository.openIssuesCount > 0) {
+        cell.statusIcon.image = [UIImage imageNamed:@"redStatus"];
+        cell.issuesIcon.image = [UIImage imageNamed:@"issuesRed"];
+    }else{
+        cell.issuesIcon.image = [UIImage imageNamed:@"issuesNormal"];
+    }
+}
+
+- (void)resolveActivities:(DashCell *)cell{
+    int activityInterval = [SettingsHelper getActivitiesInterval];;
+    NSDate *daysAgo = [[NSCalendar currentCalendar] dateByAddingUnit:NSCalendarUnitDay value:-activityInterval toDate:[NSDate date] options:0];
+    
+    if (cell.repository.dateUpdated.timeIntervalSince1970 < daysAgo.timeIntervalSince1970) {
+        cell.statusIcon.image = [UIImage imageNamed:@"redStatus"];
+        cell.activitiesIcon.image = [UIImage imageNamed:@"activityRed"];
+    }else{
+        cell.activitiesIcon.image = [UIImage imageNamed:@"activityNormal"];
+    }
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -166,6 +184,7 @@ alpha:1.0]
     {
         OrganisationsController *view = segue.destinationViewController;
         view.gitClient = self.gitClient;
+        self.refresh = true;
     }
     
     if ([segue.identifier isEqualToString:@"RepoView"])
@@ -177,6 +196,12 @@ alpha:1.0]
         
         view.gitClient = self.gitClient;
         view.repository = repository;
+        self.refresh = false;
+    }
+    
+    if ([segue.identifier isEqualToString:@"Settings"])
+    {
+        self.refresh = true;
     }
 }
 

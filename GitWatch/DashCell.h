@@ -7,8 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <OctoKit/OctoKit.h>
 
 @interface DashCell : UITableViewCell
+
+@property OCTRepository* repository;
 
 @property (weak, nonatomic) IBOutlet UIImageView *statusIcon;
 @property (weak, nonatomic) IBOutlet UILabel *repoName;

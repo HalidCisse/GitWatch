@@ -13,6 +13,7 @@
 #import "HomeController.h"
 #import <AMSmoothAlert/AMSmoothAlertView.h>
 #import "MWKProgressIndicator.h"
+#import "Dashboard.h"
 
 @interface ViewController ()
 
@@ -63,7 +64,7 @@
          //[MWKProgressIndicator showSuccessMessage:@"success"];
          [Helper saveCredentials:client];
          
-         HomeController *view = [self.storyboard instantiateViewControllerWithIdentifier:@"HomeController"];
+         Dashboard *view = [self.storyboard instantiateViewControllerWithIdentifier:@"Dashboard"];
          view.gitClient = client;
          [self.navigationController pushViewController:view animated:YES];
      } error:^(NSError *error) {

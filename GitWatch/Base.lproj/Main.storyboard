@@ -1015,6 +1015,7 @@
                             <outlet property="delegate" destination="b2n-bB-jOf" id="jIN-5S-4sD"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="Settings" id="mde-ru-SCh"/>
                     <connections>
                         <outlet property="activitiesLabel" destination="ZQF-1l-Ccv" id="4BZ-ju-kP0"/>
                         <outlet property="activitiesStepper" destination="lqa-r6-o8D" id="lLB-sj-eDI"/>
@@ -1188,7 +1189,7 @@
                         <barButtonItem key="rightBarButtonItem" title="settings" style="plain" id="hFv-vS-1tj">
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
-                                <segue destination="b2n-bB-jOf" kind="show" id="Da2-E8-Xo9"/>
+                                <segue destination="b2n-bB-jOf" kind="show" identifier="Settings" id="Da2-E8-Xo9"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

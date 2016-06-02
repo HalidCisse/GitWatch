@@ -32,6 +32,8 @@
     self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
     self.navigationController.navigationBar.backgroundColor = [ColorHelper colorFromHexString:@"313B47"];
     
+    [self customBackButton];
+    
     [self fetchLastUpdate];
 }
 
@@ -69,6 +71,22 @@
            }progressBlock:^(FSNConnection *c) {}];
     
     [connection start];
+}
+
+- (void) customBackButton {
+    UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [backButton setFrame:CGRectMake(0,0,12.5,21)];
+    backButton.userInteractionEnabled = YES;
+    [backButton setImage:[UIImage imageNamed:@"BackChevron"] forState:UIControlStateNormal];
+    
+    [backButton addTarget:self action:@selector(onBackClick:) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIBarButtonItem *refreshBarButton = [[UIBarButtonItem alloc] initWithCustomView:backButton];
+    self.navigationItem.leftBarButtonItem = refreshBarButton;
+}
+
+- (void)onBackClick:(id)sender{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
