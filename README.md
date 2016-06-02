@@ -2,4 +2,4 @@
 
 GitHub Client to watch the repos you care about
 
-https://travis-ci.com/HalidCisse/GitWatch.svg?token=yyzGkKqzqEyegSG6LTgN&branch=master
+[![Build Status](https://travis-ci.com/HalidCisse/GitWatch.svg?token=yyzGkKqzqEyegSG6LTgN&branch=master)](https://travis-ci.com/HalidCisse/GitWatch)
