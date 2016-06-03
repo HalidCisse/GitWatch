@@ -181,6 +181,11 @@ alpha:1.0]
                               completionBlock:^(FSNConnection *c) {
                                   NSDictionary *pullRequest = (NSDictionary *) c.parseResult;
                                   
+                                  if ([pullRequest objectForKey:@"mergeable"] != nil) {
+                                      cell.pullsIcons.image = [UIImage imageNamed:@"pullsNormal"];
+                                      return;
+                                  }
+                                  
                                   if (![[pullRequest objectForKey:@"mergeable"] boolValue]) {
                                       cell.statusIcon.image = [UIImage imageNamed:@"redStatus"];
                                       cell.pullsIcons.image = [UIImage imageNamed:@"pullsRed"];

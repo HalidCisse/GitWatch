@@ -41,6 +41,8 @@
     
     [self customBackButton];
     
+    self.title = self.repository.name;
+    
     self.tokenHeader = [[NSString alloc] initWithFormat:@"Bearer %@", self.gitClient.token];
     self.headers     = [NSDictionary dictionaryWithObjectsAndKeys:
                         self.tokenHeader, @"Authorization", nil];
@@ -48,7 +50,7 @@
     
     [self fetchLastIssue];
     [self fetchLastCommit];
-    //[self fetchLastNonMergeablePulls];
+    [self fetchLastNonMergeablePulls];
 }
 
 - (void)fetchLastIssue
@@ -67,7 +69,6 @@
            completionBlock:^(FSNConnection *c) {
                
                NSArray *issues = (NSArray *) c.parseResult;
-               
                int issuesCount = 0;
                
                for (NSDictionary *issue in issues) {
@@ -77,22 +78,22 @@
                }
                
                self.openIssuesCount.text = [NSString stringWithFormat:@"%d", issuesCount];
+               self.lastOpenIssuesDate.text = @"no issues";
                
                for (NSDictionary *issue in issues) {
                    if ([issue objectForKey:@"pull_request"] == nil) {
-                        self.lastOpenIssuesDate.text = [[NSDate dateFromString:[issue objectForKey:@"created_at"] withFormat:@"YYYY-MM-DDTHH:MM:SSZ"] timeAgoSinceNow];
+                        self.lastOpenIssuesDate.text = [[NSDate dateFromString:[issue objectForKey:@"created_at"] withFormat:@"yyyy-MM-dd'T'HH:mm:ssZ"] timeAgoSinceNow];
                        break;
                    }
                }
            } progressBlock:^(FSNConnection *c) {}];
     [connection start];
-
 }
 
-- (void)fetchLastCommit
+- (void)fetchLastNonMergeablePulls
 {
     NSString *repoPath = [self.repository.HTMLURL.absoluteString stringByReplacingOccurrencesOfString:@"https://github.com/" withString:@""];
-    NSString *url =[[NSString alloc] initWithFormat:@"https://api.github.com/repos/%@/issues", repoPath];
+    NSString *url =[[NSString alloc] initWithFormat:@"https://api.github.com/repos/%@/pulls", repoPath];
     
     FSNConnection *connection =
     [FSNConnection withUrl:[[NSURL alloc] initWithString:url]
@@ -103,27 +104,82 @@
                     return [c.responseData arrayFromJSONWithError:error];
                 }
            completionBlock:^(FSNConnection *c) {
-               NSArray *issues = (NSArray *) c.parseResult;
+               NSArray *pulls = (NSArray *) c.parseResult;
                
-               int issuesCount = 0;
+               __block int nonMergeableCount = 0;
                
-               for (NSDictionary *issue in issues) {
-                   if ([issue objectForKey:@"pull_request"] == nil) {
-                       issuesCount = issuesCount + 1;
-                   }
+               for (NSDictionary *pull in pulls) {
+                       NSString *link =[[NSString alloc] initWithFormat:@"https://api.github.com/repos/%@/pulls/%@",repoPath, [pull objectForKey:@"number"]];
+                       FSNConnection *connection =
+                       [FSNConnection withUrl:[[NSURL alloc] initWithString:link]
+                                       method:FSNRequestMethodGET
+                                      headers:self.headers
+                                   parameters:self.parameters
+                                   parseBlock:^id(FSNConnection *c, NSError **error) {
+                                       return [c.responseData dictionaryFromJSONWithError:error];
+                                   }
+                              completionBlock:^(FSNConnection *c) {
+                                  NSDictionary *pullRequest = (NSDictionary *) c.parseResult;
+                                  
+                                    if ([[pullRequest objectForKey:@"mergeable"]  isEqual: @"false"]) {
+                                          nonMergeableCount = nonMergeableCount + 1;
+                                        self.notMergeablePullsCount.text = [NSString stringWithFormat:@"%i", nonMergeableCount];
+                                      }
+                              } progressBlock:^(FSNConnection *c) {}];
+                       [connection start];
                }
-               self.openIssuesCount.text = [NSString stringWithFormat:@"%d", issuesCount];
-               
-               for (NSDictionary *issue in issues) {
-                   if ([issue objectForKey:@"pull_request"] == nil) {
+           } progressBlock:^(FSNConnection *c) {}];
+    [connection start];
+}
+
+- (void)fetchLastCommit
+{
+    NSString *repoPath = [self.repository.HTMLURL.absoluteString stringByReplacingOccurrencesOfString:@"https://github.com/" withString:@""];
+    NSString *url =[[NSString alloc] initWithFormat:@"https://api.github.com/repos/%@/branches", repoPath];
+    
+    FSNConnection *connection =
+    [FSNConnection withUrl:[[NSURL alloc] initWithString:url]
+                    method:FSNRequestMethodGET
+                   headers:self.headers
+                parameters:self.parameters
+                parseBlock:^id(FSNConnection *c, NSError **error) {
+                    return [c.responseData arrayFromJSONWithError:error];
+                }
+           completionBlock:^(FSNConnection *c) {
+               NSArray *branches = (NSArray *) c.parseResult;
+               for (NSDictionary *branch in branches) {
+                   if ([[branch objectForKey:@"name"]  isEqual: @"master"]) {
                        
-                       self.lastOpenIssuesDate.text = [issue objectForKey:@"created_at"];
-                       //[[NSString alloc] initWithFormat:@"last updated %@", repo.dateUpdated.timeAgoSinceNow];
+                       NSDictionary *commit = [branch objectForKey:@"commit"];
+                       NSString *commitLink = [commit objectForKey:@"url"];
                        
-                       //NSDictionary *user = [issue objectForKey:@"user"];
-                       
-                       //[self.lastCommiterImage sd_setImageWithURL:[NSURL URLWithString:[user objectForKey:@"avatar_url"]] placeholderImage:[UIImage imageNamed:@"octokat"]];
-                       //self.lastOpenIssuesDate.text = [NSString  stringWithFormat:@"committed %@", date.timeAgoSinceNow];
+                       FSNConnection *connection =
+                       [FSNConnection withUrl:[[NSURL alloc] initWithString:commitLink]
+                                       method:FSNRequestMethodGET
+                                      headers:self.headers
+                                   parameters:self.parameters
+                                   parseBlock:^id(FSNConnection *c, NSError **error) {
+                                       return [c.responseData dictionaryFromJSONWithError:error];
+                                   }
+                              completionBlock:^(FSNConnection *c) {
+                                  NSDictionary *commitDic = (NSDictionary *) c.parseResult;
+                                  
+                                  NSDictionary *commitCommit = [commitDic objectForKey:@"commit"];
+                                  NSDictionary *commitCommitter = [commitCommit objectForKey:@"committer"];
+                                  
+                                  NSDictionary *author = [commitDic objectForKey:@"author"];
+                                 
+                                  [self.lastCommiterImage sd_setImageWithURL:[NSURL URLWithString:[author objectForKey:@"avatar_url"]] placeholderImage:[UIImage imageNamed:@"octokat"]];
+                                                                
+                                  self.lastCommitLabel.text =[commitCommit objectForKey:@"message"];
+                                  self.lastCommiterName.text =[author objectForKey:@"login"];
+                                  
+                                  NSString *dateAgo =[[NSDate dateFromString:[commitCommitter objectForKey:@"date"] withFormat:@"yyyy-MM-dd'T'HH:mm:ssZ"] timeAgoSinceNow];
+                                  
+                                  self.lastCommitDate.text = [NSString  stringWithFormat:@"committed %@", dateAgo];
+                                  
+                              } progressBlock:^(FSNConnection *c) {}];
+                       [connection start];
                        break;
                    }
                }
