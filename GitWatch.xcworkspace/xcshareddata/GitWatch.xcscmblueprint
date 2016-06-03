@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "A8E5BBA0A235D062A60F2FB3CC240942474DD270",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "A8E5BBA0A235D062A60F2FB3CC240942474DD270" : 0,
+    "15F8D286907633BEC1646AEBD4DCF90F044EBBFF" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "CC7EF3D2-23A1-4ACF-9BF4-203F11681051",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "A8E5BBA0A235D062A60F2FB3CC240942474DD270" : "GitWatch\/",
+    "15F8D286907633BEC1646AEBD4DCF90F044EBBFF" : "nsdate-helper\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "GitWatch",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "GitWatch.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/billymeltdown\/nsdate-helper.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "15F8D286907633BEC1646AEBD4DCF90F044EBBFF"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/HalidCisse\/GitWatch.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "A8E5BBA0A235D062A60F2FB3CC240942474DD270"
+    }
+  ]
+}

@@ -12,11 +12,18 @@
 #import "Helper.h"
 #import <DateTools/DateTools.h>
 #import <FSNetworking/FSNConnection.h>
+#import <SDWebImage/UIImageView+WebCache.h>
 #import "Settings.h"
 #import "ColorHelper.h"
+#import <DateTools/DateTools.h>
+#import "NSDate+Helper.h"
 
 
 @interface RepoView ()
+
+@property NSString* tokenHeader;
+@property NSDictionary* headers;
+@property NSDictionary* parameters;
 
 @end
 
@@ -34,44 +41,120 @@
     
     [self customBackButton];
     
-    [self fetchLastUpdate];
+    self.tokenHeader = [[NSString alloc] initWithFormat:@"Bearer %@", self.gitClient.token];
+    self.headers     = [NSDictionary dictionaryWithObjectsAndKeys:
+                        self.tokenHeader, @"Authorization", nil];
+    self.parameters  = nil;
+    
+    [self fetchLastIssue];
+    [self fetchLastCommit];
+    //[self fetchLastNonMergeablePulls];
 }
 
-- (void)fetchLastUpdate
+- (void)fetchLastIssue
 {
-    //self.repoName.text = self.repository.name;
-    //self.repoDescription.text = self.repository.repoDescription;
-    //self.repoIcon.image = [UIImage imageNamed:@"repoIcon.png"];
-    
     NSString *repoPath = [self.repository.HTMLURL.absoluteString stringByReplacingOccurrencesOfString:@"https://github.com/" withString:@""];
-    NSString *url =[[NSString alloc] initWithFormat:@"https://api.github.com/search/issues?q=+type:pr+repo:%@", repoPath];
-    
-    NSString *tokenHeader = [[NSString alloc] initWithFormat:@"Bearer %@", self.gitClient.token];
-    NSDictionary *headers     = [NSDictionary dictionaryWithObjectsAndKeys:
-                                 tokenHeader, @"Authorization", nil];
-    
-    NSDictionary *parameters  = nil;
+    NSString *url =[[NSString alloc] initWithFormat:@"https://api.github.com/repos/%@/issues", repoPath];
     
     FSNConnection *connection =
     [FSNConnection withUrl:[[NSURL alloc] initWithString:url]
                     method:FSNRequestMethodGET
-                   headers:headers
-                parameters:parameters
+                   headers:self.headers
+                parameters:self.parameters
                 parseBlock:^id(FSNConnection *c, NSError **error) {
-                    return [c.responseData dictionaryFromJSONWithError:error];
+                    return [c.responseData arrayFromJSONWithError:error];
                 }
            completionBlock:^(FSNConnection *c) {
                
-               NSArray *pull = c.parseResult[@"items"];
-               NSDictionary *firstPull = pull.firstObject;
-               NSDictionary *user = [firstPull objectForKey:@"user"];
-               NSString *userName = [user objectForKey:@"login"];
+               NSArray *issues = (NSArray *) c.parseResult;
                
-               //self.lastUpdated.text = [[NSString alloc] initWithFormat:@"last updated by @%@ %@", userName, self.repository.dateUpdated.timeAgoSinceNow];
-           }progressBlock:^(FSNConnection *c) {}];
-    
+               int issuesCount = 0;
+               
+               for (NSDictionary *issue in issues) {
+                   if ([issue objectForKey:@"pull_request"] == nil) {
+                       issuesCount = issuesCount + 1;
+                   }
+               }
+               
+               self.openIssuesCount.text = [NSString stringWithFormat:@"%d", issuesCount];
+               
+               for (NSDictionary *issue in issues) {
+                   if ([issue objectForKey:@"pull_request"] == nil) {
+                        self.lastOpenIssuesDate.text = [[NSDate dateFromString:[issue objectForKey:@"created_at"] withFormat:@"YYYY-MM-DDTHH:MM:SSZ"] timeAgoSinceNow];
+                       break;
+                   }
+               }
+           } progressBlock:^(FSNConnection *c) {}];
     [connection start];
+
 }
+
+- (void)fetchLastCommit
+{
+    NSString *repoPath = [self.repository.HTMLURL.absoluteString stringByReplacingOccurrencesOfString:@"https://github.com/" withString:@""];
+    NSString *url =[[NSString alloc] initWithFormat:@"https://api.github.com/repos/%@/issues", repoPath];
+    
+    FSNConnection *connection =
+    [FSNConnection withUrl:[[NSURL alloc] initWithString:url]
+                    method:FSNRequestMethodGET
+                   headers:self.headers
+                parameters:self.parameters
+                parseBlock:^id(FSNConnection *c, NSError **error) {
+                    return [c.responseData arrayFromJSONWithError:error];
+                }
+           completionBlock:^(FSNConnection *c) {
+               NSArray *issues = (NSArray *) c.parseResult;
+               
+               int issuesCount = 0;
+               
+               for (NSDictionary *issue in issues) {
+                   if ([issue objectForKey:@"pull_request"] == nil) {
+                       issuesCount = issuesCount + 1;
+                   }
+               }
+               self.openIssuesCount.text = [NSString stringWithFormat:@"%d", issuesCount];
+               
+               for (NSDictionary *issue in issues) {
+                   if ([issue objectForKey:@"pull_request"] == nil) {
+                       
+                       self.lastOpenIssuesDate.text = [issue objectForKey:@"created_at"];
+                       //[[NSString alloc] initWithFormat:@"last updated %@", repo.dateUpdated.timeAgoSinceNow];
+                       
+                       //NSDictionary *user = [issue objectForKey:@"user"];
+                       
+                       //[self.lastCommiterImage sd_setImageWithURL:[NSURL URLWithString:[user objectForKey:@"avatar_url"]] placeholderImage:[UIImage imageNamed:@"octokat"]];
+                       //self.lastOpenIssuesDate.text = [NSString  stringWithFormat:@"committed %@", date.timeAgoSinceNow];
+                       break;
+                   }
+               }
+           } progressBlock:^(FSNConnection *c) {}];
+    [connection start];
+    
+}
+
+
+
+//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+//
+//    NSString *sectionTitle = [self tableView:tableView titleForHeaderInSection:section];
+//    if (sectionTitle == nil) {
+//        return nil;
+//    }
+//    
+//    static NSString *HeaderCellIdentifier = @"Header";
+//    
+//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:HeaderCellIdentifier];
+//    if (cell == nil) {
+//        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:HeaderCellIdentifier];
+//    }
+//    
+//    
+//   
+//    return cell;
+//}
+
+
+
 
 - (void) customBackButton {
     UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
