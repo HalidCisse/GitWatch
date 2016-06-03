@@ -38,7 +38,7 @@
     
     self.activitiesLabel.text = [[NSString alloc] initWithFormat:@"Flag if no activity for %i days", (int)self.activitiesStepper.value];
     
-    self.issuesLabel.text = [[NSString alloc] initWithFormat:@"Flag if any issues older than %i days", (int)self.issuesStepper.value];
+    self.issuesLabel.text = [[NSString alloc] initWithFormat:@"Flag if any open issue older than %i days", (int)self.issuesStepper.value];
 }
 
 - (IBAction)activitiesStepperOnValueChanged:(id)sender {
@@ -48,7 +48,7 @@
 }
 
 - (IBAction)issuesSteeperOnValueChanged:(id)sender {
-    self.issuesLabel.text = [[NSString alloc] initWithFormat:@"Flag if any issues older than %i days", (int)self.issuesStepper.value];
+    self.issuesLabel.text = [[NSString alloc] initWithFormat:@"Flag if any open issue older than %i days", (int)self.issuesStepper.value];
     
     [SettingsHelper saveIssuesInterval:self.issuesStepper.value];
 }

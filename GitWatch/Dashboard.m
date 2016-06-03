@@ -18,7 +18,9 @@
 #import "RepositoryController.h"
 #import "ColorHelper.h"
 #import "SettingsHelper.h"
+#import "PullModel.h"
 #import <OctoKit/OctoKit.h>
+#import <FSNetworking/FSNConnection.h>
 
 #define UIColorFromRGB(rgbValue) \
 [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 \
@@ -29,6 +31,10 @@ alpha:1.0]
 @interface Dashboard ()
 
 @property NSMutableArray *repositories;
+
+@property NSString* tokenHeader;
+@property NSDictionary* headers;
+@property NSDictionary* parameters;
 
 @end
 
@@ -45,6 +51,8 @@ alpha:1.0]
     self.tableView.tableFooterView = [UIView new];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     
+    self.title = @"Dashboard";
+    
     self.repositories = [[NSMutableArray alloc] init];
     
     NSString *login = [Helper getLogin];
@@ -58,6 +66,14 @@ alpha:1.0]
         OCTUser *lastUser = [OCTUser userWithRawLogin:login server:OCTServer.dotComServer];
         self.gitClient = [OCTClient authenticatedClientWithUser:lastUser token:token];
     }
+    
+    
+    
+    self.tokenHeader = [[NSString alloc] initWithFormat:@"Bearer %@", self.gitClient.token];
+    self.headers     = [NSDictionary dictionaryWithObjectsAndKeys:
+                        self.tokenHeader, @"Authorization", nil];
+    self.parameters  = nil;
+    
     
     [self FetchRepos];
     self.refresh = false;
@@ -134,6 +150,53 @@ alpha:1.0]
 
 - (void)resolvePullsRequest:(DashCell *)cell{
     
+    if (![SettingsHelper getPullsOption]) {
+        return;
+    }
+    
+    NSString *repoPath = [cell.repository.HTMLURL.absoluteString stringByReplacingOccurrencesOfString:@"https://github.com/" withString:@""];
+    
+    NSString *url =[[NSString alloc] initWithFormat:@"https://api.github.com/repos/%@/pulls", repoPath];
+        
+        FSNConnection *connection =
+        [FSNConnection withUrl:[[NSURL alloc] initWithString:url]
+                        method:FSNRequestMethodGET
+                       headers:self.headers
+                    parameters:self.parameters
+                    parseBlock:^id(FSNConnection *c, NSError **error) {
+                        return [c.responseData arrayFromJSONWithError:error];
+                    }
+               completionBlock:^(FSNConnection *c) {
+                   
+                   NSArray *pulls = (NSArray *) c.parseResult;
+                   
+                   for (NSDictionary *pull in pulls) {
+                       NSString *link = [NSString stringWithFormat:@"%@/%@",url, [pull objectForKey:@"number"]];
+                       
+                       FSNConnection *connection =
+                       [FSNConnection withUrl:[[NSURL alloc] initWithString:link]
+                                       method:FSNRequestMethodGET
+                                      headers:self.headers
+                                   parameters:self.parameters
+                                   parseBlock:^id(FSNConnection *c, NSError **error) {
+                                       return [c.responseData dictionaryFromJSONWithError:error];
+                                   }
+                              completionBlock:^(FSNConnection *c) {
+                                  NSDictionary *pullRequest = (NSDictionary *) c.parseResult;
+                                  
+                                  if (![[pullRequest objectForKey:@"mergeable"] boolValue]) {
+                                      cell.statusIcon.image = [UIImage imageNamed:@"redStatus"];
+                                      cell.pullsIcons.image = [UIImage imageNamed:@"pullsRed"];
+                                  }else{
+                                      cell.pullsIcons.image = [UIImage imageNamed:@"pullsNormal"];
+                                  }
+                              } progressBlock:^(FSNConnection *c) {}];
+                       
+                       [connection start];
+                   }
+               } progressBlock:^(FSNConnection *c) {}];
+        
+        [connection start];
 }
 
 - (void)resolveIssues:(DashCell *)cell{
@@ -146,7 +209,7 @@ alpha:1.0]
 }
 
 - (void)resolveActivities:(DashCell *)cell{
-    int activityInterval = [SettingsHelper getActivitiesInterval];;
+    int activityInterval = [SettingsHelper getActivitiesInterval];
     NSDate *daysAgo = [[NSCalendar currentCalendar] dateByAddingUnit:NSCalendarUnitDay value:-activityInterval toDate:[NSDate date] options:0];
     
     if (cell.repository.dateUpdated.timeIntervalSince1970 < daysAgo.timeIntervalSince1970) {
