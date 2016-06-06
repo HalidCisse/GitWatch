@@ -19,6 +19,7 @@
 #import "ColorHelper.h"
 #import "SettingsHelper.h"
 #import "PullModel.h"
+#import "OrgsContainer.h"
 #import <OctoKit/OctoKit.h>
 #import <FSNetworking/FSNConnection.h>
 
@@ -29,6 +30,9 @@ blue:((float)((rgbValue & 0x0000FF) >>  0))/255.0 \
 alpha:1.0]
 
 @interface Dashboard ()
+
+- (IBAction)editButton:(UIBarButtonItem *)sender;
+
 
 @property NSMutableArray *repositories;
 
@@ -67,13 +71,10 @@ alpha:1.0]
         self.gitClient = [OCTClient authenticatedClientWithUser:lastUser token:token];
     }
     
-    
-    
     self.tokenHeader = [[NSString alloc] initWithFormat:@"Bearer %@", self.gitClient.token];
     self.headers     = [NSDictionary dictionaryWithObjectsAndKeys:
                         self.tokenHeader, @"Authorization", nil];
     self.parameters  = nil;
-    
     
     [self FetchRepos];
     self.refresh = false;
@@ -247,7 +248,7 @@ alpha:1.0]
 {
     if ([segue.identifier isEqualToString:@"GoToOrgs"])
     {
-        OrganisationsController *view = segue.destinationViewController;
+        OrgsContainer *view = segue.destinationViewController;
         view.gitClient = self.gitClient;
         self.refresh = true;
     }
@@ -270,4 +271,11 @@ alpha:1.0]
     }
 }
 
+- (IBAction)editButton:(UIBarButtonItem *)sender {
+    
+    OrgsContainer *view = [self.storyboard instantiateViewControllerWithIdentifier:@"OrgsContainer"];
+    view.gitClient = self.gitClient;
+    [self.navigationController pushViewController:view animated:YES];
+    
+}
 @end

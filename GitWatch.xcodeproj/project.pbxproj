@@ -12,6 +12,8 @@
 		1F0DA3871CE490D5005DBE35 /* HomeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F0DA3861CE490D5005DBE35 /* HomeController.m */; };
 		1F0DE9721CEE050800C5315F /* PullRequestsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F0DE9711CEE050800C5315F /* PullRequestsController.m */; };
 		1F0DE9761CEE129600C5315F /* MWKProgressIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F0DE9751CEE129600C5315F /* MWKProgressIndicator.m */; };
+		1F10A9C11D057C5500C5AA37 /* OrgsContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F10A9C01D057C5500C5AA37 /* OrgsContainer.m */; };
+		1F10A9C41D05A89000C5AA37 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F10A9C21D05A89000C5AA37 /* Main.storyboard */; };
 		1F147D821CFEFE9A0024F773 /* Dashboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F147D811CFEFE9A0024F773 /* Dashboard.m */; };
 		1F147D861CFEFEEF0024F773 /* DashCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F147D841CFEFEEF0024F773 /* DashCell.m */; };
 		1F147D871CFEFEEF0024F773 /* DashCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F147D851CFEFEEF0024F773 /* DashCell.xib */; };
@@ -32,7 +34,6 @@
 		1F9F5EAD1CE086FF004D73D3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F9F5EAC1CE086FF004D73D3 /* main.m */; };
 		1F9F5EB01CE086FF004D73D3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F9F5EAF1CE086FF004D73D3 /* AppDelegate.m */; };
 		1F9F5EB31CE086FF004D73D3 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F9F5EB21CE086FF004D73D3 /* ViewController.m */; };
-		1F9F5EB61CE086FF004D73D3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F9F5EB41CE086FF004D73D3 /* Main.storyboard */; };
 		1F9F5EB81CE086FF004D73D3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1F9F5EB71CE086FF004D73D3 /* Assets.xcassets */; };
 		1F9F5EBB1CE086FF004D73D3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F9F5EB91CE086FF004D73D3 /* LaunchScreen.storyboard */; };
 		1F9F5EC81CE087B8004D73D3 /* AFNetworking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F9F5EC31CE087B8004D73D3 /* AFNetworking.framework */; };
@@ -62,6 +63,9 @@
 		1F0DE9711CEE050800C5315F /* PullRequestsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PullRequestsController.m; sourceTree = "<group>"; };
 		1F0DE9741CEE129600C5315F /* MWKProgressIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWKProgressIndicator.h; sourceTree = "<group>"; };
 		1F0DE9751CEE129600C5315F /* MWKProgressIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKProgressIndicator.m; sourceTree = "<group>"; };
+		1F10A9BF1D057C5500C5AA37 /* OrgsContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrgsContainer.h; sourceTree = "<group>"; };
+		1F10A9C01D057C5500C5AA37 /* OrgsContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrgsContainer.m; sourceTree = "<group>"; };
+		1F10A9C31D05A89000C5AA37 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1F147D801CFEFE9A0024F773 /* Dashboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Dashboard.h; sourceTree = "<group>"; };
 		1F147D811CFEFE9A0024F773 /* Dashboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Dashboard.m; sourceTree = "<group>"; };
 		1F147D831CFEFEEF0024F773 /* DashCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashCell.h; sourceTree = "<group>"; };
@@ -96,7 +100,6 @@
 		1F9F5EAF1CE086FF004D73D3 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		1F9F5EB11CE086FF004D73D3 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		1F9F5EB21CE086FF004D73D3 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		1F9F5EB51CE086FF004D73D3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1F9F5EB71CE086FF004D73D3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1F9F5EBA1CE086FF004D73D3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1F9F5EBC1CE086FF004D73D3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -198,6 +201,8 @@
 				1FE63DF11CFD91B300CE28FA /* OrganizationCell.h */,
 				1FE63DF21CFD91B300CE28FA /* OrganizationCell.m */,
 				1FE63DF31CFD91B300CE28FA /* OrganizationCell.xib */,
+				1F10A9BF1D057C5500C5AA37 /* OrgsContainer.h */,
+				1F10A9C01D057C5500C5AA37 /* OrgsContainer.m */,
 			);
 			name = Organisations;
 			sourceTree = "<group>";
@@ -291,6 +296,7 @@
 		1F9F5EAA1CE086FF004D73D3 /* GitWatch */ = {
 			isa = PBXGroup;
 			children = (
+				1F10A9C21D05A89000C5AA37 /* Main.storyboard */,
 				1F0DE9731CEE127C00C5315F /* ProgressIndicator */,
 				1F0DE96F1CEE04CC00C5315F /* PullRequests */,
 				1F0DA37A1CE478D3005DBE35 /* Home */,
@@ -300,7 +306,6 @@
 				1F9B4B201CE34BC800EAFD29 /* Data */,
 				1F9F5EAE1CE086FF004D73D3 /* AppDelegate.h */,
 				1F9F5EAF1CE086FF004D73D3 /* AppDelegate.m */,
-				1F9F5EB41CE086FF004D73D3 /* Main.storyboard */,
 				1F9F5EB71CE086FF004D73D3 /* Assets.xcassets */,
 				1F9F5EB91CE086FF004D73D3 /* LaunchScreen.storyboard */,
 				1F9F5EBC1CE086FF004D73D3 /* Info.plist */,
@@ -402,10 +407,10 @@
 				1F9F5EB81CE086FF004D73D3 /* Assets.xcassets in Resources */,
 				1F6A992F1CE5F37800B61F50 /* StatusCell.xib in Resources */,
 				1FE63DF51CFD91B300CE28FA /* OrganizationCell.xib in Resources */,
+				1F10A9C41D05A89000C5AA37 /* Main.storyboard in Resources */,
 				1F9B4B1F1CE3340D00EAFD29 /* RepositoryCell.xib in Resources */,
 				1F9B4B221CE34BE800EAFD29 /* FavoriteRepository.plist in Resources */,
 				1F81EFFD1D00336D00271D28 /* SettingsList.plist in Resources */,
-				1F9F5EB61CE086FF004D73D3 /* Main.storyboard in Resources */,
 				1FB4AD9A1CEA256D002B12A1 /* RepositoryIntervals.plist in Resources */,
 				1F7BE7D41CEF14A4008A61BE /* CommitCell.xib in Resources */,
 			);
@@ -493,6 +498,7 @@
 				1FE63DF01CFD8EC300CE28FA /* NS-Extensions.m in Sources */,
 				1F147D821CFEFE9A0024F773 /* Dashboard.m in Sources */,
 				1F9F5ED51CE09681004D73D3 /* OrganisationsController.m in Sources */,
+				1F10A9C11D057C5500C5AA37 /* OrgsContainer.m in Sources */,
 				1F7BE7DB1CEF17AC008A61BE /* CommitModel.m in Sources */,
 				1F9F5EAD1CE086FF004D73D3 /* main.m in Sources */,
 				1FB4AD981CE9BF5B002B12A1 /* RepositoryController.m in Sources */,
@@ -518,10 +524,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		1F9F5EB41CE086FF004D73D3 /* Main.storyboard */ = {
+		1F10A9C21D05A89000C5AA37 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				1F9F5EB51CE086FF004D73D3 /* Base */,
+				1F10A9C31D05A89000C5AA37 /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";

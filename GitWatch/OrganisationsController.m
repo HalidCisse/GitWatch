@@ -35,17 +35,17 @@
     self.clearsSelectionOnViewWillAppear = NO;
     self.tableView.tableFooterView = [UIView new];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-    
-    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
-    self.navigationController.navigationBar.backgroundColor = [ColorHelper colorFromHexString:@"313B47"];
-    
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    [button setImage:[UIImage imageNamed:@"logout"] forState:UIControlStateNormal];
-    button.frame = CGRectMake(0, 0, 30, 30);
-    [button addTarget:self action:@selector(onLogout:) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
-    
-    self.title = @"Organizations";
+
+//    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
+//    self.navigationController.navigationBar.backgroundColor = [ColorHelper colorFromHexString:@"313B47"];
+//    
+//    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [button setImage:[UIImage imageNamed:@"logout"] forState:UIControlStateNormal];
+//    button.frame = CGRectMake(0, 0, 30, 30);
+//    [button addTarget:self action:@selector(onLogout:) forControlEvents:UIControlEventTouchUpInside];
+//    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+//    
+//    self.title = @"Organizations";
     self.organisations = [[NSMutableArray alloc] init];
     
     RACSignal *request = [self.gitClient fetchUserOrganizations];
