@@ -13,6 +13,7 @@
 @property (nonatomic, weak) IBOutlet UILabel *repositoryName;
 @property (weak, nonatomic) IBOutlet UIButton *checkbox;
 @property (nonatomic, weak) IBOutlet UIImageView *repositoryImage;
+@property (weak, nonatomic) IBOutlet UILabel *repositoryDescription;
 
 - (IBAction)checkboxSelected:(UIButton*)sender;
 

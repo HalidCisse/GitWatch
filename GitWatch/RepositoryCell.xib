@@ -18,18 +18,24 @@
                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="repoIcon" translatesAutoresizingMaskIntoConstraints="NO" id="hmr-LJ-OAo">
                         <rect key="frame" x="8" y="11" width="16" height="16"/>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5xP-Aa-gwq">
-                        <rect key="frame" x="32" y="8" width="312" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5xP-Aa-gwq">
+                        <rect key="frame" x="32" y="8" width="322" height="21"/>
                         <constraints>
+                            <constraint firstAttribute="width" constant="334" id="9ni-gA-Cwv"/>
                             <constraint firstAttribute="width" constant="312" id="JPS-Wy-yYf"/>
-                            <constraint firstAttribute="height" constant="21" id="RcN-LB-TmW"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="9ni-gA-Cwv"/>
+                                <exclude reference="JPS-Wy-yYf"/>
+                            </mask>
+                        </variation>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A GitHub client to watch the repos you care about" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3VF-eU-XoZ">
-                        <rect key="frame" x="32" y="30" width="312" height="19"/>
+                        <rect key="frame" x="32" y="30" width="322" height="21"/>
                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
@@ -37,8 +43,8 @@
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cd2-xU-m2w">
                         <rect key="frame" x="374" y="15" width="22" height="22"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="22" id="CZZ-0k-K29"/>
-                            <constraint firstAttribute="height" constant="22" id="Ron-4R-7Lt"/>
+                            <constraint firstAttribute="height" constant="22" id="8Gu-Um-QtG"/>
+                            <constraint firstAttribute="width" constant="22" id="OgP-um-eyX"/>
                         </constraints>
                         <state key="normal" title="check"/>
                         <connections>
@@ -47,24 +53,27 @@
                     </button>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="hmr-LJ-OAo" firstAttribute="top" secondItem="nMp-EM-EIu" secondAttribute="topMargin" constant="3" id="AR3-2R-nBI"/>
-                    <constraint firstItem="5xP-Aa-gwq" firstAttribute="top" secondItem="nMp-EM-EIu" secondAttribute="topMargin" id="FTZ-hn-L5X"/>
+                    <constraint firstItem="hmr-LJ-OAo" firstAttribute="top" secondItem="nMp-EM-EIu" secondAttribute="topMargin" constant="3" id="0Xf-X6-OdQ"/>
+                    <constraint firstItem="cd2-xU-m2w" firstAttribute="centerY" secondItem="nMp-EM-EIu" secondAttribute="centerY" id="0lC-mw-QLB"/>
+                    <constraint firstItem="3VF-eU-XoZ" firstAttribute="top" secondItem="5xP-Aa-gwq" secondAttribute="bottom" constant="1" id="AAa-Vi-IOI"/>
                     <constraint firstAttribute="bottomMargin" secondItem="hmr-LJ-OAo" secondAttribute="bottom" constant="40" id="Ijr-3b-M8m"/>
-                    <constraint firstItem="cd2-xU-m2w" firstAttribute="trailing" secondItem="nMp-EM-EIu" secondAttribute="trailingMargin" id="JxA-bS-8kv"/>
-                    <constraint firstItem="3VF-eU-XoZ" firstAttribute="leading" secondItem="nMp-EM-EIu" secondAttribute="leadingMargin" constant="24" id="K6O-J3-i1j"/>
+                    <constraint firstItem="hmr-LJ-OAo" firstAttribute="centerY" secondItem="5xP-Aa-gwq" secondAttribute="centerY" id="MqR-tu-v2e"/>
                     <constraint firstItem="cd2-xU-m2w" firstAttribute="top" secondItem="nMp-EM-EIu" secondAttribute="topMargin" constant="19" id="RG9-pr-NXX"/>
-                    <constraint firstItem="hmr-LJ-OAo" firstAttribute="leading" secondItem="nMp-EM-EIu" secondAttribute="leadingMargin" id="VIU-ow-NTH"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="3VF-eU-XoZ" secondAttribute="bottom" constant="-6" id="Xth-rL-6Wp"/>
+                    <constraint firstItem="cd2-xU-m2w" firstAttribute="leading" secondItem="5xP-Aa-gwq" secondAttribute="trailing" constant="20" id="RJz-sB-Y3F"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="hmr-LJ-OAo" secondAttribute="bottom" constant="16" id="RPH-ug-S76"/>
+                    <constraint firstItem="hmr-LJ-OAo" firstAttribute="leading" secondItem="nMp-EM-EIu" secondAttribute="leadingMargin" id="RwY-nG-UKc"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="3VF-eU-XoZ" secondAttribute="bottom" constant="-8" id="SYp-XO-sMX"/>
+                    <constraint firstItem="3VF-eU-XoZ" firstAttribute="leading" secondItem="nMp-EM-EIu" secondAttribute="leadingMargin" constant="24" id="Y7R-C8-4YR"/>
                     <constraint firstItem="cd2-xU-m2w" firstAttribute="top" secondItem="nMp-EM-EIu" secondAttribute="topMargin" constant="19" id="ZM4-MQ-jh7"/>
-                    <constraint firstItem="hmr-LJ-OAo" firstAttribute="centerY" secondItem="5xP-Aa-gwq" secondAttribute="centerY" id="axS-aC-nPt"/>
+                    <constraint firstItem="5xP-Aa-gwq" firstAttribute="top" secondItem="nMp-EM-EIu" secondAttribute="topMargin" id="dBN-7V-w7Z"/>
+                    <constraint firstItem="cd2-xU-m2w" firstAttribute="leading" secondItem="3VF-eU-XoZ" secondAttribute="trailing" constant="20" id="fUI-Dq-DJ5"/>
                     <constraint firstItem="cd2-xU-m2w" firstAttribute="leading" secondItem="3VF-eU-XoZ" secondAttribute="trailing" constant="69" id="gAp-kQ-ZdV"/>
-                    <constraint firstItem="cd2-xU-m2w" firstAttribute="centerY" secondItem="nMp-EM-EIu" secondAttribute="centerY" constant="0.5" id="jHU-MH-9eX"/>
+                    <constraint firstItem="cd2-xU-m2w" firstAttribute="trailing" secondItem="nMp-EM-EIu" secondAttribute="trailingMargin" id="hyx-gX-ps4"/>
                     <constraint firstAttribute="trailingMargin" secondItem="5xP-Aa-gwq" secondAttribute="trailing" constant="91" id="kpQ-CA-3pA"/>
-                    <constraint firstItem="5xP-Aa-gwq" firstAttribute="leading" secondItem="hmr-LJ-OAo" secondAttribute="trailing" constant="8" symbolic="YES" id="nfa-NY-DXa"/>
                     <constraint firstItem="cd2-xU-m2w" firstAttribute="leading" secondItem="3VF-eU-XoZ" secondAttribute="trailing" constant="69" id="pFL-bP-c2a"/>
-                    <constraint firstItem="5xP-Aa-gwq" firstAttribute="leading" secondItem="3VF-eU-XoZ" secondAttribute="leading" id="qJp-hm-MRn"/>
-                    <constraint firstItem="5xP-Aa-gwq" firstAttribute="trailing" secondItem="3VF-eU-XoZ" secondAttribute="trailing" id="yYd-mm-w7R"/>
-                    <constraint firstItem="3VF-eU-XoZ" firstAttribute="top" secondItem="5xP-Aa-gwq" secondAttribute="bottom" constant="1" id="zgm-7W-LIu"/>
+                    <constraint firstItem="cd2-xU-m2w" firstAttribute="top" secondItem="nMp-EM-EIu" secondAttribute="topMargin" constant="7" id="x8m-rm-UG6"/>
+                    <constraint firstItem="5xP-Aa-gwq" firstAttribute="leading" secondItem="3VF-eU-XoZ" secondAttribute="leading" id="x90-Xt-T5h"/>
+                    <constraint firstItem="5xP-Aa-gwq" firstAttribute="leading" secondItem="hmr-LJ-OAo" secondAttribute="trailing" constant="8" symbolic="YES" id="xvT-OW-wsh"/>
                 </constraints>
                 <variation key="default">
                     <mask key="constraints">
@@ -74,6 +83,7 @@
                         <exclude reference="ZM4-MQ-jh7"/>
                         <exclude reference="gAp-kQ-ZdV"/>
                         <exclude reference="pFL-bP-c2a"/>
+                        <exclude reference="x8m-rm-UG6"/>
                     </mask>
                 </variation>
             </tableViewCellContentView>
@@ -81,6 +91,7 @@
             <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
             <connections>
                 <outlet property="checkbox" destination="cd2-xU-m2w" id="tRe-iq-LSO"/>
+                <outlet property="repositoryDescription" destination="3VF-eU-XoZ" id="Ucd-bT-27o"/>
                 <outlet property="repositoryImage" destination="hmr-LJ-OAo" id="NCn-vA-eug"/>
                 <outlet property="repositoryName" destination="5xP-Aa-gwq" id="FwS-BA-JbX"/>
             </connections>

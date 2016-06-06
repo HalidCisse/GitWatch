@@ -38,10 +38,12 @@ BOOL checkBoxSelected;
     NSString *key =[[NSString alloc]initWithFormat:@"%@",self.repositoryName.text];
     
     if (sender.selected != YES) {
+        self.selected = NO;
         if ([favoritesRepos indexOfObject:key] == NSNotFound) {
             [favoritesRepos addObject:key];
         }
     } else {
+        self.selected = YES;
         if ([favoritesRepos indexOfObject:key] != NSNotFound) {
             [favoritesRepos removeObject:key];
         }

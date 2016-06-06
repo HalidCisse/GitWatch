@@ -224,6 +224,16 @@
     self.navigationItem.leftBarButtonItem = refreshBarButton;
 }
 
+- (NSIndexPath *)tableView:(UITableView *)tv willSelectRowAtIndexPath:(NSIndexPath *)path
+{
+    return nil;
+}
+
+- (BOOL)tableView:(UITableView *)tv shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return false;
+}
+
 - (void)onBackClick:(id)sender{
     [self.navigationController popViewControllerAnimated:YES];
 }

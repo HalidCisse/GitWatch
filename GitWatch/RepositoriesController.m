@@ -84,10 +84,10 @@
     [cell.checkbox setImage:[UIImage imageNamed:@"selectedCheckbox"] forState:UIControlStateHighlighted];
     [cell.checkbox setImage:[UIImage imageNamed:@"selectedCheckbox"] forState:UIControlStateSelected | UIControlStateHighlighted];
     
-    
     OCTRepository *repo =[self.repositories objectAtIndex:indexPath.row];
     
     cell.repositoryName.text = repo.name;
+    cell.repositoryDescription.text = repo.repoDescription;
     cell.repositoryImage.image = [UIImage imageNamed:@"repoIcon.png"];
     
     [cell.checkbox setSelected:[Helper isFavorite:repo.name]];
@@ -133,6 +133,17 @@
     UIView *view = [[UIView alloc]init];
     [view setAlpha:0.0F];
     return view;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    RepositoryCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    
+    cell.checkbox.selected = true;
+    
+//    if(cell.isSelected) {
+//        [tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionNone];
+//    }
 }
 
 - (void)onBackClick:(id)sender{

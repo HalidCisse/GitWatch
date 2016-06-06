@@ -1435,7 +1435,7 @@
                                     <action selector="authorizeOnGitHub" destination="0cI-fn-L0h" eventType="touchUpInside" id="X1r-kb-zY2"/>
                                 </connections>
                             </button>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="r9W-WG-A0K">
+                            <containerView opaque="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="r9W-WG-A0K">
                                 <rect key="frame" x="0.0" y="64" width="600" height="466"/>
                                 <connections>
                                     <segue destination="gZP-Xi-VXG" kind="embed" identifier="orgs_embed" id="yAJ-3L-nVC"/>
@@ -1472,6 +1472,10 @@
         <scene sceneID="Wx5-aE-gtu">
             <objects>
                 <viewController id="cVH-xe-vad" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="VxB-tK-nRp"/>
+                        <viewControllerLayoutGuide type="bottom" id="jqI-wn-dZe"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="aiZ-Y2-UFl">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
