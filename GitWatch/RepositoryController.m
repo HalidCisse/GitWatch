@@ -66,7 +66,6 @@
                
                self.lastUpdated.text = [[NSString alloc] initWithFormat:@"last updated by @%@ %@", userName, self.repository.dateUpdated.timeAgoSinceNow];
            }progressBlock:^(FSNConnection *c) {}];
-    
     [connection start];
 }
 
@@ -78,7 +77,8 @@
         
         view.gitClient = self.gitClient;
         view.repository = self.repository;
-    } else if ([segue.identifier isEqualToString:@"GoToSettings"])
+    }
+    else if ([segue.identifier isEqualToString:@"GoToSettings"])
     {
         SettingsController *view = (SettingsController *) segue.destinationViewController;
         
@@ -87,7 +87,7 @@
     }
 }
 
--(void)settingsClicked:(UIBarButtonItem *)sender {
+-(void) settingsClicked:(UIBarButtonItem *)sender {
     //[self.navigationController popToRootViewControllerAnimated:YES];
     
     SettingsController *view = [[SettingsController alloc] init];

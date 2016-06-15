@@ -170,8 +170,9 @@
                                   NSDictionary *author = [commitDic objectForKey:@"author"];
                                  
                                   [self.lastCommiterImage sd_setImageWithURL:[NSURL URLWithString:[author objectForKey:@"avatar_url"]] placeholderImage:[UIImage imageNamed:@"octokat"]];
-                                                                
-                                  self.lastCommitLabel.text =[commitCommit objectForKey:@"message"];
+                                  
+                                  self.lastCommitLabel.text =[NSString stringWithFormat:@"%@", [commitCommit objectForKey:@"message"]];
+                                  
                                   self.lastCommiterName.text =[author objectForKey:@"login"];
                                   
                                   NSString *dateAgo =[[NSDate dateFromString:[commitCommitter objectForKey:@"date"] withFormat:@"yyyy-MM-dd'T'HH:mm:ssZ"] timeAgoSinceNow];
