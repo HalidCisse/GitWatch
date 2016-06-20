@@ -61,13 +61,14 @@
     //OCTClientAuthorizationScopesRepositoryStatus
     
     [[[OCTClient
-       signInToServerUsingWebBrowser:OCTServer.dotComServer scopes:OCTClientAuthorizationScopesRepositoryStatus|OCTClientAuthorizationScopesPublicReadOnly ] deliverOnMainThread]
+       signInToServerUsingWebBrowser:OCTServer.dotComServer scopes:OCTClientAuthorizationScopesRepositoryStatus|OCTClientAuthorizationScopesRepository|OCTClientAuthorizationScopesUser] deliverOnMainThread]
      subscribeNext:^(OCTClient *client) {
          //[MWKProgressIndicator showSuccessMessage:@"success"];
          [Helper saveCredentials:client];
          
          Dashboard *view = [self.storyboard instantiateViewControllerWithIdentifier:@"Dashboard"];
          view.gitClient = client;
+         view.fromLogin = true;
          [self.navigationController pushViewController:view animated:YES];
      } error:^(NSError *error) {
          

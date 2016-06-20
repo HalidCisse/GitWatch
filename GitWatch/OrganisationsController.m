@@ -16,6 +16,7 @@
 #import "HomeController.h"
 #import "ViewController.h"
 #import "Helper.h"
+#import "MBProgressHUD.h"
 
 @interface OrganisationsController ()
 
@@ -23,7 +24,7 @@
 @property (weak, nonatomic) IBOutlet UIView *tableFooterView;
 
 @property NSMutableArray *organisations;
-
+@property MBProgressHUD* hud;
 
 @end
 
@@ -36,15 +37,9 @@
     self.tableView.tableFooterView = [UIView new];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
 
-//    
-//    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-//    [button setImage:[UIImage imageNamed:@"logout"] forState:UIControlStateNormal];
-//    button.frame = CGRectMake(0, 0, 30, 30);
-//    [button addTarget:self action:@selector(onLogout:) forControlEvents:UIControlEventTouchUpInside];
-//    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
-//    
-//    self.title = @"Organizations";
-    self.organisations = [[NSMutableArray alloc] init];
+    self.organisations = [NSMutableArray new];
+    _hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    _hud.labelText = @"Loading...";
     
     RACSignal *request = [self.gitClient fetchUserOrganizations];
     
@@ -52,6 +47,7 @@
      subscribeNext:^(OCTOrganization *organisation) {
     [self.organisations insertObject:organisation atIndex:0];
     } error:^(NSError *error) {
+        [_hud hide:true];
         UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Whoops" message:[NSString stringWithFormat:@"Something went wrong."] preferredStyle:UIAlertControllerStyleAlert];
         
         UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {}];
@@ -60,6 +56,7 @@
         [self presentViewController:alert animated:YES completion:nil];
     } completed:^{
         [self.tableView reloadData];
+        [_hud hide:true];
     } ];
 }
 

@@ -1467,31 +1467,14 @@
                             </mask>
                         </variation>
                     </view>
-                    <navigationItem key="navigationItem" title="Title" id="n1T-Am-LVT"/>
+                    <navigationItem key="navigationItem" title="Title" id="EOg-qp-JNb"/>
                     <connections>
                         <outlet property="authorizeButton" destination="S4J-F3-SPw" id="TJF-i4-IRi"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eiG-SG-R0u" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1184" y="280"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="Wx5-aE-gtu">
-            <objects>
-                <viewController id="cVH-xe-vad" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="VxB-tK-nRp"/>
-                        <viewControllerLayoutGuide type="bottom" id="jqI-wn-dZe"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="aiZ-Y2-UFl">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Sre-rV-S3O" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
+            <point key="canvasLocation" x="1169" y="246"/>
         </scene>
     </scenes>
     <resources>

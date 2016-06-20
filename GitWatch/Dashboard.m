@@ -23,6 +23,7 @@
 #import <OctoKit/OctoKit.h>
 #import <FSNetworking/FSNConnection.h>
 #import "NSDate+Helper.h"
+#import "MBProgressHUD/MBProgressHUD.h"
 
 #define UIColorFromRGB(rgbValue) \
 [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 \
@@ -37,9 +38,10 @@ alpha:1.0]
 
 @property NSMutableArray *repositories;
 
-@property NSString* tokenHeader;
-@property NSDictionary* headers;
-@property NSDictionary* parameters;
+@property NSString*      tokenHeader;
+@property NSDictionary*  headers;
+@property NSDictionary*  parameters;
+@property MBProgressHUD* hud;
 
 @end
 
@@ -78,6 +80,9 @@ alpha:1.0]
     self.parameters  = nil;
     
     [self FetchRepos];
+    
+    _hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    _hud.labelText = @"Loading...";
     self.refresh = false;
 }
 
@@ -92,6 +97,7 @@ alpha:1.0]
 {
     [self.repositories removeAllObjects];
     
+    [_hud show:true];
     [[self.gitClient fetchUserOrganizations]
      subscribeNext:^(OCTOrganization *organization) {
          NSMutableURLRequest *request = [self.gitClient requestWithMethod:@"GET" path:[NSString stringWithFormat:@"/orgs/%@/repos", organization.login] parameters:@{@"type":@"all"}];
@@ -101,20 +107,28 @@ alpha:1.0]
              if ([Helper isFavorite:repository.name]) {
                  [self.repositories insertObject:repository atIndex:0];
              }
-             
-             if (self.repositories.count == 0){
-                 OrgsContainer *view = [self.storyboard instantiateViewControllerWithIdentifier:@"OrgsContainer"];
-                 view.gitClient = self.gitClient;
-                 [self.navigationController pushViewController:view animated:YES];
-             }
          } completed:^{
              dispatch_async(dispatch_get_main_queue(), ^{
                  [self.tableView reloadData];
              });
          }];
-     } completed:^{
+     } error:^(NSError *error) {
          dispatch_async(dispatch_get_main_queue(), ^{
              [self.tableView reloadData];
+             [_hud hide:YES];
+         });
+     }
+     completed:^{
+         dispatch_async(dispatch_get_main_queue(), ^{
+             [self.tableView reloadData];
+             [_hud hide:YES];
+             
+             if (self.repositories.count == 0 && self.fromLogin){
+                 self.fromLogin = false;
+                 OrgsContainer *view = [self.storyboard instantiateViewControllerWithIdentifier:@"OrgsContainer"];
+                 view.gitClient = self.gitClient;
+                 [self.navigationController pushViewController:view animated:YES];
+             }
          });
      }];
 }
@@ -162,6 +176,7 @@ alpha:1.0]
         return;
     }
     
+    [_hud show:true];
     NSString *repoPath = [cell.repository.HTMLURL.absoluteString stringByReplacingOccurrencesOfString:@"https://github.com/" withString:@""];
     NSString *url =[[NSString alloc] initWithFormat:@"https://api.github.com/repos/%@/pulls", repoPath];
         
@@ -175,6 +190,10 @@ alpha:1.0]
                     }
                completionBlock:^(FSNConnection *c) {
                    
+                   if (!c.didSucceed) {
+                       [_hud hide:YES];
+                       return;
+                   }
                    NSArray *pulls = (NSArray *) c.parseResult;
                    
                    for (NSDictionary *pull in pulls) {
@@ -189,6 +208,10 @@ alpha:1.0]
                                        return [c.responseData dictionaryFromJSONWithError:error];
                                    }
                               completionBlock:^(FSNConnection *c) {
+                                  
+                                  if (!c.didSucceed) {
+                                      return;
+                                  }
                                   NSDictionary *pullRequest = (NSDictionary *) c.parseResult;
                                   
                                   if ([pullRequest objectForKey:@"mergeable"] != nil) {
@@ -206,6 +229,7 @@ alpha:1.0]
                        
                        [connection start];
                    }
+                   [_hud hide:YES];
                } progressBlock:^(FSNConnection *c) {}];
         
         [connection start];

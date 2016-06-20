@@ -14,5 +14,6 @@
 @property OCTClient *gitClient;
 
 @property BOOL refresh;
+@property BOOL fromLogin;
 
 @end

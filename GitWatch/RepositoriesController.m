@@ -12,12 +12,14 @@
 #import "Helper.h"
 #import "ColorHelper.h"
 #import "Dashboard.h"
+#import "MBProgressHUD.h"
 
 @interface RepositoriesController ()
 
 - (IBAction)onDone:(id)sender;
 
 @property NSMutableArray *repositories;
+@property MBProgressHUD* hud;
 
 @end
 
@@ -44,17 +46,19 @@
     
     self.title = [NSString stringWithFormat:@"%@ Repositories", self.organisation.name];
     
-    self.repositories = [[NSMutableArray alloc] init];
+    self.repositories = [NSMutableArray new];
+    _hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    _hud.labelText = @"Loading...";
     
     RACSignal *request = [self.gitClient fetchRepositoriesForOrganization:self.organisation];
     
     [[request deliverOn:RACScheduler.mainThreadScheduler]
      subscribeNext:^(OCTRepository *repository) {
-         
          [self.repositories insertObject:repository atIndex:0];
      }
      error:^(NSError *error)
      {
+         [_hud hide:true];
          UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Whoops" message:[NSString stringWithFormat:@"Something went wrong."] preferredStyle:UIAlertControllerStyleAlert];
          
          UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {}];
@@ -63,6 +67,7 @@
          [self presentViewController:alert animated:YES completion:nil];
      } completed:^{
          [self.tableView reloadData];
+         [_hud hide:true];
      } ];
 }
 

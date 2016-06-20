@@ -6,6 +6,7 @@ target ‘GitWatch’ do
   pod 'FSNetworking'
   pod 'ObjectiveSugar'
   pod 'AMSmoothAlert', '~> 1.0'
+  pod 'MBProgressHUD'
   #pod 'DCKit'
   #pod 'MWKProgressIndicator', :git => 'https://github.com/mwkoelb/MWKProgressIndicator.git'
   

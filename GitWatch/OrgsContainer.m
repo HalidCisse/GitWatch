@@ -28,10 +28,28 @@
     
     _authorizeButton.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
     _authorizeButton.titleLabel.textAlignment = NSTextAlignmentCenter;
+    
+    [self customBackButton];
 }
 
 - (IBAction)authorizeOnGitHub {
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://github.com/settings/connections/applications/84291409629d7f93ab31"]];
+}
+
+- (void) customBackButton {
+    UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [backButton setFrame:CGRectMake(0,0,12.5,21)];
+    backButton.userInteractionEnabled = YES;
+    [backButton setImage:[UIImage imageNamed:@"BackChevron"] forState:UIControlStateNormal];
+    
+    [backButton addTarget:self action:@selector(onBackClick:) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIBarButtonItem *refreshBarButton = [[UIBarButtonItem alloc] initWithCustomView:backButton];
+    self.navigationItem.leftBarButtonItem = refreshBarButton;
+}
+
+- (void)onBackClick:(id)sender{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender

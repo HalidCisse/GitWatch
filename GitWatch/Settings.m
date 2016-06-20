@@ -21,14 +21,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    
-    //    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    //    [button setImage:[UIImage imageNamed:@"logout"] forState:UIControlStateNormal];
-    //    button.frame = CGRectMake(0, 0, 30, 30);
-    //    [button addTarget:self action:@selector(onLogout:) forControlEvents:UIControlEventTouchUpInside];
-    //    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
-    
     [self customBackButton];
     [self initiateSettings];
 }
