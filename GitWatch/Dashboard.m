@@ -248,7 +248,7 @@ alpha:1.0]
     int activityInterval = [SettingsHelper getActivitiesInterval];
     NSDate *daysAgo = [[NSCalendar currentCalendar] dateByAddingUnit:NSCalendarUnitDay value:-activityInterval toDate:[NSDate date] options:0];
     
-    if([cell.repository.dateUpdated isEarlierThan:daysAgo])
+    if([cell.repository.datePushed isEarlierThan:daysAgo])
     {
         cell.statusIcon.image = [UIImage imageNamed:@"redStatus"];
         cell.activitiesIcon.image = [UIImage imageNamed:@"activityRed"];
