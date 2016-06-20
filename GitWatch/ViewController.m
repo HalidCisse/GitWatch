@@ -57,9 +57,11 @@
 //    [MWKProgressIndicator show];
 //    [MWKProgressIndicator updateMessage:@"connecting ..."];
 //    [MWKProgressIndicator updateProgress:0.5f];
+//    OCTClientAuthorizationScopesRepository OCTClientAuthorizationScopesUser
+    //OCTClientAuthorizationScopesRepositoryStatus
     
     [[[OCTClient
-       signInToServerUsingWebBrowser:OCTServer.dotComServer scopes:OCTClientAuthorizationScopesRepository | OCTClientAuthorizationScopesUser | OCTClientAuthorizationScopesRepositoryStatus] deliverOnMainThread]
+       signInToServerUsingWebBrowser:OCTServer.dotComServer scopes:OCTClientAuthorizationScopesRepositoryStatus|OCTClientAuthorizationScopesPublicReadOnly ] deliverOnMainThread]
      subscribeNext:^(OCTClient *client) {
          //[MWKProgressIndicator showSuccessMessage:@"success"];
          [Helper saveCredentials:client];

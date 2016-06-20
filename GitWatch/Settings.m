@@ -9,8 +9,11 @@
 #import "Settings.h"
 #import "SettingsHelper.h"
 #import "Dashboard.h"
+#import "Helper.h"
+#import "ViewController.h"
 
 @interface Settings ()
+- (IBAction)onLogout:(UIBarButtonItem *)sender;
 
 @end
 
@@ -18,6 +21,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    
+    //    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    //    [button setImage:[UIImage imageNamed:@"logout"] forState:UIControlStateNormal];
+    //    button.frame = CGRectMake(0, 0, 30, 30);
+    //    [button addTarget:self action:@selector(onLogout:) forControlEvents:UIControlEventTouchUpInside];
+    //    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
     
     [self customBackButton];
     [self initiateSettings];
@@ -72,5 +82,11 @@
 
 - (void)onBackClick:(id)sender{
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (IBAction)onLogout:(UIBarButtonItem *)sender {
+    [Helper clearCredentials];
+    ViewController *view = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginController"];
+    [self.navigationController pushViewController:view animated:YES];
 }
 @end

@@ -163,22 +163,29 @@
                                    }
                               completionBlock:^(FSNConnection *c) {
                                   NSDictionary *commitDic = (NSDictionary *) c.parseResult;
-                                  
+                                  if (commitDic == nil) {
+                                      return ;
+                                  }
                                   NSDictionary *commitCommit = [commitDic objectForKey:@"commit"];
+                                  if (commitCommit == nil) {
+                                      return ;
+                                  }
                                   NSDictionary *commitCommitter = [commitCommit objectForKey:@"committer"];
                                   
+                                  if (commitCommitter != nil) {
+                                      NSString *dateAgo =[[NSDate dateFromString:[commitCommitter objectForKey:@"date"] withFormat:@"yyyy-MM-dd'T'HH:mm:ssZ"] timeAgoSinceNow];
+                                      
+                                      self.lastCommitLabel.text =[NSString stringWithFormat:@"%@", [commitCommit objectForKey:@"message"]];
+                                      
+                                      self.lastCommitDate.text = [NSString  stringWithFormat:@"committed %@", dateAgo];
+                                  }
+                                  
                                   NSDictionary *author = [commitDic objectForKey:@"author"];
-                                 
-                                  [self.lastCommiterImage sd_setImageWithURL:[NSURL URLWithString:[author objectForKey:@"avatar_url"]] placeholderImage:[UIImage imageNamed:@"octokat"]];
                                   
-                                  self.lastCommitLabel.text =[NSString stringWithFormat:@"%@", [commitCommit objectForKey:@"message"]];
-                                  
-                                  self.lastCommiterName.text =[author objectForKey:@"login"];
-                                  
-                                  NSString *dateAgo =[[NSDate dateFromString:[commitCommitter objectForKey:@"date"] withFormat:@"yyyy-MM-dd'T'HH:mm:ssZ"] timeAgoSinceNow];
-                                  
-                                  self.lastCommitDate.text = [NSString  stringWithFormat:@"committed %@", dateAgo];
-                                  
+                                  if (author != nil) {
+                                      [self.lastCommiterImage sd_setImageWithURL:[NSURL URLWithString:[author objectForKey:@"avatar_url"]] placeholderImage:[UIImage imageNamed:@"Octocat"]];
+                                      self.lastCommiterName.text =[author objectForKey:@"login"];
+                                  }
                               } progressBlock:^(FSNConnection *c) {}];
                        [connection start];
                        break;
@@ -188,8 +195,6 @@
     [connection start];
     
 }
-
-
 
 //- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
 //
@@ -209,9 +214,6 @@
 //   
 //    return cell;
 //}
-
-
-
 
 - (void) customBackButton {
     UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];

@@ -22,6 +22,7 @@
 #import "OrgsContainer.h"
 #import <OctoKit/OctoKit.h>
 #import <FSNetworking/FSNConnection.h>
+#import "NSDate+Helper.h"
 
 #define UIColorFromRGB(rgbValue) \
 [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 \
@@ -50,7 +51,7 @@ alpha:1.0]
     self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
     [self.navigationController.navigationBar setBarTintColor:UIColorFromRGB(0x313B47)];
     self.navigationController.navigationBar.translucent = NO;
-
+    
     // Visual bug workround
     self.tableView.tableFooterView = [UIView new];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
@@ -100,6 +101,12 @@ alpha:1.0]
              if ([Helper isFavorite:repository.name]) {
                  [self.repositories insertObject:repository atIndex:0];
              }
+             
+             if (self.repositories.count == 0){
+                 OrgsContainer *view = [self.storyboard instantiateViewControllerWithIdentifier:@"OrgsContainer"];
+                 view.gitClient = self.gitClient;
+                 [self.navigationController pushViewController:view animated:YES];
+             }
          } completed:^{
              dispatch_async(dispatch_get_main_queue(), ^{
                  [self.tableView reloadData];
@@ -130,15 +137,17 @@ alpha:1.0]
     
     cell.repository =[self.repositories objectAtIndex:indexPath.row];
     
-    cell.repoName.text = cell.repository.name;
-    cell.statusIcon.image = [UIImage imageNamed:@"greenStatus"];
-    cell.pullsIcons.image = [UIImage imageNamed:@"pullsNormal"];
-    cell.issuesIcon.image = [UIImage imageNamed:@"issuesNormal"];
-    cell.activitiesIcon.image = [UIImage imageNamed:@"activityNormal"];
-    
-    [self resolvePullsRequest:cell];
-    [self resolveIssues:cell];
-    [self resolveActivities:cell];
+    if(cell != nil && cell.repository != nil){
+        cell.repoName.text = cell.repository.name;
+        cell.statusIcon.image = [UIImage imageNamed:@"greenStatus"];
+        cell.pullsIcons.image = [UIImage imageNamed:@"pullsNormal"];
+        cell.issuesIcon.image = [UIImage imageNamed:@"issuesNormal"];
+        cell.activitiesIcon.image = [UIImage imageNamed:@"activityNormal"];
+        
+        [self resolvePullsRequest:cell];
+        [self resolveIssues:cell];
+        [self resolveActivities:cell];
+    }
     
     cell.layoutMargins = UIEdgeInsetsZero;
     cell.preservesSuperviewLayoutMargins = NO;
@@ -215,12 +224,20 @@ alpha:1.0]
     int activityInterval = [SettingsHelper getActivitiesInterval];
     NSDate *daysAgo = [[NSCalendar currentCalendar] dateByAddingUnit:NSCalendarUnitDay value:-activityInterval toDate:[NSDate date] options:0];
     
-    if (cell.repository.dateUpdated.timeIntervalSince1970 < daysAgo.timeIntervalSince1970) {
+    if([cell.repository.dateUpdated isEarlierThan:daysAgo])
+    {
         cell.statusIcon.image = [UIImage imageNamed:@"redStatus"];
         cell.activitiesIcon.image = [UIImage imageNamed:@"activityRed"];
-    }else{
+    }else {
         cell.activitiesIcon.image = [UIImage imageNamed:@"activityNormal"];
     }
+    
+//    if (cell.repository.dateUpdated.timeIntervalSince1970 < daysAgo.timeIntervalSince1970) {
+//        cell.statusIcon.image = [UIImage imageNamed:@"redStatus"];
+//        cell.activitiesIcon.image = [UIImage imageNamed:@"activityRed"];
+//    }else {
+//        cell.activitiesIcon.image = [UIImage imageNamed:@"activityNormal"];
+//    }
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{

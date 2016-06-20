@@ -1010,7 +1010,13 @@
                             <outlet property="delegate" destination="b2n-bB-jOf" id="jIN-5S-4sD"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Settings" id="mde-ru-SCh"/>
+                    <navigationItem key="navigationItem" title="Settings" id="mde-ru-SCh">
+                        <barButtonItem key="rightBarButtonItem" image="logout" id="shB-VZ-dne">
+                            <connections>
+                                <action selector="onLogout:" destination="b2n-bB-jOf" id="1Pp-iw-ubo"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="activitiesLabel" destination="ZQF-1l-Ccv" id="4BZ-ju-kP0"/>
                         <outlet property="activitiesStepper" destination="lqa-r6-o8D" id="lLB-sj-eDI"/>
@@ -1175,13 +1181,13 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Dashboard" id="mK4-MF-X6h">
-                        <barButtonItem key="leftBarButtonItem" style="plain" systemItem="edit" id="VPM-Aa-BQ1">
+                        <barButtonItem key="leftBarButtonItem" image="edit" style="plain" id="VPM-Aa-BQ1">
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="editButton:" destination="ybq-fC-gPw" id="msf-NF-QtP"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="settings" style="plain" id="hFv-vS-1tj">
+                        <barButtonItem key="rightBarButtonItem" image="settings" style="plain" id="hFv-vS-1tj">
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <segue destination="b2n-bB-jOf" kind="show" identifier="Settings" id="Da2-E8-Xo9"/>
@@ -1400,7 +1406,7 @@
             </objects>
             <point key="canvasLocation" x="1184" y="1045"/>
         </scene>
-        <!--Orgs Container-->
+        <!--Title-->
         <scene sceneID="cjh-b5-gs3">
             <objects>
                 <viewController storyboardIdentifier="OrgsContainer" id="0cI-fn-L0h" customClass="OrgsContainer" sceneMemberID="viewController">
@@ -1429,7 +1435,9 @@
                                     <constraint firstAttribute="width" constant="263" id="R2P-sN-qnq"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                <state key="normal" title="Click here to authorize GitWatch to access your private organizations"/>
+                                <state key="normal" title="Click here to authorize GitWatch to access your private organizations">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
                                 <connections>
                                     <action selector="authorizeOnGitHub" destination="0cI-fn-L0h" eventType="touchUpInside" id="X1r-kb-zY2"/>
                                 </connections>
@@ -1459,6 +1467,7 @@
                             </mask>
                         </variation>
                     </view>
+                    <navigationItem key="navigationItem" title="Title" id="n1T-Am-LVT"/>
                     <connections>
                         <outlet property="authorizeButton" destination="S4J-F3-SPw" id="TJF-i4-IRi"/>
                     </connections>
@@ -1489,6 +1498,9 @@
         <image name="GitHub-Mark-Light-64px" width="64" height="64"/>
         <image name="Octocat" width="800" height="665"/>
         <image name="bg" width="375" height="667"/>
+        <image name="edit" width="22" height="22"/>
         <image name="flech" width="20" height="19"/>
+        <image name="logout" width="23" height="20"/>
+        <image name="settings" width="22" height="22"/>
     </resources>
 </document>
