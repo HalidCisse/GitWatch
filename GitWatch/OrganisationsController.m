@@ -16,7 +16,7 @@
 #import "HomeController.h"
 #import "ViewController.h"
 #import "Helper.h"
-#import "MBProgressHUD.h"
+#import <MBProgressHUD/MBProgressHUD.h>
 
 @interface OrganisationsController ()
 

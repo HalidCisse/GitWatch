@@ -12,7 +12,7 @@
 #import "Helper.h"
 #import "ColorHelper.h"
 #import "Dashboard.h"
-#import "MBProgressHUD.h"
+#import <MBProgressHUD/MBProgressHUD.h>
 
 @interface RepositoriesController ()
 

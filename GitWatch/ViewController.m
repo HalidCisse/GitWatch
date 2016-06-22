@@ -15,7 +15,8 @@
 #import "MWKProgressIndicator.h"
 #import "Dashboard.h"
 
-@interface ViewController ()
+
+@interface ViewController ()<SFSafariViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
 
@@ -52,16 +53,13 @@
 {
     //[self setNeedsStatusBarAppearanceUpdate];
     
-    
-    
 //    [MWKProgressIndicator show];
 //    [MWKProgressIndicator updateMessage:@"connecting ..."];
 //    [MWKProgressIndicator updateProgress:0.5f];
-//    OCTClientAuthorizationScopesRepository OCTClientAuthorizationScopesUser
-    //OCTClientAuthorizationScopesRepositoryStatus
+    
     
     [[[OCTClient
-       signInToServerUsingWebBrowser:OCTServer.dotComServer scopes:OCTClientAuthorizationScopesRepositoryStatus|OCTClientAuthorizationScopesRepository|OCTClientAuthorizationScopesUser] deliverOnMainThread]
+       signInToServerUsingWebBrowser:OCTServer.dotComServer scopes:OCTClientAuthorizationScopesRepositoryStatus|OCTClientAuthorizationScopesOrgRead] deliverOnMainThread]
      subscribeNext:^(OCTClient *client) {
          //[MWKProgressIndicator showSuccessMessage:@"success"];
          [Helper saveCredentials:client];
@@ -93,6 +91,29 @@
              [alert show];
          }
      }];
+}
+
+- (void)displaySafari {
+    SFSafariViewController *safariVC = [[SFSafariViewController alloc]initWithURL:[NSURL URLWithString:@"http://developer.apple.com"] entersReaderIfAvailable:NO];
+    safariVC.delegate = self;
+    [self presentViewController:safariVC animated:YES completion:nil];
+    
+    
+    //    SFSafariViewController *safariController = [[SFSafariViewController alloc]initWithURL:url];
+    //    safariController.delegate = self;
+    //    UINavigationController *navigationController = [[UINavigationController alloc]initWithRootViewController:safariController];
+    //    [navigationController setNavigationBarHidden:YES animated:NO];
+    //    [self presentViewController:navigationController animated:YES completion:nil];
+    //
+}
+
+#pragma mark - SFSafariViewController delegate methods
+-(void)safariViewController:(SFSafariViewController *)controller didCompleteInitialLoad:(BOOL)didLoadSuccessfully {
+    // Load finished
+}
+
+-(void)safariViewControllerDidFinish:(SFSafariViewController *)controller {
+    // Done button pressed
 }
 
 @end

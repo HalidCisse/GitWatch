@@ -9,8 +9,6 @@
 #import "AppDelegate.h"
 #import <OctoKit/OctoKit.h>
 
-
-
 @interface AppDelegate ()
 
 @end

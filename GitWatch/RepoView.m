@@ -164,11 +164,11 @@
                               completionBlock:^(FSNConnection *c) {
                                   NSDictionary *commitDic = (NSDictionary *) c.parseResult;
                                   if (commitDic == nil) {
-                                      return ;
+                                      return;
                                   }
                                   NSDictionary *commitCommit = [commitDic objectForKey:@"commit"];
                                   if (commitCommit == nil) {
-                                      return ;
+                                      return;
                                   }
                                   NSDictionary *commitCommitter = [commitCommit objectForKey:@"committer"];
                                   
@@ -182,8 +182,8 @@
                                   
                                   NSDictionary *author = [commitDic objectForKey:@"author"];
                                   
-                                  if (author != nil) {
-                                      [self.lastCommiterImage sd_setImageWithURL:[NSURL URLWithString:[author objectForKey:@"avatar_url"]] placeholderImage:[UIImage imageNamed:@"Octocat"]];
+                                  if (author != nil && [author objectForKey:@"avatar_url"] != nil) {
+                                      [self.lastCommiterImage sd_setImageWithURL:[NSURL URLWithString:[author objectForKey:@"avatar_url"]] placeholderImage:[UIImage imageNamed:@"Octocat.png"]];
                                       self.lastCommiterName.text =[author objectForKey:@"login"];
                                   }
                               } progressBlock:^(FSNConnection *c) {}];

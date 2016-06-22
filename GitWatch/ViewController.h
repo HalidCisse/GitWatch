@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+@import SafariServices;
 
 @interface ViewController : UIViewController
 

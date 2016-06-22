@@ -1,4 +1,4 @@
 
 
-github "octokit/octokit.objc" >= 0.7.8
+github "HalidCisse/octokit.objc" >= 0.7.9
 github "kishikawakatsumi/KeychainAccess"

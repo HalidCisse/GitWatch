@@ -23,7 +23,7 @@
 #import <OctoKit/OctoKit.h>
 #import <FSNetworking/FSNConnection.h>
 #import "NSDate+Helper.h"
-#import "MBProgressHUD/MBProgressHUD.h"
+#import <MBProgressHUD/MBProgressHUD.h>
 
 #define UIColorFromRGB(rgbValue) \
 [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 \
@@ -255,13 +255,6 @@ alpha:1.0]
     }else {
         cell.activitiesIcon.image = [UIImage imageNamed:@"activityNormal"];
     }
-    
-//    if (cell.repository.dateUpdated.timeIntervalSince1970 < daysAgo.timeIntervalSince1970) {
-//        cell.statusIcon.image = [UIImage imageNamed:@"redStatus"];
-//        cell.activitiesIcon.image = [UIImage imageNamed:@"activityRed"];
-//    }else {
-//        cell.activitiesIcon.image = [UIImage imageNamed:@"activityNormal"];
-//    }
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
