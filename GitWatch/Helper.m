@@ -36,6 +36,29 @@
     [SSKeychain setPassword:gitHubClient.token forService:@"GitHub.com" account:@"Token"];
 }
 
++ (NSInteger)favoriteCount
+{
+    NSString *destPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+    destPath = [destPath stringByAppendingPathComponent:@"FavoriteRepository.plist"];
+    
+    // If the file doesn't exist in the Documents Folder, copy it.
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    
+    if (![fileManager fileExistsAtPath:destPath]) {
+        NSString *sourcePath = [[NSBundle mainBundle] pathForResource:@"FavoriteRepository" ofType:@"plist"];
+        [fileManager copyItemAtPath:sourcePath toPath:destPath error:nil];
+    }
+    
+    NSMutableArray *favoritesRepos = [[NSMutableArray alloc] initWithContentsOfFile:destPath];
+    
+    if (favoritesRepos == nil) {
+        favoritesRepos = [[NSMutableArray alloc] init];
+    }
+    
+    return favoritesRepos.count;
+}
+
+
 + (BOOL)isFavorite:(NSString *)repositoryName
 {
     NSString *destPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];

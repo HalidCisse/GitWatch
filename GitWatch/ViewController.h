@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 @import SafariServices;
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController <SFSafariViewControllerDelegate>
 
 
 @end

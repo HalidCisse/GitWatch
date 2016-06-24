@@ -1,5 +1,8 @@
 use_frameworks!
 target ‘GitWatch’ do
+    
+  pod 'AuthenticationViewController'
+  pod 'p2.OAuth2'
   pod 'SSKeychain'
   pod 'SDWebImage', '~>3.7'
   pod 'DateTools'

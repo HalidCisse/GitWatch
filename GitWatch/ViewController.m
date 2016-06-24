@@ -6,6 +6,7 @@
 //  Copyright © 2016 Halid Cisse. All rights reserved.
 //
 
+#import "Dashboard.h"
 #import "ViewController.h"
 #import <OctoKit/OctoKit.h>
 #import "OrganisationsController.h"
@@ -14,11 +15,22 @@
 #import <AMSmoothAlert/AMSmoothAlertView.h>
 #import "MWKProgressIndicator.h"
 #import "Dashboard.h"
+#import <FSNetworking/FSNConnection.h>
+#import <MBProgressHUD/MBProgressHUD.h>
+
+#define UIColorFromRGB(rgbValue) \
+[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 \
+green:((float)((rgbValue & 0x00FF00) >>  8))/255.0 \
+blue:((float)((rgbValue & 0x0000FF) >>  0))/255.0 \
+alpha:1.0]
 
 
-@interface ViewController ()<SFSafariViewControllerDelegate>
+@interface ViewController () 
 
+@property NSString* kCloseSafariViewControllerNotification;
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
+@property SFSafariViewController* safariVC;
+@property MBProgressHUD* hud;
 
 @end
 
@@ -31,6 +43,9 @@
     
     self.loginButton.layer.cornerRadius = 27.5;
     self.loginButton.clipsToBounds = YES;
+    
+    _kCloseSafariViewControllerNotification = @"kCloseSafariViewControllerNotification";
+    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(safariLogin:) name:_kCloseSafariViewControllerNotification object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -57,54 +72,49 @@
 //    [MWKProgressIndicator updateMessage:@"connecting ..."];
 //    [MWKProgressIndicator updateProgress:0.5f];
     
-    
-    [[[OCTClient
-       signInToServerUsingWebBrowser:OCTServer.dotComServer scopes:OCTClientAuthorizationScopesRepositoryStatus|OCTClientAuthorizationScopesOrgRead] deliverOnMainThread]
-     subscribeNext:^(OCTClient *client) {
-         //[MWKProgressIndicator showSuccessMessage:@"success"];
-         [Helper saveCredentials:client];
-         
-         Dashboard *view = [self.storyboard instantiateViewControllerWithIdentifier:@"Dashboard"];
-         view.gitClient = client;
-         view.fromLogin = true;
-         [self.navigationController pushViewController:view animated:YES];
-     } error:^(NSError *error) {
-         
-         if ([error.domain isEqual:OCTClientErrorDomain] && error.code == OCTClientErrorTwoFactorAuthenticationOneTimePasswordRequired) {
-             
-             [MWKProgressIndicator dismiss];
-             AMSmoothAlertView *alert = [[AMSmoothAlertView alloc] initDropAlertWithTitle:@"Error" andText:@"This app does not support 2FA authentication" andCancelButton:false forAlertType:AlertFailure ];
-             
-             [alert setTitleFont:[UIFont fontWithName:@"Verdana" size:25.0f]];
-             [alert setTextFont:[UIFont fontWithName:@"Futura-Medium" size:13.0f]];
-             [alert.logoView setImage:[UIImage imageNamed:@"checkmark"]];
-             
-             [alert show];
-         } else {
-             [MWKProgressIndicator dismiss];
-             AMSmoothAlertView *alert = [[AMSmoothAlertView alloc] initDropAlertWithTitle:@"Error" andText:@"Can't login please retry again" andCancelButton:false forAlertType:AlertFailure ];
-             
-             [alert setTitleFont:[UIFont fontWithName:@"Verdana" size:25.0f]];
-             [alert setTextFont:[UIFont fontWithName:@"Futura-Medium" size:13.0f]];
-             [alert.logoView setImage:[UIImage imageNamed:@"checkmark"]];
-             
-             [alert show];
-         }
-     }];
+    [self displaySafari];
 }
 
 - (void)displaySafari {
-    SFSafariViewController *safariVC = [[SFSafariViewController alloc]initWithURL:[NSURL URLWithString:@"http://developer.apple.com"] entersReaderIfAvailable:NO];
-    safariVC.delegate = self;
-    [self presentViewController:safariVC animated:YES completion:nil];
+    
+    NSString *baseURLString = @"https://github.com";
+    NSString *clientID      = @"84291409629d7f93ab31";
+    NSString *scope         = @"read:org";
+    
+    CFUUIDRef uuid = CFUUIDCreate(NULL);
+    NSString *uuidString = CFBridgingRelease(CFUUIDCreateString(NULL, uuid));
+    CFRelease(uuid);
+    
+    NSString *URLString = [[NSString alloc] initWithFormat:@"%@/login/oauth/authorize?client_id=%@&scope=%@&state=%@", baseURLString, clientID, scope, uuidString];
+    
+    _safariVC = [[SFSafariViewController alloc]initWithURL:[NSURL URLWithString:URLString] entersReaderIfAvailable:NO];
+    _safariVC.delegate = self;
+    //[self presentViewController:_safariVC animated:YES completion:nil];
     
     
-    //    SFSafariViewController *safariController = [[SFSafariViewController alloc]initWithURL:url];
-    //    safariController.delegate = self;
-    //    UINavigationController *navigationController = [[UINavigationController alloc]initWithRootViewController:safariController];
-    //    [navigationController setNavigationBarHidden:YES animated:NO];
-    //    [self presentViewController:navigationController animated:YES completion:nil];
-    //
+    UINavigationController *navigationController = [[UINavigationController alloc]initWithRootViewController:_safariVC];
+    [navigationController setNavigationBarHidden:YES animated:NO];
+    [self presentViewController:navigationController animated:YES completion:nil];
+    
+}
+
+- (void) safariLogin: (NSNotification*) notification{
+    
+    NSURL *url = (NSURL*)notification.object;
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    NSArray *split = [url.absoluteString componentsSeparatedByString:@"&"];
+    for (NSString *str in split){
+        NSArray *split2 = [str componentsSeparatedByString:@"="];
+        [params setObject:split2[1] forKey:split2[0]];
+    }
+    
+    Dashboard *view = [self.storyboard instantiateViewControllerWithIdentifier:@"Dashboard"];
+    view.code  = params[@"gitwatch://oauth?code"];
+    view.fromLogin  = true;
+    [self.navigationController pushViewController:view animated:YES];
+    
+    [self.safariVC dismissViewControllerAnimated:true completion:nil];
 }
 
 #pragma mark - SFSafariViewController delegate methods
@@ -113,7 +123,8 @@
 }
 
 -(void)safariViewControllerDidFinish:(SFSafariViewController *)controller {
-    // Done button pressed
+    [controller dismissViewControllerAnimated:YES completion:nil];
 }
+
 
 @end

@@ -59,31 +59,34 @@ alpha:1.0]
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     
     self.title = @"Dashboard";
-    
-    self.repositories = [[NSMutableArray alloc] init];
-    
-    NSString *login = [Helper getLogin];
-    NSString *token =[Helper getToken];
-    
-    if (login == nil || token == nil || login.length == 0 || token.length ==0)
-    {
-        ViewController *view = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginController"];
-        [self.navigationController pushViewController:view animated:YES];
-    } else if (self.gitClient == nil) {
-        OCTUser *lastUser = [OCTUser userWithRawLogin:login server:OCTServer.dotComServer];
-        self.gitClient = [OCTClient authenticatedClientWithUser:lastUser token:token];
-    }
-    
-    self.tokenHeader = [[NSString alloc] initWithFormat:@"Bearer %@", self.gitClient.token];
-    self.headers     = [NSDictionary dictionaryWithObjectsAndKeys:
-                        self.tokenHeader, @"Authorization", nil];
-    self.parameters  = nil;
-    
-    [self FetchRepos];
+    self.refresh = false;
     
     _hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     _hud.labelText = @"Loading...";
-    self.refresh = false;
+    
+    self.repositories = [[NSMutableArray alloc] init];
+    
+    if (_fromLogin && _code.length != 0 ) {
+        [self getAccesToken:_code];
+    } else {
+        NSString *login = [Helper getLogin];
+        NSString *token =[Helper getToken];
+        
+        if (login == nil || token == nil || login.length == 0 || token.length ==0)
+        {
+            ViewController *view = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginController"];
+            [self.navigationController pushViewController:view animated:YES];
+        } else if (self.gitClient == nil) {
+            OCTUser *lastUser = [OCTUser userWithRawLogin:login server:OCTServer.dotComServer];
+            self.gitClient = [OCTClient authenticatedClientWithUser:lastUser token:token];
+            
+            self.tokenHeader = [[NSString alloc] initWithFormat:@"Bearer %@", self.gitClient.token];
+            self.headers     = @{self.tokenHeader: @"Authorization"};
+            self.parameters  = nil;
+            
+            [self FetchRepos];
+        }
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated{
@@ -116,6 +119,13 @@ alpha:1.0]
          dispatch_async(dispatch_get_main_queue(), ^{
              [self.tableView reloadData];
              [_hud hide:YES];
+             
+             NSNumber *code = [error.userInfo objectForKey:@"OCTClientErrorHTTPStatusCodeKey"];
+             if (code.intValue == 401) {
+                 [Helper clearCredentials];
+                 ViewController *view = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginController"];
+                 [self.navigationController pushViewController:view animated:YES];
+             }
          });
      }
      completed:^{
@@ -123,7 +133,7 @@ alpha:1.0]
              [self.tableView reloadData];
              [_hud hide:YES];
              
-             if (self.repositories.count == 0 && self.fromLogin){
+             if (Helper.favoriteCount == 0 && self.fromLogin){
                  self.fromLogin = false;
                  OrgsContainer *view = [self.storyboard instantiateViewControllerWithIdentifier:@"OrgsContainer"];
                  view.gitClient = self.gitClient;
@@ -276,6 +286,63 @@ alpha:1.0]
     }
     
     [self performSegueWithIdentifier:@"RepoView" sender:indexPath];
+}
+
+- (void)getAccesToken:(NSString*) code {
+    
+    [_hud show:true];
+    FSNConnection *connection =
+    [FSNConnection withUrl:[[NSURL alloc] initWithString:@"https://github.com/login/oauth/access_token"]
+                    method:FSNRequestMethodPOST
+                   headers:@{@"Accept": @"application/json"}
+                parameters:@{
+                             @"client_id": @"84291409629d7f93ab31",
+                             @"client_secret": @"299b432a32332b5926c5bb12887ac89b46bbcfa4",
+                             @"code": code
+                             }
+                parseBlock:^id(FSNConnection *c, NSError **error) {
+                    return [c.responseData dictionaryFromJSONWithError:error];
+                }
+           completionBlock:^(FSNConnection *c) {
+               if (c.didSucceed) {
+                   NSDictionary *result = (NSDictionary *) c.parseResult;
+                   NSString *accesToken = [result objectForKey:@"access_token"];
+                   
+                   if (accesToken == nil) {
+                       
+                       [_hud hide:true];
+                       return ;
+                   }
+                   
+                   FSNConnection *connection =
+                   [FSNConnection withUrl:[[NSURL alloc] initWithString:@"https://api.github.com/user"]
+                                   method:FSNRequestMethodGET
+                                  headers:@{@"Authorization": [[NSString alloc] initWithFormat:@"Bearer %@", accesToken], @"Accept": @"application/json"}
+                               parameters:nil
+                               parseBlock:^id(FSNConnection *c, NSError **error) {
+                                   return [c.responseData dictionaryFromJSONWithError:error];
+                               }
+                          completionBlock:^(FSNConnection *c) {
+                              if (c.didSucceed) {
+                                  NSDictionary *result = (NSDictionary *) c.parseResult;
+                                  
+                                  OCTUser *user = [OCTUser userWithRawLogin:[result objectForKey:@"login"] server:OCTServer.dotComServer];
+                                  self.gitClient = [OCTClient authenticatedClientWithUser:user token:accesToken];
+                                  
+                                  [Helper saveCredentials:self.gitClient];
+                                  
+                                  self.tokenHeader = [[NSString alloc] initWithFormat:@"Bearer %@", self.gitClient.token];
+                                  self.headers     = @{self.tokenHeader: @"Authorization"};
+                                  self.parameters  = nil;
+                                  
+                                  [self FetchRepos];
+                              }
+                              [_hud hide:true];
+                          } progressBlock:^(FSNConnection *c) {}];
+                   [connection start];
+               }
+           } progressBlock:^(FSNConnection *c) {}];
+    [connection start];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender

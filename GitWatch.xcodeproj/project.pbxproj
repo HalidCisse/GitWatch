@@ -53,6 +53,7 @@
 		1FE63DF41CFD91B300CE28FA /* OrganizationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FE63DF21CFD91B300CE28FA /* OrganizationCell.m */; };
 		1FE63DF51CFD91B300CE28FA /* OrganizationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FE63DF31CFD91B300CE28FA /* OrganizationCell.xib */; };
 		1FE63DF81CFDA10400CE28FA /* ColorHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FE63DF71CFDA10400CE28FA /* ColorHelper.m */; };
+		1FEDD1FC1D1D7524000CACA6 /* Trash.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FEDD1FB1D1D7524000CACA6 /* Trash.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -85,6 +86,7 @@
 		1F7BE7D71CEF179B008A61BE /* PullModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PullModel.m; sourceTree = "<group>"; };
 		1F7BE7D91CEF17AC008A61BE /* CommitModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommitModel.h; sourceTree = "<group>"; };
 		1F7BE7DA1CEF17AC008A61BE /* CommitModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommitModel.m; sourceTree = "<group>"; };
+		1F80E4551D1AC9DF009ED81B /* GitWatch-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GitWatch-Bridging-Header.h"; sourceTree = "<group>"; };
 		1F81EFF91D00322800271D28 /* SettingsHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsHelper.h; sourceTree = "<group>"; };
 		1F81EFFA1D00322800271D28 /* SettingsHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsHelper.m; sourceTree = "<group>"; };
 		1F81EFFC1D00336D00271D28 /* SettingsList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SettingsList.plist; sourceTree = "<group>"; };
@@ -130,6 +132,7 @@
 		1FE63DF31CFD91B300CE28FA /* OrganizationCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrganizationCell.xib; sourceTree = "<group>"; };
 		1FE63DF61CFDA10400CE28FA /* ColorHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorHelper.h; sourceTree = "<group>"; };
 		1FE63DF71CFDA10400CE28FA /* ColorHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorHelper.m; sourceTree = "<group>"; };
+		1FEDD1FB1D1D7524000CACA6 /* Trash.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Trash.m; sourceTree = "<group>"; };
 		2D2E6FD241A817064A5FE52C /* Pods_GitWatch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GitWatch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		74CFC32613E86747D0926C34 /* Pods-GitWatch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GitWatch.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GitWatch/Pods-GitWatch.debug.xcconfig"; sourceTree = "<group>"; };
 		AA5517E749A749797A42FC10 /* Pods-GitWatch.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GitWatch.release.xcconfig"; path = "Pods/Target Support Files/Pods-GitWatch/Pods-GitWatch.release.xcconfig"; sourceTree = "<group>"; };
@@ -218,6 +221,14 @@
 			name = Model;
 			sourceTree = "<group>";
 		};
+		1F80E4451D1AC213009ED81B /* OAuth */ = {
+			isa = PBXGroup;
+			children = (
+				1F80E4551D1AC9DF009ED81B /* GitWatch-Bridging-Header.h */,
+			);
+			name = OAuth;
+			sourceTree = "<group>";
+		};
 		1F9B4B1D1CE3337600EAFD29 /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
@@ -266,6 +277,7 @@
 				1F81EFFA1D00322800271D28 /* SettingsHelper.m */,
 				1F81EFFE1D00343D00271D28 /* PlistHelper.h */,
 				1F81EFFF1D00343D00271D28 /* PlistHelper.m */,
+				1FEDD1FB1D1D7524000CACA6 /* Trash.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -296,6 +308,7 @@
 		1F9F5EAA1CE086FF004D73D3 /* GitWatch */ = {
 			isa = PBXGroup;
 			children = (
+				1F80E4451D1AC213009ED81B /* OAuth */,
 				1F10A9C21D05A89000C5AA37 /* Main.storyboard */,
 				1F0DE9731CEE127C00C5315F /* ProgressIndicator */,
 				1F0DE96F1CEE04CC00C5315F /* PullRequests */,
@@ -508,6 +521,7 @@
 				1F147D901CFF27E40024F773 /* RepoView.m in Sources */,
 				1FDA29351CF34BFA00528BA6 /* SettingsController.m in Sources */,
 				1F9B4B261CE3574A00EAFD29 /* Helper.m in Sources */,
+				1FEDD1FC1D1D7524000CACA6 /* Trash.m in Sources */,
 				1FE63DF81CFDA10400CE28FA /* ColorHelper.m in Sources */,
 				1F81F0001D00343D00271D28 /* PlistHelper.m in Sources */,
 				1F147D861CFEFEEF0024F773 /* DashCell.m in Sources */,
@@ -632,8 +646,10 @@
 			baseConfigurationReference = 74CFC32613E86747D0926C34 /* Pods-GitWatch.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Halidou Cisse (JVMWUTC75D)";
+				DEFINES_MODULE = YES;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -645,6 +661,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.hiddenfounders.GitWatch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "GitWatch/GitWatch-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -654,8 +672,10 @@
 			baseConfigurationReference = AA5517E749A749797A42FC10 /* Pods-GitWatch.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: FlexCible Information System (2657X7TUJK)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: FlexCible Information System (2657X7TUJK)";
+				DEFINES_MODULE = YES;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -667,6 +687,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.hiddenfounders.GitWatch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "f9a2add1-c77c-41e2-af88-10ed67cd946d";
+				SWIFT_OBJC_BRIDGING_HEADER = "GitWatch/GitWatch-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

@@ -13,7 +13,7 @@
 #import "ViewController.h"
 
 @interface Settings ()
-- (IBAction)onLogout:(UIBarButtonItem *)sender;
+- (IBAction)onLogout;
 
 @end
 
@@ -76,7 +76,7 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (IBAction)onLogout:(UIBarButtonItem *)sender {
+- (IBAction)onLogout {
     [Helper clearCredentials];
     ViewController *view = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginController"];
     [self.navigationController pushViewController:view animated:YES];

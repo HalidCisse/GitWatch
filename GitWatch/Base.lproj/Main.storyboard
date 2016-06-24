@@ -1004,19 +1004,60 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
+                            <tableViewSection headerTitle="" id="L6m-yp-jO4">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="u3h-xU-VEJ">
+                                        <rect key="frame" x="0.0" y="384" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="u3h-xU-VEJ" id="hRb-4p-rIO">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Logout" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hjz-eD-shW">
+                                                    <rect key="frame" x="8" y="11" width="295" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="295" id="Owt-uW-dwI"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <variation key="default">
+                                                        <mask key="constraints">
+                                                            <exclude reference="Owt-uW-dwI"/>
+                                                        </mask>
+                                                    </variation>
+                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CHz-9T-Oyg">
+                                                    <rect key="frame" x="562" y="10" width="30" height="22"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="22" id="RdB-EB-aJs"/>
+                                                        <constraint firstAttribute="width" constant="30" id="hne-I3-wL6"/>
+                                                    </constraints>
+                                                    <state key="normal" title="Button" image="logout_dark"/>
+                                                    <connections>
+                                                        <action selector="onLogout" destination="b2n-bB-jOf" eventType="touchUpInside" id="sFb-xe-s6y"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="hjz-eD-shW" firstAttribute="baseline" secondItem="CHz-9T-Oyg" secondAttribute="baseline" id="1mb-6o-dDW"/>
+                                                <constraint firstItem="hjz-eD-shW" firstAttribute="centerY" secondItem="hRb-4p-rIO" secondAttribute="centerY" id="FE6-sZ-FRz"/>
+                                                <constraint firstItem="hjz-eD-shW" firstAttribute="centerY" secondItem="CHz-9T-Oyg" secondAttribute="centerY" id="I23-5L-y6f"/>
+                                                <constraint firstItem="CHz-9T-Oyg" firstAttribute="trailing" secondItem="hRb-4p-rIO" secondAttribute="trailingMargin" id="Xxq-Yr-DYR"/>
+                                                <constraint firstItem="hjz-eD-shW" firstAttribute="baseline" secondItem="CHz-9T-Oyg" secondAttribute="firstBaseline" id="gXU-Gp-5lN"/>
+                                                <constraint firstItem="hjz-eD-shW" firstAttribute="leading" secondItem="hRb-4p-rIO" secondAttribute="leadingMargin" id="v6g-Sl-rDO"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
                         </sections>
                         <connections>
                             <outlet property="dataSource" destination="b2n-bB-jOf" id="STU-mg-bcS"/>
                             <outlet property="delegate" destination="b2n-bB-jOf" id="jIN-5S-4sD"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Settings" id="mde-ru-SCh">
-                        <barButtonItem key="rightBarButtonItem" image="logout" id="shB-VZ-dne">
-                            <connections>
-                                <action selector="onLogout:" destination="b2n-bB-jOf" id="1Pp-iw-ubo"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Settings" id="mde-ru-SCh"/>
                     <connections>
                         <outlet property="activitiesLabel" destination="ZQF-1l-Ccv" id="4BZ-ju-kP0"/>
                         <outlet property="activitiesStepper" destination="lqa-r6-o8D" id="lLB-sj-eDI"/>
@@ -1483,7 +1524,7 @@
         <image name="bg" width="375" height="667"/>
         <image name="edit" width="22" height="22"/>
         <image name="flech" width="20" height="19"/>
-        <image name="logout" width="23" height="20"/>
+        <image name="logout_dark" width="21" height="18"/>
         <image name="settings" width="22" height="22"/>
     </resources>
 </document>

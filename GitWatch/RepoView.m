@@ -151,7 +151,13 @@
                    if ([[branch objectForKey:@"name"]  isEqual: @"master"]) {
                        
                        NSDictionary *commit = [branch objectForKey:@"commit"];
+                       if (commit == nil) {
+                           return;
+                       }
                        NSString *commitLink = [commit objectForKey:@"url"];
+                       if (commitLink == nil) {
+                           return;
+                       }
                        
                        FSNConnection *connection =
                        [FSNConnection withUrl:[[NSURL alloc] initWithString:commitLink]
@@ -162,29 +168,35 @@
                                        return [c.responseData dictionaryFromJSONWithError:error];
                                    }
                               completionBlock:^(FSNConnection *c) {
-                                  NSDictionary *commitDic = (NSDictionary *) c.parseResult;
-                                  if (commitDic == nil) {
-                                      return;
-                                  }
-                                  NSDictionary *commitCommit = [commitDic objectForKey:@"commit"];
-                                  if (commitCommit == nil) {
-                                      return;
-                                  }
-                                  NSDictionary *commitCommitter = [commitCommit objectForKey:@"committer"];
                                   
-                                  if (commitCommitter != nil) {
-                                      NSString *dateAgo =[[NSDate dateFromString:[commitCommitter objectForKey:@"date"] withFormat:@"yyyy-MM-dd'T'HH:mm:ssZ"] timeAgoSinceNow];
+                                  @try {
+                                      NSDictionary *commitDic = (NSDictionary *) c.parseResult;
+                                      if (commitDic == nil) {
+                                          return;
+                                      }
+                                      NSDictionary *commitCommit = [commitDic objectForKey:@"commit"];
+                                      if (commitCommit == nil) {
+                                          return;
+                                      }
+                                      NSDictionary *commitCommitter = [commitCommit objectForKey:@"committer"];
                                       
-                                      self.lastCommitLabel.text =[NSString stringWithFormat:@"%@", [commitCommit objectForKey:@"message"]];
+                                      if (commitCommitter != nil) {
+                                          NSString *dateAgo =[[NSDate dateFromString:[commitCommitter objectForKey:@"date"] withFormat:@"yyyy-MM-dd'T'HH:mm:ssZ"] timeAgoSinceNow];
+                                          
+                                          self.lastCommitLabel.text =[NSString stringWithFormat:@"%@", [commitCommit objectForKey:@"message"]];
+                                          
+                                          self.lastCommitDate.text = [NSString  stringWithFormat:@"committed %@", dateAgo];
+                                      }
                                       
-                                      self.lastCommitDate.text = [NSString  stringWithFormat:@"committed %@", dateAgo];
+                                      NSDictionary *author = [commitDic objectForKey:@"author"];
+                                      
+                                      if (author != nil && [author objectForKey:@"avatar_url"] != nil) {
+                                          [self.lastCommiterImage sd_setImageWithURL:[NSURL URLWithString:[author objectForKey:@"avatar_url"]] placeholderImage:[UIImage imageNamed:@"Octocat.png"]];
+                                          self.lastCommiterName.text =[author objectForKey:@"login"];
+                                      }
                                   }
-                                  
-                                  NSDictionary *author = [commitDic objectForKey:@"author"];
-                                  
-                                  if (author != nil && [author objectForKey:@"avatar_url"] != nil) {
-                                      [self.lastCommiterImage sd_setImageWithURL:[NSURL URLWithString:[author objectForKey:@"avatar_url"]] placeholderImage:[UIImage imageNamed:@"Octocat.png"]];
-                                      self.lastCommiterName.text =[author objectForKey:@"login"];
+                                  @catch (NSException *exception) {
+                                      
                                   }
                               } progressBlock:^(FSNConnection *c) {}];
                        [connection start];

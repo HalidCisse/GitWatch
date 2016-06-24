@@ -15,5 +15,6 @@
 
 @property BOOL refresh;
 @property BOOL fromLogin;
+@property NSString* code;
 
 @end

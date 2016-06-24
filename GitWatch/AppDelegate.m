@@ -26,8 +26,11 @@
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)URL sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
     // For handling a callback URL like my-app://oauth
-    if ([URL.host isEqual:@"oauth"]) {
-        [OCTClient completeSignInWithCallbackURL:URL];
+    if ([URL.host isEqual:@"oauth"] || [sourceApplication  isEqual: @"com.apple.SafariViewService"]) {
+        //[OCTClient completeSignInWithCallbackURL:URL];
+        
+        [NSNotificationCenter.defaultCenter postNotificationName:@"kCloseSafariViewControllerNotification" object:URL];
+        
         return YES;
     } else {
         return NO;
