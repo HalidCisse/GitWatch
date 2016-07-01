@@ -52,6 +52,8 @@ alpha:1.0]
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.repositories = [NSMutableArray new];
+    
     if (_fromLogin && _code.length != 0 ) {
         [self getAccesToken:_code];
     } else {
@@ -80,17 +82,11 @@ alpha:1.0]
     
     self.tableView.emptyDataSetSource = self;
     self.tableView.emptyDataSetDelegate = self;
-    // A little trick for removing the cell separators
     self.tableView.tableFooterView = [UIView new];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     
     self.title = @"Dashboard";
     self.refresh = false;
-    
-    //_hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    //_hud.labelText = @"Loading...";
-    
-    self.repositories = [NSMutableArray new];
 }
 
 - (void)viewDidAppear:(BOOL)animated{
@@ -104,7 +100,6 @@ alpha:1.0]
 {
     [self.repositories removeAllObjects];
     
-    //[_hud show:true];
     self.loading = YES;
     [[self.gitClient fetchUserOrganizations]
      subscribeNext:^(OCTOrganization *organization) {
@@ -122,9 +117,8 @@ alpha:1.0]
          }];
      } error:^(NSError *error) {
          dispatch_async(dispatch_get_main_queue(), ^{
-             [self.tableView reloadData];
-             //[_hud hide:YES];
              self.loading = NO;
+             [self.tableView reloadData];             
              
              NSNumber *code = [error.userInfo objectForKey:@"OCTClientErrorHTTPStatusCodeKey"];
              if (code.intValue == 401) {
@@ -136,9 +130,8 @@ alpha:1.0]
      }
      completed:^{
          dispatch_async(dispatch_get_main_queue(), ^{
-             [self.tableView reloadData];
-             //[_hud hide:YES];
              self.loading = NO;
+             [self.tableView reloadData];
              
              if (Helper.favoriteCount == 0 && self.fromLogin){
                  self.fromLogin = false;
@@ -193,7 +186,6 @@ alpha:1.0]
         return;
     }
     
-    //[_hud show:true];
     self.loading = YES;
     NSString *repoPath = [cell.repository.HTMLURL.absoluteString stringByReplacingOccurrencesOfString:@"https://github.com/" withString:@""];
     NSString *url =[[NSString alloc] initWithFormat:@"https://api.github.com/repos/%@/pulls", repoPath];
@@ -208,11 +200,15 @@ alpha:1.0]
                     }
                completionBlock:^(FSNConnection *c) {
                    if (!c.didSucceed) {
-                       //[_hud hide:YES];
                        self.loading = NO;
                        return;
                    }
                    NSArray *pulls = (NSArray *) c.parseResult;
+                   
+                   if (pulls.count == 0) {
+                       self.loading = NO;
+                       return;
+                   }
                    
                    for (NSDictionary *pull in pulls) {
                        NSString *link = [NSString stringWithFormat:@"%@/%@",url, [pull objectForKey:@"number"]];
@@ -228,9 +224,15 @@ alpha:1.0]
                               completionBlock:^(FSNConnection *c) {
                                   
                                   if (!c.didSucceed) {
+                                      self.loading = NO;
                                       return;
                                   }
                                   NSDictionary *pullRequest = (NSDictionary *) c.parseResult;
+                                  
+                                  if (pullRequest.count == 0) {
+                                      self.loading = NO;
+                                      return;
+                                  }
                                   
                                   if ([pullRequest objectForKey:@"mergeable"] != nil) {
                                       cell.pullsIcons.image = [UIImage imageNamed:@"pullsNormal"];
@@ -247,7 +249,6 @@ alpha:1.0]
                        
                        [connection start];
                    }
-                   //[_hud hide:YES];
                    self.loading = NO;
                } progressBlock:^(FSNConnection *c) {}];
         
@@ -299,7 +300,6 @@ alpha:1.0]
 
 - (void)getAccesToken:(NSString*) code {
     
-    //[_hud show:true];
     self.loading = YES;
     FSNConnection *connection =
     [FSNConnection withUrl:[[NSURL alloc] initWithString:@"https://github.com/login/oauth/access_token"]
@@ -319,7 +319,6 @@ alpha:1.0]
                    NSString *accesToken = [result objectForKey:@"access_token"];
                    
                    if (accesToken == nil) {
-                       //[_hud hide:true];
                        self.loading = NO;
                        return ;
                    }
@@ -347,7 +346,6 @@ alpha:1.0]
                                   
                                   [self FetchRepos];
                               }
-                              //[_hud hide:true];
                               self.loading = NO;
                           } progressBlock:^(FSNConnection *c) {}];
                    [connection start];
@@ -355,8 +353,6 @@ alpha:1.0]
            } progressBlock:^(FSNConnection *c) {}];
     [connection start];
 }
-
-
 
 - (UIImage *)imageForEmptyDataSet:(UIScrollView *)scrollView
 {

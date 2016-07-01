@@ -1699,7 +1699,7 @@
                                     <action selector="authorizeOnGitHub" destination="0cI-fn-L0h" eventType="touchUpInside" id="X1r-kb-zY2"/>
                                 </connections>
                             </button>
-                            <containerView opaque="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="r9W-WG-A0K">
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="r9W-WG-A0K">
                                 <rect key="frame" x="0.0" y="64" width="600" height="466"/>
                                 <connections>
                                     <segue destination="gZP-Xi-VXG" kind="embed" identifier="orgs_embed" id="yAJ-3L-nVC"/>
@@ -1708,7 +1708,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="r9W-WG-A0K" firstAttribute="top" secondItem="XIg-jb-8W0" secondAttribute="bottom" id="B24-z2-r1X"/>
+                            <constraint firstItem="r9W-WG-A0K" firstAttribute="top" secondItem="XIg-jb-8W0" secondAttribute="bottom" constant="44" id="B24-z2-r1X"/>
                             <constraint firstItem="zMp-gP-PZZ" firstAttribute="centerX" secondItem="S4J-F3-SPw" secondAttribute="centerX" id="DH0-wD-OYH"/>
                             <constraint firstAttribute="trailing" secondItem="r9W-WG-A0K" secondAttribute="trailing" id="Vp7-Zz-hAN"/>
                             <constraint firstItem="r9W-WG-A0K" firstAttribute="top" secondItem="XIg-jb-8W0" secondAttribute="bottom" id="WKd-pB-1AR"/>
