@@ -1590,6 +1590,41 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
+                            <tableViewSection headerTitle="" id="2Ut-OZ-S0v">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" alpha="0.0" contentMode="scaleAspectFit" selectionStyle="none" indentationWidth="0.0" focusStyle="custom" rowHeight="100" id="tHG-ZZ-3SF">
+                                        <rect key="frame" x="0.0" y="420" width="600" height="100"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="tHG-ZZ-3SF" id="fJB-bz-O4q">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="99"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qnq-kY-8mF">
+                                                    <rect key="frame" x="200" y="25" width="200" height="50"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="200" id="NUk-r8-8Mn"/>
+                                                    </constraints>
+                                                    <state key="normal" title="Open on GitHub" image="viewgithub">
+                                                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="viewOnGitHub:" destination="xzU-pQ-fV0" eventType="touchUpInside" id="x3p-8A-8s5"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="qnq-kY-8mF" firstAttribute="centerY" secondItem="fJB-bz-O4q" secondAttribute="centerY" id="JwY-gK-r5i"/>
+                                                <constraint firstItem="qnq-kY-8mF" firstAttribute="centerX" secondItem="fJB-bz-O4q" secondAttribute="centerX" id="o1D-So-GGy"/>
+                                                <constraint firstItem="qnq-kY-8mF" firstAttribute="top" secondItem="fJB-bz-O4q" secondAttribute="topMargin" constant="17" id="oav-ah-0PA"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
+                                        <rect key="contentStretch" x="0.0" y="0.0" width="0.0" height="0.0"/>
+                                        <edgeInsets key="layoutMargins" top="0.0" left="0.0" bottom="0.0" right="0.0"/>
+                                        <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
                         </sections>
                         <connections>
                             <outlet property="dataSource" destination="xzU-pQ-fV0" id="qCB-pN-SxZ"/>
@@ -1710,5 +1745,6 @@
         <image name="logo" width="210" height="210"/>
         <image name="logout_dark" width="21" height="18"/>
         <image name="settings" width="22" height="22"/>
+        <image name="viewgithub" width="630" height="150"/>
     </resources>
 </document>

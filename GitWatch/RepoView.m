@@ -253,6 +253,10 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (IBAction)viewOnGitHub:(UIButton *)sender {
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:self.repository.HTMLURL.absoluteString]];
+}
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
 //    if ([segue.identifier isEqualToString:@"statusView_embed"])
@@ -269,6 +273,7 @@
 //        view.repository = self.repository;
 //    }
 }
+
 
 
 

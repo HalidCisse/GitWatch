@@ -23,4 +23,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *lastOpenIssuesDate;
 @property (weak, nonatomic) IBOutlet UILabel *notMergeablePullsCount;
 
+- (IBAction)viewOnGitHub:(UIButton *)sender;
+
 @end

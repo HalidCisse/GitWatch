@@ -88,7 +88,6 @@ alpha:1.0]
     _hud.labelText = @"Loading...";
     
     self.repositories = [NSMutableArray new];
-    [self FetchRepos];
 }
 
 - (void)viewDidAppear:(BOOL)animated{
