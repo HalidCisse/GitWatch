@@ -8,7 +8,8 @@
 
 #import "Dashboard.h"
 #import "Helper.h"
-#import "ViewController.h"
+//#import "ViewController.h"
+#import "DirectLoginController.h"
 #import "OrganisationsController.h"
 #import "DashCell.h"
 #import <SDWebImage/UIImageView+WebCache.h>
@@ -50,6 +51,28 @@ alpha:1.0]
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    if (_fromLogin && _code.length != 0 ) {
+        [self getAccesToken:_code];
+    } else {
+        NSString *login = [Helper getLogin];
+        NSString *token =[Helper getToken];
+        
+        if (login == nil || token == nil || login.length == 0 || token.length ==0)
+        {
+            ViewController *view = [self.storyboard instantiateViewControllerWithIdentifier:@"DirectLoginController"];
+            [self.navigationController pushViewController:view animated:YES];
+        } else if (self.gitClient == nil) {
+            OCTUser *lastUser = [OCTUser userWithRawLogin:login server:OCTServer.dotComServer];
+            self.gitClient = [OCTClient authenticatedClientWithUser:lastUser token:token];
+            
+            self.tokenHeader = [[NSString alloc] initWithFormat:@"Bearer %@", self.gitClient.token];
+            self.headers     = @{self.tokenHeader: @"Authorization"};
+            self.parameters  = nil;
+            
+            [self FetchRepos];
+        }
+    }
+    
     self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
     [self.navigationController.navigationBar setBarTintColor:UIColorFromRGB(0x313B47)];
     self.navigationController.navigationBar.translucent = NO;
@@ -64,29 +87,8 @@ alpha:1.0]
     _hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     _hud.labelText = @"Loading...";
     
-    self.repositories = [[NSMutableArray alloc] init];
-    
-    if (_fromLogin && _code.length != 0 ) {
-        [self getAccesToken:_code];
-    } else {
-        NSString *login = [Helper getLogin];
-        NSString *token =[Helper getToken];
-        
-        if (login == nil || token == nil || login.length == 0 || token.length ==0)
-        {
-            ViewController *view = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginController"];
-            [self.navigationController pushViewController:view animated:YES];
-        } else if (self.gitClient == nil) {
-            OCTUser *lastUser = [OCTUser userWithRawLogin:login server:OCTServer.dotComServer];
-            self.gitClient = [OCTClient authenticatedClientWithUser:lastUser token:token];
-            
-            self.tokenHeader = [[NSString alloc] initWithFormat:@"Bearer %@", self.gitClient.token];
-            self.headers     = @{self.tokenHeader: @"Authorization"};
-            self.parameters  = nil;
-            
-            [self FetchRepos];
-        }
-    }
+    self.repositories = [NSMutableArray new];
+    [self FetchRepos];
 }
 
 - (void)viewDidAppear:(BOOL)animated{
@@ -123,7 +125,7 @@ alpha:1.0]
              NSNumber *code = [error.userInfo objectForKey:@"OCTClientErrorHTTPStatusCodeKey"];
              if (code.intValue == 401) {
                  [Helper clearCredentials];
-                 ViewController *view = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginController"];
+                 ViewController *view = [self.storyboard instantiateViewControllerWithIdentifier:@"DirectLoginController"];
                  [self.navigationController pushViewController:view animated:YES];
              }
          });
@@ -199,7 +201,6 @@ alpha:1.0]
                         return [c.responseData arrayFromJSONWithError:error];
                     }
                completionBlock:^(FSNConnection *c) {
-                   
                    if (!c.didSucceed) {
                        [_hud hide:YES];
                        return;
@@ -309,7 +310,6 @@ alpha:1.0]
                    NSString *accesToken = [result objectForKey:@"access_token"];
                    
                    if (accesToken == nil) {
-                       
                        [_hud hide:true];
                        return ;
                    }

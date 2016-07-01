@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" initialViewController="01J-lp-oVM">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
@@ -21,40 +20,57 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Graphic Illustration" translatesAutoresizingMaskIntoConstraints="NO" id="LhA-OA-f65">
-                                <rect key="frame" x="0.0" y="429" width="600" height="171"/>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="GitWatch" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rjg-wV-eDz">
-                                <rect key="frame" x="243" y="289" width="115" height="21"/>
+                                <rect key="frame" x="0.0" y="429" width="600" height="170"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="wxf-f4-KhP"/>
+                                    <constraint firstAttribute="height" constant="170" id="FNR-rg-HXu"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="Crg-2A-e9Q">
+                                <rect key="frame" x="255" y="254" width="91" height="91"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="91" id="Q2j-FS-aAo"/>
+                                    <constraint firstAttribute="width" constant="91" id="i99-Cf-54y"/>
+                                    <constraint firstAttribute="height" constant="91" id="viC-JV-tE7"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="Q2j-FS-aAo"/>
+                                    </mask>
+                                </variation>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="GitWatch" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rjg-wV-eDz">
+                                <rect key="frame" x="243" y="353" width="115" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="5bf-13-PnR"/>
+                                    <constraint firstAttribute="width" constant="115" id="Za5-aC-sz3"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="GitHub-Mark-Light-64px" translatesAutoresizingMaskIntoConstraints="NO" id="Crg-2A-e9Q">
-                                <rect key="frame" x="269" y="204" width="63" height="63"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="63" id="kSc-8Q-NyT"/>
-                                </constraints>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="LhA-OA-f65" firstAttribute="bottom" secondItem="xb3-aO-Qok" secondAttribute="top" id="10C-AC-051"/>
-                            <constraint firstItem="wxq-bM-M6t" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="529-Xu-Fmv"/>
-                            <constraint firstItem="rjg-wV-eDz" firstAttribute="top" secondItem="Crg-2A-e9Q" secondAttribute="bottom" constant="22" id="5fb-H4-UYa"/>
-                            <constraint firstItem="wxq-bM-M6t" firstAttribute="leading" secondItem="LhA-OA-f65" secondAttribute="leading" id="HqO-ut-kVq"/>
-                            <constraint firstItem="Crg-2A-e9Q" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="184" id="L0j-2v-l3A"/>
-                            <constraint firstItem="Crg-2A-e9Q" firstAttribute="centerX" secondItem="rjg-wV-eDz" secondAttribute="centerX" id="Mpx-QD-FSX"/>
-                            <constraint firstAttribute="trailing" secondItem="wxq-bM-M6t" secondAttribute="trailing" id="QGn-jX-Diw"/>
-                            <constraint firstItem="wxq-bM-M6t" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="SI2-l8-dVi"/>
-                            <constraint firstItem="wxq-bM-M6t" firstAttribute="trailing" secondItem="LhA-OA-f65" secondAttribute="trailing" id="Tne-9O-vR3"/>
-                            <constraint firstItem="rjg-wV-eDz" firstAttribute="centerX" secondItem="LhA-OA-f65" secondAttribute="centerX" id="bVn-Xd-hBK"/>
-                            <constraint firstItem="wxq-bM-M6t" firstAttribute="bottom" secondItem="xb3-aO-Qok" secondAttribute="top" id="fjv-Vh-5eA"/>
-                            <constraint firstItem="wxq-bM-M6t" firstAttribute="centerY" secondItem="rjg-wV-eDz" secondAttribute="centerY" id="qwj-hx-GK7"/>
-                            <constraint firstItem="LhA-OA-f65" firstAttribute="top" secondItem="rjg-wV-eDz" secondAttribute="bottom" constant="119" id="yOt-yw-hIA"/>
+                            <constraint firstItem="wxq-bM-M6t" firstAttribute="bottom" secondItem="xb3-aO-Qok" secondAttribute="top" id="7gh-Ry-s7S"/>
+                            <constraint firstItem="wxq-bM-M6t" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="AKE-lZ-48k"/>
+                            <constraint firstItem="wxq-bM-M6t" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="AV1-de-X0I"/>
+                            <constraint firstItem="LhA-OA-f65" firstAttribute="top" secondItem="rjg-wV-eDz" secondAttribute="bottom" constant="55" id="LPx-hS-fsH"/>
+                            <constraint firstItem="wxq-bM-M6t" firstAttribute="trailing" secondItem="LhA-OA-f65" secondAttribute="trailing" id="XgO-mN-SQ2"/>
+                            <constraint firstItem="wxq-bM-M6t" firstAttribute="centerY" secondItem="Crg-2A-e9Q" secondAttribute="centerY" id="dat-uf-18M"/>
+                            <constraint firstItem="Crg-2A-e9Q" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="234" id="h8P-bO-kz4"/>
+                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="LhA-OA-f65" secondAttribute="bottom" constant="1" id="hTN-CT-36f"/>
+                            <constraint firstItem="wxq-bM-M6t" firstAttribute="leading" secondItem="LhA-OA-f65" secondAttribute="leading" id="jpY-is-4V2"/>
+                            <constraint firstAttribute="trailing" secondItem="wxq-bM-M6t" secondAttribute="trailing" id="m8e-gw-v2i"/>
+                            <constraint firstItem="rjg-wV-eDz" firstAttribute="centerX" secondItem="LhA-OA-f65" secondAttribute="centerX" id="oMW-hl-cSR"/>
+                            <constraint firstItem="rjg-wV-eDz" firstAttribute="top" secondItem="Crg-2A-e9Q" secondAttribute="bottom" constant="8" symbolic="YES" id="uAP-Dc-rWG"/>
+                            <constraint firstItem="Crg-2A-e9Q" firstAttribute="centerX" secondItem="rjg-wV-eDz" secondAttribute="centerX" id="w6P-j9-zgy"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="h8P-bO-kz4"/>
+                                <exclude reference="LPx-hS-fsH"/>
+                            </mask>
+                        </variation>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -63,8 +79,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="GitHub-Mark-Light-64px" width="64" height="64"/>
         <image name="Graphic Illustration" width="375" height="190"/>
         <image name="bg" width="375" height="667"/>
+        <image name="logo" width="210" height="210"/>
     </resources>
 </document>

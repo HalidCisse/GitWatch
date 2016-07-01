@@ -78,7 +78,7 @@
 
 - (IBAction)onLogout {
     [Helper clearCredentials];
-    ViewController *view = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginController"];
+    ViewController *view = [self.storyboard instantiateViewControllerWithIdentifier:@"DirectLoginController"];
     [self.navigationController pushViewController:view animated:YES];
 }
 @end

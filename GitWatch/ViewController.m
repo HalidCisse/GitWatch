@@ -79,7 +79,7 @@ alpha:1.0]
     
     NSString *baseURLString = @"https://github.com";
     NSString *clientID      = @"84291409629d7f93ab31";
-    NSString *scope         = @"read:org";
+    NSString *scope         = @"repo";   //@"read:org%20repo:status";
     
     CFUUIDRef uuid = CFUUIDCreate(NULL);
     NSString *uuidString = CFBridgingRelease(CFUUIDCreateString(NULL, uuid));

@@ -19,6 +19,7 @@
 		1F147D871CFEFEEF0024F773 /* DashCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F147D851CFEFEEF0024F773 /* DashCell.xib */; };
 		1F147D8D1CFF27170024F773 /* Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F147D8C1CFF27170024F773 /* Settings.m */; };
 		1F147D901CFF27E40024F773 /* RepoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F147D8F1CFF27E40024F773 /* RepoView.m */; };
+		1F66A26E1D254EAF003AE781 /* DirectLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F66A26D1D254EAF003AE781 /* DirectLoginController.m */; };
 		1F6A992E1CE5F37800B61F50 /* StatusCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F6A992C1CE5F37800B61F50 /* StatusCell.m */; };
 		1F6A992F1CE5F37800B61F50 /* StatusCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F6A992D1CE5F37800B61F50 /* StatusCell.xib */; };
 		1F7BE7D31CEF14A4008A61BE /* CommitCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F7BE7D11CEF14A4008A61BE /* CommitCell.m */; };
@@ -76,6 +77,8 @@
 		1F147D8C1CFF27170024F773 /* Settings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Settings.m; sourceTree = "<group>"; };
 		1F147D8E1CFF27E40024F773 /* RepoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RepoView.h; sourceTree = "<group>"; };
 		1F147D8F1CFF27E40024F773 /* RepoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepoView.m; sourceTree = "<group>"; };
+		1F66A26C1D254EAF003AE781 /* DirectLoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DirectLoginController.h; sourceTree = "<group>"; };
+		1F66A26D1D254EAF003AE781 /* DirectLoginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DirectLoginController.m; sourceTree = "<group>"; };
 		1F6A992B1CE5F37800B61F50 /* StatusCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusCell.h; sourceTree = "<group>"; };
 		1F6A992C1CE5F37800B61F50 /* StatusCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusCell.m; sourceTree = "<group>"; };
 		1F6A992D1CE5F37800B61F50 /* StatusCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StatusCell.xib; sourceTree = "<group>"; };
@@ -170,6 +173,8 @@
 				1F147D851CFEFEEF0024F773 /* DashCell.xib */,
 				1F147D8B1CFF27170024F773 /* Settings.h */,
 				1F147D8C1CFF27170024F773 /* Settings.m */,
+				1F66A26C1D254EAF003AE781 /* DirectLoginController.h */,
+				1F66A26D1D254EAF003AE781 /* DirectLoginController.m */,
 			);
 			name = Home;
 			sourceTree = "<group>";
@@ -529,6 +534,7 @@
 				1FBDFFAD1D019F0200EB17D9 /* NSDate+Helper.m in Sources */,
 				1FA87EE41CE1D56B00E0A7DE /* RepositoriesController.m in Sources */,
 				1F81EFFB1D00322800271D28 /* SettingsHelper.m in Sources */,
+				1F66A26E1D254EAF003AE781 /* DirectLoginController.m in Sources */,
 				1F147D8D1CFF27170024F773 /* Settings.m in Sources */,
 				1F0DA3871CE490D5005DBE35 /* HomeController.m in Sources */,
 				1FA87EE81CE1EC5300E0A7DE /* RepositoryCell.m in Sources */,

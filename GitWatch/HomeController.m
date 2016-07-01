@@ -32,8 +32,6 @@
     self.navigationController.navigationBar.barStyle = UIBarStyleDefault;
     
     self.repositories = [[NSMutableArray alloc] init];
-    //self.tableView.dataSource = self;
-    //self.tableView.delegate = self;
     self.tableView.separatorColor = [UIColor clearColor];
     
     NSString *login = [Helper getLogin];
