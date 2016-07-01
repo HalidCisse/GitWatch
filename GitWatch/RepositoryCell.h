@@ -15,6 +15,7 @@
 @property (nonatomic, weak) IBOutlet UIImageView *repositoryImage;
 @property (weak, nonatomic) IBOutlet UILabel *repositoryDescription;
 
-- (IBAction)checkboxSelected:(UIButton*)sender;
+- (IBAction)checkboxClick:(UIButton*)sender;
+
 
 @end

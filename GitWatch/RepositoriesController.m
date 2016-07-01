@@ -108,8 +108,13 @@
     return cell;
 }
 
-- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    UITableViewCell* cell = [tableView cellForRowAtIndexPath:indexPath];
+- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    RepositoryCell* cell = [tableView cellForRowAtIndexPath:indexPath];
+
+    [self handleClick:cell];
+    //cell.checkbox.selected = !cell.checkbox.selected;
+    
     if(cell.selectionStyle == UITableViewCellSelectionStyleNone){
         return nil;
     }
@@ -144,7 +149,9 @@
     
     RepositoryCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     
-    cell.checkbox.selected = true;
+    [self handleClick:cell];
+    //[cell.checkbox setSelected:true];
+    
     
 //    if(cell.isSelected) {
 //        [tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionNone];
@@ -172,5 +179,41 @@
     [UIView commitAnimations];
 }
 
+- (void) handleClick:(RepositoryCell*)cell {
+    
+    NSString *destPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+    destPath = [destPath stringByAppendingPathComponent:@"FavoriteRepository.plist"];
+    
+    // If the file doesn't exist in the Documents Folder, copy it.
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    
+    if (![fileManager fileExistsAtPath:destPath]) {
+        NSString *sourcePath = [[NSBundle mainBundle] pathForResource:@"FavoriteRepository" ofType:@"plist"];
+        [fileManager copyItemAtPath:sourcePath toPath:destPath error:nil];
+    }
+    
+    NSMutableArray *favoritesRepos = [[NSMutableArray alloc] initWithContentsOfFile:destPath];
+    
+    if (favoritesRepos == nil) {
+        favoritesRepos = [[NSMutableArray alloc] init];
+    }
+    
+    NSString *key =[[NSString alloc]initWithFormat:@"%@",cell.repositoryName.text];
+    
+    if (cell.checkbox.selected != YES) {
+        cell.checkbox.selected = NO;
+        if ([favoritesRepos indexOfObject:key] == NSNotFound) {
+            [favoritesRepos addObject:key];
+        }
+    } else {
+        cell.checkbox.selected = YES;
+        if ([favoritesRepos indexOfObject:key] != NSNotFound) {
+            [favoritesRepos removeObject:key];
+        }
+    }
+    
+    cell.checkbox.selected = !cell.checkbox.selected;
+    [favoritesRepos writeToFile:destPath atomically:YES];
+}
 
 @end

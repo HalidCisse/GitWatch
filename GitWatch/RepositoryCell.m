@@ -16,7 +16,7 @@ BOOL checkBoxSelected;
     [super awakeFromNib];
 }
 
-- (IBAction)checkboxSelected:(UIButton*)sender {
+- (IBAction)checkboxClick:(UIButton*)sender {
    
     NSString *destPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
     destPath = [destPath stringByAppendingPathComponent:@"FavoriteRepository.plist"];
