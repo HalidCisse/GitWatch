@@ -25,6 +25,7 @@
 #import <FSNetworking/FSNConnection.h>
 #import "NSDate+Helper.h"
 #import <MBProgressHUD/MBProgressHUD.h>
+#import <DZNEmptyDataSet/UIScrollView+EmptyDataSet.h>
 
 #define UIColorFromRGB(rgbValue) \
 [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 \
@@ -32,17 +33,17 @@ green:((float)((rgbValue & 0x00FF00) >>  8))/255.0 \
 blue:((float)((rgbValue & 0x0000FF) >>  0))/255.0 \
 alpha:1.0]
 
-@interface Dashboard ()
+@interface Dashboard () <DZNEmptyDataSetSource, DZNEmptyDataSetDelegate>
 
 - (IBAction)editButton:(UIBarButtonItem *)sender;
 
-
 @property NSMutableArray *repositories;
+@property (nonatomic) BOOL loading;
 
 @property NSString*      tokenHeader;
 @property NSDictionary*  headers;
 @property NSDictionary*  parameters;
-@property MBProgressHUD* hud;
+//@property MBProgressHUD* hud;
 
 @end
 
@@ -77,15 +78,17 @@ alpha:1.0]
     [self.navigationController.navigationBar setBarTintColor:UIColorFromRGB(0x313B47)];
     self.navigationController.navigationBar.translucent = NO;
     
-    // Visual bug workround
+    self.tableView.emptyDataSetSource = self;
+    self.tableView.emptyDataSetDelegate = self;
+    // A little trick for removing the cell separators
     self.tableView.tableFooterView = [UIView new];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     
     self.title = @"Dashboard";
     self.refresh = false;
     
-    _hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    _hud.labelText = @"Loading...";
+    //_hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    //_hud.labelText = @"Loading...";
     
     self.repositories = [NSMutableArray new];
 }
@@ -101,7 +104,8 @@ alpha:1.0]
 {
     [self.repositories removeAllObjects];
     
-    [_hud show:true];
+    //[_hud show:true];
+    self.loading = YES;
     [[self.gitClient fetchUserOrganizations]
      subscribeNext:^(OCTOrganization *organization) {
          NSMutableURLRequest *request = [self.gitClient requestWithMethod:@"GET" path:[NSString stringWithFormat:@"/orgs/%@/repos", organization.login] parameters:@{@"type":@"all"}];
@@ -119,7 +123,8 @@ alpha:1.0]
      } error:^(NSError *error) {
          dispatch_async(dispatch_get_main_queue(), ^{
              [self.tableView reloadData];
-             [_hud hide:YES];
+             //[_hud hide:YES];
+             self.loading = NO;
              
              NSNumber *code = [error.userInfo objectForKey:@"OCTClientErrorHTTPStatusCodeKey"];
              if (code.intValue == 401) {
@@ -132,7 +137,8 @@ alpha:1.0]
      completed:^{
          dispatch_async(dispatch_get_main_queue(), ^{
              [self.tableView reloadData];
-             [_hud hide:YES];
+             //[_hud hide:YES];
+             self.loading = NO;
              
              if (Helper.favoriteCount == 0 && self.fromLogin){
                  self.fromLogin = false;
@@ -187,7 +193,8 @@ alpha:1.0]
         return;
     }
     
-    [_hud show:true];
+    //[_hud show:true];
+    self.loading = YES;
     NSString *repoPath = [cell.repository.HTMLURL.absoluteString stringByReplacingOccurrencesOfString:@"https://github.com/" withString:@""];
     NSString *url =[[NSString alloc] initWithFormat:@"https://api.github.com/repos/%@/pulls", repoPath];
         
@@ -201,7 +208,8 @@ alpha:1.0]
                     }
                completionBlock:^(FSNConnection *c) {
                    if (!c.didSucceed) {
-                       [_hud hide:YES];
+                       //[_hud hide:YES];
+                       self.loading = NO;
                        return;
                    }
                    NSArray *pulls = (NSArray *) c.parseResult;
@@ -239,7 +247,8 @@ alpha:1.0]
                        
                        [connection start];
                    }
-                   [_hud hide:YES];
+                   //[_hud hide:YES];
+                   self.loading = NO;
                } progressBlock:^(FSNConnection *c) {}];
         
         [connection start];
@@ -290,7 +299,8 @@ alpha:1.0]
 
 - (void)getAccesToken:(NSString*) code {
     
-    [_hud show:true];
+    //[_hud show:true];
+    self.loading = YES;
     FSNConnection *connection =
     [FSNConnection withUrl:[[NSURL alloc] initWithString:@"https://github.com/login/oauth/access_token"]
                     method:FSNRequestMethodPOST
@@ -309,7 +319,8 @@ alpha:1.0]
                    NSString *accesToken = [result objectForKey:@"access_token"];
                    
                    if (accesToken == nil) {
-                       [_hud hide:true];
+                       //[_hud hide:true];
+                       self.loading = NO;
                        return ;
                    }
                    
@@ -336,12 +347,111 @@ alpha:1.0]
                                   
                                   [self FetchRepos];
                               }
-                              [_hud hide:true];
+                              //[_hud hide:true];
+                              self.loading = NO;
                           } progressBlock:^(FSNConnection *c) {}];
                    [connection start];
                }
            } progressBlock:^(FSNConnection *c) {}];
     [connection start];
+}
+
+
+
+- (UIImage *)imageForEmptyDataSet:(UIScrollView *)scrollView
+{
+    if (self.loading) {
+        return [UIImage imageNamed:@"loading_imgBlue_78x78"];
+    }
+    else {
+        return [UIImage imageNamed:@"emptyDash"];
+    }
+}
+
+- (NSAttributedString *)titleForEmptyDataSet:(UIScrollView *)scrollView
+{
+    NSString *text = @"This is your Dashboard.";
+    
+    NSDictionary *attributes = @{NSFontAttributeName: [UIFont boldSystemFontOfSize:18.0f],
+                                 NSForegroundColorAttributeName: [UIColor darkGrayColor]};
+    
+    return [[NSAttributedString alloc] initWithString:text attributes:attributes];
+}
+
+- (NSAttributedString *)descriptionForEmptyDataSet:(UIScrollView *)scrollView
+{
+    NSString *text = @"When you add your favorites repos, they will show up here!";
+    
+    NSMutableParagraphStyle *paragraph = [NSMutableParagraphStyle new];
+    paragraph.lineBreakMode = NSLineBreakByWordWrapping;
+    paragraph.alignment = NSTextAlignmentCenter;
+    
+    NSDictionary *attributes = @{NSFontAttributeName: [UIFont systemFontOfSize:14.0f],
+                                 NSForegroundColorAttributeName: [UIColor lightGrayColor],
+                                 NSParagraphStyleAttributeName: paragraph};
+    
+    return [[NSAttributedString alloc] initWithString:text attributes:attributes];
+}
+
+- (CAAnimation *)imageAnimationForEmptyDataSet:(UIScrollView *)scrollView
+{
+    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"transform"];
+    animation.fromValue = [NSValue valueWithCATransform3D:CATransform3DIdentity];
+    animation.toValue = [NSValue valueWithCATransform3D: CATransform3DMakeRotation(M_PI_2, 0.0, 0.0, 1.0) ];
+    animation.duration = 0.25;
+    animation.cumulative = YES;
+    animation.repeatCount = MAXFLOAT;
+    
+    return animation;
+}
+
+- (BOOL)emptyDataSetShouldAnimateImageView:(UIScrollView *)scrollView
+{
+    return self.loading;
+}
+
+//- (NSAttributedString *)buttonTitleForEmptyDataSet:(UIScrollView *)scrollView forState:(UIControlState)state
+//{
+//    NSDictionary *attributes = @{NSFontAttributeName: [UIFont boldSystemFontOfSize:17.0f],
+//                                 NSForegroundColorAttributeName: [UIColor blueColor]};
+//    
+//    return [[NSAttributedString alloc] initWithString:@"add favorites to get started!" attributes:attributes];
+//}
+
+//- (UIImage *)buttonImageForEmptyDataSet:(UIScrollView *)scrollView forState:(UIControlState)state
+//{
+//    return [UIImage imageNamed:@"emptyDash"];
+//}
+
+- (UIColor *)backgroundColorForEmptyDataSet:(UIScrollView *)scrollView
+{
+    return [UIColor whiteColor];
+}
+
+// proto
+
+- (BOOL)emptyDataSetShouldDisplay:(UIScrollView *)scrollView
+{
+    return YES;
+}
+
+- (void)emptyDataSet:(UIScrollView *)scrollView didTapView:(UIView *)view
+{
+    OrgsContainer *container = [self.storyboard instantiateViewControllerWithIdentifier:@"OrgsContainer"];
+    container.gitClient = self.gitClient;
+    [self.navigationController pushViewController:container animated:YES];
+}
+
+- (void)emptyDataSet:(UIScrollView *)scrollView didTapButton:(UIButton *)button
+{
+    // Do something
+}
+
+- (IBAction)editButton:(UIBarButtonItem *)sender {
+    
+    OrgsContainer *view = [self.storyboard instantiateViewControllerWithIdentifier:@"OrgsContainer"];
+    view.gitClient = self.gitClient;
+    [self.navigationController pushViewController:view animated:YES];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -371,11 +481,5 @@ alpha:1.0]
     }
 }
 
-- (IBAction)editButton:(UIBarButtonItem *)sender {
-    
-    OrgsContainer *view = [self.storyboard instantiateViewControllerWithIdentifier:@"OrgsContainer"];
-    view.gitClient = self.gitClient;
-    [self.navigationController pushViewController:view animated:YES];
-    
-}
+
 @end

@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import <OctoKit/OctoKit.h>
+#import <DZNEmptyDataSet/UIScrollView+EmptyDataSet.h>
 
-@interface Dashboard : UITableViewController
+@interface Dashboard : UITableViewController 
 
 @property OCTClient *gitClient;
 

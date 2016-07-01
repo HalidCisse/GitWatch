@@ -12,7 +12,7 @@
 #import "Helper.h"
 #import <DateTools/DateTools.h>
 #import <FSNetworking/FSNConnection.h>
-#import <ObjectiveSugar/ObjectiveSugar.h>
+//#import <ObjectiveSugar/ObjectiveSugar.h>
 #import "StatusController.h"
 #import "SettingsController.h"
 

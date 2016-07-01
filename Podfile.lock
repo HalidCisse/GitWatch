@@ -1,44 +1,35 @@
 PODS:
   - AMSmoothAlert (1.1):
     - GPUImage
-  - AuthenticationViewController (1.1.0)
   - DateTools (1.7.0)
+  - DZNEmptyDataSet (1.8.1)
   - FSNetworking (0.0.1)
   - GPUImage (0.1.7)
   - MBProgressHUD (0.9.2)
-  - ObjectiveSugar (1.1.0)
-  - p2.OAuth2 (2.2.7):
-    - SwiftKeychain (~> 1.0)
   - SDWebImage (3.7.6):
     - SDWebImage/Core (= 3.7.6)
   - SDWebImage/Core (3.7.6)
   - SSKeychain (1.4.0)
-  - SwiftKeychain (1.0.0)
 
 DEPENDENCIES:
   - AMSmoothAlert (~> 1.0)
-  - AuthenticationViewController
   - DateTools
+  - DZNEmptyDataSet
   - FSNetworking
   - MBProgressHUD
-  - ObjectiveSugar
-  - p2.OAuth2
   - SDWebImage (~> 3.7)
   - SSKeychain
 
 SPEC CHECKSUMS:
   AMSmoothAlert: 108cf0fc3eea9256ccfdcd9deaa283999ac1e47e
-  AuthenticationViewController: 22636ba2e87bdabc8dd8cedf9782f7474516d603
   DateTools: 53288ee8b905fdc75897a1e6b5cc0144b14cba60
+  DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
   FSNetworking: 596048151bffc5917b2bcfa3a840624f49e309fa
   GPUImage: 733a5f0fab92df9de1c37ba9df520a833ccb406d
   MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
-  ObjectiveSugar: a6a25f23d657c19df0a0b972466d5b5ca9f5295c
-  p2.OAuth2: a4391406917fc2a3bb820aec6e1180b8f87321fd
   SDWebImage: c325cf02c30337336b95beff20a13df489ec0ec9
   SSKeychain: c71293fa57216a40ab06c23f4085387583293de4
-  SwiftKeychain: fd9ad69f7b3ff7a0c7ba579da508bbaa89a395b2
 
-PODFILE CHECKSUM: 6007426bd53826b73abeac202bcd06d6135a5332
+PODFILE CHECKSUM: 4cc4b8de4bfa82b8e130e056ac408e820c532194
 
 COCOAPODS: 1.0.1
