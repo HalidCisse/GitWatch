@@ -23,6 +23,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [_passLabel addTarget:_passLabel
+                  action:@selector(resignFirstResponder)
+        forControlEvents:UIControlEventEditingDidEndOnExit];
+    
     _nameLabel.text = [Helper getLogin];
 }
 

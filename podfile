@@ -1,15 +1,16 @@
 use_frameworks!
 target ‘GitWatch’ do
     
-  pod 'AuthenticationViewController'
-  pod 'p2.OAuth2'
+  pod 'IQKeyboardManager'
+  pod 'DZNEmptyDataSet'
   pod 'SSKeychain'
   pod 'SDWebImage', '~>3.7'
   pod 'DateTools'
   pod 'FSNetworking'
-  pod 'ObjectiveSugar'
   pod 'AMSmoothAlert', '~> 1.0'
   pod 'MBProgressHUD'
+  
+  #pod 'ObjectiveSugar'
   #pod 'DCKit'
   #pod 'MWKProgressIndicator', :git => 'https://github.com/mwkoelb/MWKProgressIndicator.git'
   
