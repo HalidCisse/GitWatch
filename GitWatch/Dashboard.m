@@ -43,7 +43,6 @@ alpha:1.0]
 @property NSString*      tokenHeader;
 @property NSDictionary*  headers;
 @property NSDictionary*  parameters;
-//@property MBProgressHUD* hud;
 
 @end
 
@@ -72,6 +71,8 @@ alpha:1.0]
             self.headers     = @{self.tokenHeader: @"Authorization"};
             self.parameters  = nil;
             
+            [self FetchRepos];
+        }else{
             [self FetchRepos];
         }
     }

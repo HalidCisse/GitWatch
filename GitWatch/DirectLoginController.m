@@ -23,10 +23,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    [_passLabel addTarget:_passLabel
-                  action:@selector(resignFirstResponder)
-        forControlEvents:UIControlEventEditingDidEndOnExit];
+    _nameLabel.delegate = self;
+    _passLabel.delegate = self;
     
     _nameLabel.text = [Helper getLogin];
 }
@@ -85,6 +83,18 @@
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
     return UIStatusBarStyleLightContent;
+}
+
+-(BOOL)textFieldShouldReturn:(UITextField *)textField {
+    
+    if (textField == _nameLabel) {
+        [_passLabel becomeFirstResponder];
+    }else if ( textField == _passLabel){
+        [self onLogin:nil];
+    }else{
+        [textField resignFirstResponder];
+    }
+    return YES;
 }
 
 @end

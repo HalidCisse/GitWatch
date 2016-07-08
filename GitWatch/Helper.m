@@ -14,7 +14,7 @@
 
 + (void)clearCredentials
 {
-    [SSKeychain setPassword:@"" forService:@"GitHub.com" account:@"GitHub.com"];
+    //[SSKeychain setPassword:@"" forService:@"GitHub.com" account:@"GitHub.com"];
     
     [SSKeychain setPassword:@"" forService:@"GitHub.com" account:@"Token"];
 }

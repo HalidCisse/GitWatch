@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DirectLoginController : UIViewController
+@interface DirectLoginController : UIViewController<UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *nameLabel;
 @property (weak, nonatomic) IBOutlet UITextField *passLabel;
