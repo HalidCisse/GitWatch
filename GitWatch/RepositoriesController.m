@@ -148,14 +148,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     RepositoryCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    
     [self handleClick:cell];
-    //[cell.checkbox setSelected:true];
-    
-    
-//    if(cell.isSelected) {
-//        [tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionNone];
-//    }
 }
 
 - (void)onBackClick:(id)sender{

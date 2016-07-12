@@ -857,7 +857,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="OrganisationsController" id="gZP-Xi-VXG" customClass="OrganisationsController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="70" sectionHeaderHeight="28" sectionFooterHeight="28" id="w3X-wk-76b">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="466"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="502"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="D7s-zS-9om">
@@ -1329,7 +1329,7 @@
             <objects>
                 <tableViewController id="WoK-id-kRM" customClass="RepositoriesController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" sectionHeaderHeight="1" sectionFooterHeight="1" id="dJK-mi-tcM">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="466"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="502"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="gdc-NJ-PP1">
@@ -1704,7 +1704,7 @@
                                 </connections>
                             </button>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="r9W-WG-A0K">
-                                <rect key="frame" x="0.0" y="64" width="600" height="466"/>
+                                <rect key="frame" x="0.0" y="28" width="600" height="502"/>
                                 <connections>
                                     <segue destination="gZP-Xi-VXG" kind="embed" identifier="orgs_embed" id="yAJ-3L-nVC"/>
                                 </connections>
@@ -1713,9 +1713,12 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="r9W-WG-A0K" firstAttribute="top" secondItem="XIg-jb-8W0" secondAttribute="bottom" constant="44" id="B24-z2-r1X"/>
+                            <constraint firstItem="r9W-WG-A0K" firstAttribute="top" secondItem="XIg-jb-8W0" secondAttribute="bottom" constant="8" symbolic="YES" id="CkA-Ia-lr1"/>
                             <constraint firstItem="zMp-gP-PZZ" firstAttribute="centerX" secondItem="S4J-F3-SPw" secondAttribute="centerX" id="DH0-wD-OYH"/>
+                            <constraint firstItem="r9W-WG-A0K" firstAttribute="top" secondItem="XIg-jb-8W0" secondAttribute="bottom" constant="8" symbolic="YES" id="Utz-UY-Y6b"/>
                             <constraint firstAttribute="trailing" secondItem="r9W-WG-A0K" secondAttribute="trailing" id="Vp7-Zz-hAN"/>
                             <constraint firstItem="r9W-WG-A0K" firstAttribute="top" secondItem="XIg-jb-8W0" secondAttribute="bottom" id="WKd-pB-1AR"/>
+                            <constraint firstItem="r9W-WG-A0K" firstAttribute="top" secondItem="XIg-jb-8W0" secondAttribute="bottom" constant="44" id="Xsv-SD-mfD"/>
                             <constraint firstItem="S4J-F3-SPw" firstAttribute="top" secondItem="zMp-gP-PZZ" secondAttribute="bottom" constant="1" id="Z9f-cs-J9k"/>
                             <constraint firstItem="ytF-Bb-3J4" firstAttribute="top" secondItem="S4J-F3-SPw" secondAttribute="bottom" constant="8" symbolic="YES" id="caS-4e-VhC"/>
                             <constraint firstItem="zMp-gP-PZZ" firstAttribute="top" secondItem="r9W-WG-A0K" secondAttribute="bottom" constant="8" symbolic="YES" id="d2U-Zc-wX0"/>
@@ -1724,7 +1727,10 @@
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="B24-z2-r1X"/>
+                                <exclude reference="CkA-Ia-lr1"/>
                                 <exclude reference="WKd-pB-1AR"/>
+                                <exclude reference="Xsv-SD-mfD"/>
                             </mask>
                         </variation>
                     </view>
