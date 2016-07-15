@@ -38,7 +38,6 @@ alpha:1.0]
 - (IBAction)editButton:(UIBarButtonItem *)sender;
 
 @property NSMutableArray *repositories;
-@property (nonatomic) BOOL loading;
 
 @property NSString*      tokenHeader;
 @property NSDictionary*  headers;
@@ -80,11 +79,9 @@ alpha:1.0]
     self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
     [self.navigationController.navigationBar setBarTintColor:UIColorFromRGB(0x313B47)];
     self.navigationController.navigationBar.translucent = NO;
-    
-    self.tableView.emptyDataSetSource = self;
-    self.tableView.emptyDataSetDelegate = self;
-    self.tableView.tableFooterView = [UIView new];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    
+    [self setEmptyState:@"This is your Dashboard." description:@"When you add your favorites repos, they will show up here!"];
     
     self.title = @"Dashboard";
     self.refresh = false;
@@ -101,7 +98,8 @@ alpha:1.0]
 {
     [self.repositories removeAllObjects];
     
-    self.loading = YES;
+    [self showBusyState];
+    
     [[self.gitClient fetchUserOrganizations]
      subscribeNext:^(OCTOrganization *organization) {
          NSMutableURLRequest *request = [self.gitClient requestWithMethod:@"GET" path:[NSString stringWithFormat:@"/orgs/%@/repos", organization.login] parameters:@{@"type":@"all"}];
@@ -118,7 +116,7 @@ alpha:1.0]
          }];
      } error:^(NSError *error) {
          dispatch_async(dispatch_get_main_queue(), ^{
-             self.loading = NO;
+             [self hideBusyState];
              [self.tableView reloadData];             
              
              NSNumber *code = [error.userInfo objectForKey:@"OCTClientErrorHTTPStatusCodeKey"];
@@ -131,7 +129,7 @@ alpha:1.0]
      }
      completed:^{
          dispatch_async(dispatch_get_main_queue(), ^{
-             self.loading = NO;
+             [self hideBusyState];
              [self.tableView reloadData];
              
              if (Helper.favoriteCount == 0 && self.fromLogin){
@@ -187,7 +185,7 @@ alpha:1.0]
         return;
     }
     
-    self.loading = YES;
+    [self showBusyState];
     NSString *repoPath = [cell.repository.HTMLURL.absoluteString stringByReplacingOccurrencesOfString:@"https://github.com/" withString:@""];
     NSString *url =[[NSString alloc] initWithFormat:@"https://api.github.com/repos/%@/pulls", repoPath];
         
@@ -201,13 +199,13 @@ alpha:1.0]
                     }
                completionBlock:^(FSNConnection *c) {
                    if (!c.didSucceed) {
-                       self.loading = NO;
+                       [self hideBusyState];
                        return;
                    }
                    NSArray *pulls = (NSArray *) c.parseResult;
                    
                    if (pulls.count == 0) {
-                       self.loading = NO;
+                       [self hideBusyState];
                        return;
                    }
                    
@@ -225,13 +223,13 @@ alpha:1.0]
                               completionBlock:^(FSNConnection *c) {
                                   
                                   if (!c.didSucceed) {
-                                      self.loading = NO;
+                                      [self hideBusyState];
                                       return;
                                   }
                                   NSDictionary *pullRequest = (NSDictionary *) c.parseResult;
                                   
                                   if (pullRequest.count == 0) {
-                                      self.loading = NO;
+                                      [self hideBusyState];
                                       return;
                                   }
                                   
@@ -250,7 +248,7 @@ alpha:1.0]
                        
                        [connection start];
                    }
-                   self.loading = NO;
+                   [self hideBusyState];
                } progressBlock:^(FSNConnection *c) {}];
         
         [connection start];
@@ -301,7 +299,7 @@ alpha:1.0]
 
 - (void)getAccesToken:(NSString*) code {
     
-    self.loading = YES;
+    [self showBusyState];
     FSNConnection *connection =
     [FSNConnection withUrl:[[NSURL alloc] initWithString:@"https://github.com/login/oauth/access_token"]
                     method:FSNRequestMethodPOST
@@ -320,7 +318,8 @@ alpha:1.0]
                    NSString *accesToken = [result objectForKey:@"access_token"];
                    
                    if (accesToken == nil) {
-                       self.loading = NO;
+                       [self hideBusyState];
+                       
                        return ;
                    }
                    
@@ -347,89 +346,12 @@ alpha:1.0]
                                   
                                   [self FetchRepos];
                               }
-                              self.loading = NO;
+                              [self hideBusyState];
                           } progressBlock:^(FSNConnection *c) {}];
                    [connection start];
                }
            } progressBlock:^(FSNConnection *c) {}];
     [connection start];
-}
-
-- (UIImage *)imageForEmptyDataSet:(UIScrollView *)scrollView
-{
-    if (self.loading) {
-        return [UIImage imageNamed:@"loading_imgBlue_78x78"];
-    }
-    else {
-        return [UIImage imageNamed:@"emptyDash"];
-    }
-}
-
-- (NSAttributedString *)titleForEmptyDataSet:(UIScrollView *)scrollView
-{
-    NSString *text = @"This is your Dashboard.";
-    
-    NSDictionary *attributes = @{NSFontAttributeName: [UIFont boldSystemFontOfSize:18.0f],
-                                 NSForegroundColorAttributeName: [UIColor darkGrayColor]};
-    
-    return [[NSAttributedString alloc] initWithString:text attributes:attributes];
-}
-
-- (NSAttributedString *)descriptionForEmptyDataSet:(UIScrollView *)scrollView
-{
-    NSString *text = @"When you add your favorites repos, they will show up here!";
-    
-    NSMutableParagraphStyle *paragraph = [NSMutableParagraphStyle new];
-    paragraph.lineBreakMode = NSLineBreakByWordWrapping;
-    paragraph.alignment = NSTextAlignmentCenter;
-    
-    NSDictionary *attributes = @{NSFontAttributeName: [UIFont systemFontOfSize:14.0f],
-                                 NSForegroundColorAttributeName: [UIColor lightGrayColor],
-                                 NSParagraphStyleAttributeName: paragraph};
-    
-    return [[NSAttributedString alloc] initWithString:text attributes:attributes];
-}
-
-- (CAAnimation *)imageAnimationForEmptyDataSet:(UIScrollView *)scrollView
-{
-    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"transform"];
-    animation.fromValue = [NSValue valueWithCATransform3D:CATransform3DIdentity];
-    animation.toValue = [NSValue valueWithCATransform3D: CATransform3DMakeRotation(M_PI_2, 0.0, 0.0, 1.0) ];
-    animation.duration = 0.25;
-    animation.cumulative = YES;
-    animation.repeatCount = MAXFLOAT;
-    
-    return animation;
-}
-
-- (BOOL)emptyDataSetShouldAnimateImageView:(UIScrollView *)scrollView
-{
-    return self.loading;
-}
-
-//- (NSAttributedString *)buttonTitleForEmptyDataSet:(UIScrollView *)scrollView forState:(UIControlState)state
-//{
-//    NSDictionary *attributes = @{NSFontAttributeName: [UIFont boldSystemFontOfSize:17.0f],
-//                                 NSForegroundColorAttributeName: [UIColor blueColor]};
-//    
-//    return [[NSAttributedString alloc] initWithString:@"add favorites to get started!" attributes:attributes];
-//}
-
-//- (UIImage *)buttonImageForEmptyDataSet:(UIScrollView *)scrollView forState:(UIControlState)state
-//{
-//    return [UIImage imageNamed:@"emptyDash"];
-//}
-
-- (UIColor *)backgroundColorForEmptyDataSet:(UIScrollView *)scrollView
-{
-    return [UIColor whiteColor];
-}
-
-// proto
-
-- (BOOL)emptyDataSetShouldDisplay:(UIScrollView *)scrollView
-{
-    return YES;
 }
 
 - (void)emptyDataSet:(UIScrollView *)scrollView didTapView:(UIView *)view

@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import <OctoKit/OctoKit.h>
+#import "BaseTableView.h"
 
-@interface OrganisationsController : UITableViewController
+@interface OrganisationsController : BaseTableView
 
 @property OCTClient *gitClient;
 

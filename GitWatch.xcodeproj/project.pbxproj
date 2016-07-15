@@ -50,6 +50,7 @@
 		1FB4AD9A1CEA256D002B12A1 /* RepositoryIntervals.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1FB4AD991CEA256D002B12A1 /* RepositoryIntervals.plist */; };
 		1FBDFFAD1D019F0200EB17D9 /* NSDate+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FBDFFAC1D019F0200EB17D9 /* NSDate+Helper.m */; };
 		1FDA29351CF34BFA00528BA6 /* SettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FDA29341CF34BFA00528BA6 /* SettingsController.m */; };
+		1FDBE8B21D38E4DB0044B58E /* BaseTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FDBE8B11D38E4DB0044B58E /* BaseTableView.m */; };
 		1FE63DF01CFD8EC300CE28FA /* NS-Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FE63DEF1CFD8EC300CE28FA /* NS-Extensions.m */; };
 		1FE63DF41CFD91B300CE28FA /* OrganizationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FE63DF21CFD91B300CE28FA /* OrganizationCell.m */; };
 		1FE63DF51CFD91B300CE28FA /* OrganizationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FE63DF31CFD91B300CE28FA /* OrganizationCell.xib */; };
@@ -128,6 +129,8 @@
 		1FBDFFAC1D019F0200EB17D9 /* NSDate+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+Helper.m"; path = "../../nsdate-helper/NSDate+Helper.m"; sourceTree = "<group>"; };
 		1FDA29331CF34BFA00528BA6 /* SettingsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsController.h; sourceTree = "<group>"; };
 		1FDA29341CF34BFA00528BA6 /* SettingsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsController.m; sourceTree = "<group>"; };
+		1FDBE8B01D38E4DB0044B58E /* BaseTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseTableView.h; sourceTree = "<group>"; };
+		1FDBE8B11D38E4DB0044B58E /* BaseTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseTableView.m; sourceTree = "<group>"; };
 		1FE63DEE1CFD8EC300CE28FA /* NS-Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NS-Extensions.h"; sourceTree = "<group>"; };
 		1FE63DEF1CFD8EC300CE28FA /* NS-Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NS-Extensions.m"; sourceTree = "<group>"; };
 		1FE63DF11CFD91B300CE28FA /* OrganizationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrganizationCell.h; sourceTree = "<group>"; };
@@ -313,6 +316,7 @@
 		1F9F5EAA1CE086FF004D73D3 /* GitWatch */ = {
 			isa = PBXGroup;
 			children = (
+				1FDBE8AF1D38E49F0044B58E /* Base */,
 				1F80E4451D1AC213009ED81B /* OAuth */,
 				1F10A9C21D05A89000C5AA37 /* Main.storyboard */,
 				1F0DE9731CEE127C00C5315F /* ProgressIndicator */,
@@ -338,6 +342,15 @@
 				1F9F5EAC1CE086FF004D73D3 /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		1FDBE8AF1D38E49F0044B58E /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				1FDBE8B01D38E4DB0044B58E /* BaseTableView.h */,
+				1FDBE8B11D38E4DB0044B58E /* BaseTableView.m */,
+			);
+			name = Base;
 			sourceTree = "<group>";
 		};
 		222ED01DC67E9C99A2E163F1 /* Frameworks */ = {
@@ -523,6 +536,7 @@
 				1F0DE9721CEE050800C5315F /* PullRequestsController.m in Sources */,
 				1FA95AA01CEDC32A0028BDEC /* StatusController.m in Sources */,
 				1FE63DF41CFD91B300CE28FA /* OrganizationCell.m in Sources */,
+				1FDBE8B21D38E4DB0044B58E /* BaseTableView.m in Sources */,
 				1F147D901CFF27E40024F773 /* RepoView.m in Sources */,
 				1FDA29351CF34BFA00528BA6 /* SettingsController.m in Sources */,
 				1F9B4B261CE3574A00EAFD29 /* Helper.m in Sources */,

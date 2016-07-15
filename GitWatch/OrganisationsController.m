@@ -25,7 +25,6 @@
 @property (weak, nonatomic) IBOutlet UIView *tableFooterView;
 
 @property NSMutableArray *organisations;
-@property (nonatomic) BOOL loading;
 
 @end
 
@@ -34,19 +33,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.tableView.emptyDataSetSource = self;
-    self.tableView.emptyDataSetDelegate = self;
-    self.tableView.tableFooterView = [UIView new];
+    [self setEmptyState:@"This is your organizations list." description:@"When you authorize GitWatch to access your organization, they will show up here!"];
     
     self.clearsSelectionOnViewWillAppear = NO;
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    self.tableView.separatorStyle        = UITableViewCellSeparatorStyleSingleLine;
 
     self.organisations = [NSMutableArray new];
     [self fetchOrgs];
 }
 
 - (void)fetchOrgs {
-    self.loading = YES;
+    [self showBusyState];
+    
     [self.organisations removeAllObjects];
     [self.tableView reloadData];
     
@@ -56,7 +54,7 @@
      subscribeNext:^(OCTOrganization *organisation) {
          [self.organisations insertObject:organisation atIndex:0];
      } error:^(NSError *error) {
-         self.loading = NO;
+         [self hideBusyState];
          UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Whoops" message:[NSString stringWithFormat:@"Something went wrong."] preferredStyle:UIAlertControllerStyleAlert];
          
          UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {}];
@@ -64,7 +62,7 @@
          [alert addAction:defaultAction];
          [self presentViewController:alert animated:YES completion:nil];
      } completed:^{
-         self.loading = NO;
+         [self hideBusyState];
          [self.tableView reloadData];
      } ];
 }
@@ -112,60 +110,16 @@
     [self performSegueWithIdentifier:@"GoToRepos" sender:self];
 }
 
-- (UIImage *)imageForEmptyDataSet:(UIScrollView *)scrollView
-{
-    if (self.loading) {
-        return [UIImage imageNamed:@"loading_imgBlue_78x78"];
-    }
-    else {
-        return [UIImage imageNamed:@"emptyDash"];
-    }
-}
 
-- (NSAttributedString *)titleForEmptyDataSet:(UIScrollView *)scrollView
-{
-    NSString *text = @"This is your organizations";
-    if (self.organisations.count == 0) {
-        text = @"Authorize GitWatch";
-    }
-    
-    NSDictionary *attributes = @{NSFontAttributeName: [UIFont boldSystemFontOfSize:18.0f],
-                                 NSForegroundColorAttributeName: [UIColor darkGrayColor]};
-    
-    return [[NSAttributedString alloc] initWithString:text attributes:attributes];
-}
-
-- (NSAttributedString *)descriptionForEmptyDataSet:(UIScrollView *)scrollView
-{
-    NSString *text = @"When you authorize GitWatch to access your organization, they will show up here!";
-    
-    NSMutableParagraphStyle *paragraph = [NSMutableParagraphStyle new];
-    paragraph.lineBreakMode = NSLineBreakByWordWrapping;
-    paragraph.alignment = NSTextAlignmentCenter;
-    
-    NSDictionary *attributes = @{NSFontAttributeName: [UIFont systemFontOfSize:14.0f],
-                                 NSForegroundColorAttributeName: [UIColor lightGrayColor],
-                                 NSParagraphStyleAttributeName: paragraph};
-    
-    return [[NSAttributedString alloc] initWithString:text attributes:attributes];
-}
-
-- (CAAnimation *)imageAnimationForEmptyDataSet:(UIScrollView *)scrollView
-{
-    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"transform"];
-    animation.fromValue = [NSValue valueWithCATransform3D:CATransform3DIdentity];
-    animation.toValue = [NSValue valueWithCATransform3D: CATransform3DMakeRotation(M_PI_2, 0.0, 0.0, 1.0) ];
-    animation.duration = 0.25;
-    animation.cumulative = YES;
-    animation.repeatCount = MAXFLOAT;
-    
-    return animation;
-}
-
-- (BOOL)emptyDataSetShouldAnimateImageView:(UIScrollView *)scrollView
-{
-    return self.loading;
-}
+//- (UIImage *)imageForEmptyDataSet:(UIScrollView *)scrollView
+//{
+//    if (self.loading) {
+//        return [UIImage imageNamed:@"loading_imgBlue_78x78"];
+//    }
+//    else {
+//        return [UIImage imageNamed:@"emptyDash"];
+//    }
+//}
 
 - (NSAttributedString *)buttonTitleForEmptyDataSet:(UIScrollView *)scrollView forState:(UIControlState)state
 {
@@ -173,23 +127,6 @@
                                  NSForegroundColorAttributeName: [UIColor blueColor]};
 
     return [[NSAttributedString alloc] initWithString:@"Authorize" attributes:attributes];
-}
-
-//- (UIImage *)buttonImageForEmptyDataSet:(UIScrollView *)scrollView forState:(UIControlState)state
-//{
-//    return [UIImage imageNamed:@"emptyDash"];
-//}
-
-- (UIColor *)backgroundColorForEmptyDataSet:(UIScrollView *)scrollView
-{
-    return [UIColor whiteColor];
-}
-
-// proto
-
-- (BOOL)emptyDataSetShouldDisplay:(UIScrollView *)scrollView
-{
-    return YES;
 }
 
 - (void)emptyDataSet:(UIScrollView *)scrollView didTapView:(UIView *)view
