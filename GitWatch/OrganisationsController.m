@@ -39,14 +39,20 @@
     self.tableView.separatorStyle        = UITableViewCellSeparatorStyleSingleLine;
 
     self.organisations = [NSMutableArray new];
+    
+    [self showBusyState];
     [self fetchOrgs];
+    
+    __weak typeof(self) weakSelf = self;
+    [self.tableView addPullToRefreshWithActionHandler:^{
+        [weakSelf fetchOrgs];
+        [weakSelf.tableView.pullToRefreshView stopAnimating];
+    }];
 }
 
 - (void)fetchOrgs {
-    [self showBusyState];
-    
     [self.organisations removeAllObjects];
-    [self.tableView reloadData];
+    //[self.tableView reloadData];
     
     RACSignal *request = [self.gitClient fetchUserOrganizations];
     
@@ -63,7 +69,6 @@
          [self presentViewController:alert animated:YES completion:nil];
      } completed:^{
          [self hideBusyState];
-         [self.tableView reloadData];
      } ];
 }
 

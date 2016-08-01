@@ -120,11 +120,7 @@ alpha:1.0]
                      [self hideBusyState];
                  });
              }
-         } completed:^{
-//             dispatch_async(dispatch_get_main_queue(), ^{
-//                 [self hideBusyState];
-//             });
-         }];
+          } completed:^{}];
      } error:^(NSError *error) {
          dispatch_async(dispatch_get_main_queue(), ^{
              [self hideBusyState];
