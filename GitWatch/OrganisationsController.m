@@ -52,7 +52,6 @@
 
 - (void)fetchOrgs {
     [self.organisations removeAllObjects];
-    //[self.tableView reloadData];
     
     RACSignal *request = [self.gitClient fetchUserOrganizations];
     
@@ -115,16 +114,6 @@
     [self performSegueWithIdentifier:@"GoToRepos" sender:self];
 }
 
-
-//- (UIImage *)imageForEmptyDataSet:(UIScrollView *)scrollView
-//{
-//    if (self.loading) {
-//        return [UIImage imageNamed:@"loading_imgBlue_78x78"];
-//    }
-//    else {
-//        return [UIImage imageNamed:@"emptyDash"];
-//    }
-//}
 
 - (NSAttributedString *)buttonTitleForEmptyDataSet:(UIScrollView *)scrollView forState:(UIControlState)state
 {

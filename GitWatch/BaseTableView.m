@@ -8,6 +8,12 @@
 
 #import "BaseTableView.h"
 
+#define UIColorFromRGB(rgbValue) \
+[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 \
+green:((float)((rgbValue & 0x00FF00) >>  8))/255.0 \
+blue:((float)((rgbValue & 0x0000FF) >>  0))/255.0 \
+alpha:1.0]
+
 @implementation BaseTableView
 
  NSString* emptyStateTitle;
@@ -18,8 +24,15 @@
     
     emptyStateTitle = @"No content to show";
     [super viewDidLoad];
+    
     self.isBusy = false;
     self.tableView.showsPullToRefresh = NO;
+    self.tableView.pullToRefreshView.arrowColor = UIColorFromRGB(0x313B47);
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    
+    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
+    [self.navigationController.navigationBar setBarTintColor:UIColorFromRGB(0x313B47)];
+    self.navigationController.navigationBar.translucent = NO;
 }
 
 
@@ -102,9 +115,10 @@
 }
 
 - (void) hideBusyState
-{
+{    
     self.isBusy = false;
     [self.tableView reloadData];
+    [self.tableView.pullToRefreshView stopAnimating];
 }
 
 - (void) setEmptyState :(NSString*) title description:(NSString*) description

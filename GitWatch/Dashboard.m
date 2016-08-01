@@ -26,11 +26,6 @@
 #import <MBProgressHUD/MBProgressHUD.h>
 #import <DZNEmptyDataSet/UIScrollView+EmptyDataSet.h>
 
-#define UIColorFromRGB(rgbValue) \
-[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 \
-green:((float)((rgbValue & 0x00FF00) >>  8))/255.0 \
-blue:((float)((rgbValue & 0x0000FF) >>  0))/255.0 \
-alpha:1.0]
 
 @interface Dashboard ()
 
@@ -77,11 +72,6 @@ alpha:1.0]
             [self FetchRepos];
         }
     }
-    
-    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
-    [self.navigationController.navigationBar setBarTintColor:UIColorFromRGB(0x313B47)];
-    self.navigationController.navigationBar.translucent = NO;
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     
     [self setEmptyState:@"This is your Dashboard." description:@"When you add your favorites repos, they will show up here!"];
     

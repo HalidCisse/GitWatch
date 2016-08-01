@@ -19,7 +19,6 @@
 - (IBAction)onDone:(id)sender;
 
 @property NSMutableArray *repositories;
-@property MBProgressHUD* hud;
 
 @end
 
@@ -27,38 +26,40 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    self.tableView.tableFooterView = [UIView new];
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    self.repositories = [NSMutableArray new];
     
     UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [backButton setFrame:CGRectMake(0,0,12.5,21)];
-    backButton.userInteractionEnabled = YES;
+    //backButton.userInteractionEnabled = YES;
     [backButton setImage:[UIImage imageNamed:@"BackChevron"] forState:UIControlStateNormal];
     
     [backButton addTarget:self action:@selector(onBackClick:) forControlEvents:UIControlEventTouchUpInside];
     
-    UIBarButtonItem *refreshBarButton = [[UIBarButtonItem alloc] initWithCustomView:backButton];
-    self.navigationItem.leftBarButtonItem = refreshBarButton;
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
     
-    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
-    self.navigationController.navigationBar.backgroundColor = [ColorHelper colorFromHexString:@"313B47"];
-    
+    [self setEmptyState:self.organisation.name description:[NSString stringWithFormat:@"When you add repos to %@, they will show up here!", self.organisation.name]];
     self.title = [NSString stringWithFormat:@"%@ Repositories", self.organisation.name];
     
-    self.repositories = [NSMutableArray new];
-    _hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    _hud.labelText = @"Loading...";
+    [self showBusyState];
+    [self fetchRepos];
     
-    RACSignal *request = [self.gitClient fetchRepositoriesForOrganization:self.organisation];
+    __weak typeof(self) weakSelf = self;
+    [self.tableView addPullToRefreshWithActionHandler:^{
+        [weakSelf fetchRepos];
+    }];
+}
+
+- (void) fetchRepos {
     
-    [[request deliverOn:RACScheduler.mainThreadScheduler]
+    [self.repositories removeAllObjects];
+    
+    [[[self.gitClient fetchRepositoriesForOrganization:self.organisation] deliverOn:RACScheduler.mainThreadScheduler]
      subscribeNext:^(OCTRepository *repository) {
          [self.repositories insertObject:repository atIndex:0];
      }
      error:^(NSError *error)
      {
-         [_hud hide:true];
+         [self hideBusyState];
          UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Whoops" message:[NSString stringWithFormat:@"Something went wrong."] preferredStyle:UIAlertControllerStyleAlert];
          
          UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {}];
@@ -66,12 +67,15 @@
          [alert addAction:defaultAction];
          [self presentViewController:alert animated:YES completion:nil];
      } completed:^{
-         [self.tableView reloadData];
-         [_hud hide:true];
+         [self hideBusyState];
      } ];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if([self.repositories count] == 0){
+        return nil;
+    }
     
     static NSString *identifier = @"RepositoryCell";
     
@@ -89,20 +93,20 @@
     [cell.checkbox setImage:[UIImage imageNamed:@"selectedCheckbox"] forState:UIControlStateHighlighted];
     [cell.checkbox setImage:[UIImage imageNamed:@"selectedCheckbox"] forState:UIControlStateSelected | UIControlStateHighlighted];
     
-    OCTRepository *repo =[self.repositories objectAtIndex:indexPath.row];
+    OCTRepository *repo             = [self.repositories objectAtIndex:indexPath.row];
     
-    cell.repositoryName.text = repo.name;
+    cell.repositoryName.text        = repo.name;
     cell.repositoryDescription.text = repo.repoDescription;
-    cell.repositoryImage.image = [UIImage imageNamed:@"repoIcon.png"];
+    cell.repositoryImage.image      = [UIImage imageNamed:@"repoIcon.png"];
     
     [cell.checkbox setSelected:[Helper isFavorite:repo.name]];
         
     cell.repositoryImage.layer.cornerRadius = 5;
     cell.repositoryImage.layer.masksToBounds = YES;
     
-    cell.layoutMargins = UIEdgeInsetsZero;
+    cell.layoutMargins  = UIEdgeInsetsZero;
     cell.preservesSuperviewLayoutMargins = NO;
-    cell.accessoryType = UITableViewCellAccessoryNone;
+    cell.accessoryType  = UITableViewCellAccessoryNone;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     return cell;
@@ -111,10 +115,7 @@
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     RepositoryCell* cell = [tableView cellForRowAtIndexPath:indexPath];
-
     [self handleClick:cell];
-    //cell.checkbox.selected = !cell.checkbox.selected;
-    
     if(cell.selectionStyle == UITableViewCellSelectionStyleNone){
         return nil;
     }
@@ -177,7 +178,6 @@
     NSString *destPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
     destPath = [destPath stringByAppendingPathComponent:@"FavoriteRepository.plist"];
     
-    // If the file doesn't exist in the Documents Folder, copy it.
     NSFileManager *fileManager = [NSFileManager defaultManager];
     
     if (![fileManager fileExistsAtPath:destPath]) {

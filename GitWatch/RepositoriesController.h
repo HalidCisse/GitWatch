@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import <OctoKit/OctoKit.h>
+#import "BaseTableView.h"
 
-@interface RepositoriesController : UITableViewController
+@interface RepositoriesController : BaseTableView
 
 @property OCTClient *gitClient;
 @property OCTOrganization *organisation;
