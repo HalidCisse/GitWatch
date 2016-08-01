@@ -30,11 +30,8 @@
     
     UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [backButton setFrame:CGRectMake(0,0,12.5,21)];
-    //backButton.userInteractionEnabled = YES;
     [backButton setImage:[UIImage imageNamed:@"BackChevron"] forState:UIControlStateNormal];
-    
     [backButton addTarget:self action:@selector(onBackClick:) forControlEvents:UIControlEventTouchUpInside];
-    
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
     
     [self setEmptyState:self.organisation.name description:[NSString stringWithFormat:@"When you add repos to %@, they will show up here!", self.organisation.name]];
@@ -56,6 +53,7 @@
     [[[self.gitClient fetchRepositoriesForOrganization:self.organisation] deliverOn:RACScheduler.mainThreadScheduler]
      subscribeNext:^(OCTRepository *repository) {
          [self.repositories insertObject:repository atIndex:0];
+         [self hideBusyState];
      }
      error:^(NSError *error)
      {
@@ -66,17 +64,11 @@
          
          [alert addAction:defaultAction];
          [self presentViewController:alert animated:YES completion:nil];
-     } completed:^{
-         [self hideBusyState];
-     } ];
+     } completed:^{}];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    if([self.repositories count] == 0){
-        return nil;
-    }
-    
+   
     static NSString *identifier = @"RepositoryCell";
     
     RepositoryCell *cell = (RepositoryCell *)[tableView dequeueReusableCellWithIdentifier:identifier];
@@ -86,15 +78,16 @@
         cell = [nib objectAtIndex:0];
     }
     
-    cell.contentView.userInteractionEnabled = true;
-    
     [cell.checkbox setImage:[UIImage imageNamed:@"normalCheckbox"] forState:UIControlStateNormal];
     [cell.checkbox setImage:[UIImage imageNamed:@"selectedCheckbox"] forState:UIControlStateSelected];
     [cell.checkbox setImage:[UIImage imageNamed:@"selectedCheckbox"] forState:UIControlStateHighlighted];
     [cell.checkbox setImage:[UIImage imageNamed:@"selectedCheckbox"] forState:UIControlStateSelected | UIControlStateHighlighted];
     
-    OCTRepository *repo             = [self.repositories objectAtIndex:indexPath.row];
-    
+    OCTRepository *repo;
+    if([self.repositories count] != 0){
+        repo = [self.repositories objectAtIndex:indexPath.row];
+    }
+   
     cell.repositoryName.text        = repo.name;
     cell.repositoryDescription.text = repo.repoDescription;
     cell.repositoryImage.image      = [UIImage imageNamed:@"repoIcon.png"];
@@ -104,10 +97,10 @@
     cell.repositoryImage.layer.cornerRadius = 5;
     cell.repositoryImage.layer.masksToBounds = YES;
     
-    cell.layoutMargins  = UIEdgeInsetsZero;
+    cell.layoutMargins                   = UIEdgeInsetsZero;
     cell.preservesSuperviewLayoutMargins = NO;
-    cell.accessoryType  = UITableViewCellAccessoryNone;
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.accessoryType                   = UITableViewCellAccessoryNone;
+    cell.selectionStyle                  = UITableViewCellSelectionStyleNone;
     
     return cell;
 }

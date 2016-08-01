@@ -316,9 +316,9 @@
 		1F9F5EAA1CE086FF004D73D3 /* GitWatch */ = {
 			isa = PBXGroup;
 			children = (
+				1F10A9C21D05A89000C5AA37 /* Main.storyboard */,
 				1FDBE8AF1D38E49F0044B58E /* Base */,
 				1F80E4451D1AC213009ED81B /* OAuth */,
-				1F10A9C21D05A89000C5AA37 /* Main.storyboard */,
 				1F0DE9731CEE127C00C5315F /* ProgressIndicator */,
 				1F0DE96F1CEE04CC00C5315F /* PullRequests */,
 				1F0DA37A1CE478D3005DBE35 /* Home */,

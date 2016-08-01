@@ -61,6 +61,10 @@
 
 + (BOOL)isFavorite:(NSString *)repositoryName
 {
+    if (repositoryName == nil) {
+        return false;
+    }
+    
     NSString *destPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
     destPath = [destPath stringByAppendingPathComponent:@"FavoriteRepository.plist"];
     
