@@ -8,7 +8,6 @@
 
 #import "Dashboard.h"
 #import "Helper.h"
-//#import "ViewController.h"
 #import "DirectLoginController.h"
 #import "OrganisationsController.h"
 #import "DashCell.h"
@@ -33,7 +32,7 @@ green:((float)((rgbValue & 0x00FF00) >>  8))/255.0 \
 blue:((float)((rgbValue & 0x0000FF) >>  0))/255.0 \
 alpha:1.0]
 
-@interface Dashboard () <DZNEmptyDataSetSource, DZNEmptyDataSetDelegate>
+@interface Dashboard ()
 
 - (IBAction)editButton:(UIBarButtonItem *)sender;
 
@@ -51,6 +50,7 @@ alpha:1.0]
     [super viewDidLoad];
     
     self.repositories = [NSMutableArray new];
+    [self showBusyState];
     
     if (_fromLogin && _code.length != 0 ) {
         [self getAccesToken:_code];
@@ -70,8 +70,10 @@ alpha:1.0]
             self.headers     = @{self.tokenHeader: @"Authorization"};
             self.parameters  = nil;
             
+            [self showBusyState];
             [self FetchRepos];
         }else{
+            [self showBusyState];
             [self FetchRepos];
         }
     }
@@ -85,6 +87,13 @@ alpha:1.0]
     
     self.title = @"Dashboard";
     self.refresh = false;
+    
+    __weak typeof(self) weakSelf = self;
+    [self.tableView addPullToRefreshWithActionHandler:^{
+        // prepend data to dataSource, insert cells at top of table view
+        [weakSelf FetchRepos];
+        [weakSelf.tableView.pullToRefreshView stopAnimating];
+    }];
 }
 
 - (void)viewDidAppear:(BOOL)animated{
@@ -98,27 +107,28 @@ alpha:1.0]
 {
     [self.repositories removeAllObjects];
     
-    [self showBusyState];
-    
     [[self.gitClient fetchUserOrganizations]
      subscribeNext:^(OCTOrganization *organization) {
          NSMutableURLRequest *request = [self.gitClient requestWithMethod:@"GET" path:[NSString stringWithFormat:@"/orgs/%@/repos", organization.login] parameters:@{@"type":@"all"}];
-         [[self.gitClient enqueueRequest:request resultClass:[OCTRepository class]] subscribeNext:^(OCTResponse *response) {
+         [[self.gitClient enqueueRequest:request resultClass:[OCTRepository class]]
+          subscribeNext:^(OCTResponse *response) {
              OCTRepository *repository = response.parsedResult;
              
              if ([Helper isFavorite:repository.name]) {
                  [self.repositories insertObject:repository atIndex:0];
+                 dispatch_async(dispatch_get_main_queue(), ^{
+                     [self hideBusyState];
+                 });
              }
          } completed:^{
-             dispatch_async(dispatch_get_main_queue(), ^{
-                 [self.tableView reloadData];
-             });
+//             dispatch_async(dispatch_get_main_queue(), ^{
+//                 [self hideBusyState];
+//             });
          }];
      } error:^(NSError *error) {
          dispatch_async(dispatch_get_main_queue(), ^{
              [self hideBusyState];
-             [self.tableView reloadData];             
-             
+                          
              NSNumber *code = [error.userInfo objectForKey:@"OCTClientErrorHTTPStatusCodeKey"];
              if (code.intValue == 401) {
                  [Helper clearCredentials];
@@ -129,9 +139,6 @@ alpha:1.0]
      }
      completed:^{
          dispatch_async(dispatch_get_main_queue(), ^{
-             [self hideBusyState];
-             [self.tableView reloadData];
-             
              if (Helper.favoriteCount == 0 && self.fromLogin){
                  self.fromLogin = false;
                  OrgsContainer *view = [self.storyboard instantiateViewControllerWithIdentifier:@"OrgsContainer"];

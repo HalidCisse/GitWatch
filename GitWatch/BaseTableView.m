@@ -18,8 +18,9 @@
     
     emptyStateTitle = @"No content to show";
     [super viewDidLoad];
+    self.isBusy = false;
+    self.tableView.showsPullToRefresh = NO;
 }
-
 
 
 #pragma mark - DZNEmptyDataSet delegate methods

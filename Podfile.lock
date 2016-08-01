@@ -11,6 +11,7 @@ PODS:
     - SDWebImage/Core (= 3.7.6)
   - SDWebImage/Core (3.7.6)
   - SSKeychain (1.4.0)
+  - SVPullToRefresh (0.4.1)
 
 DEPENDENCIES:
   - AMSmoothAlert (~> 1.0)
@@ -21,6 +22,7 @@ DEPENDENCIES:
   - MBProgressHUD
   - SDWebImage (~> 3.7)
   - SSKeychain
+  - SVPullToRefresh
 
 SPEC CHECKSUMS:
   AMSmoothAlert: 108cf0fc3eea9256ccfdcd9deaa283999ac1e47e
@@ -32,7 +34,8 @@ SPEC CHECKSUMS:
   MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
   SDWebImage: c325cf02c30337336b95beff20a13df489ec0ec9
   SSKeychain: c71293fa57216a40ab06c23f4085387583293de4
+  SVPullToRefresh: ba2e718695a43253d8bea6852d2960097dc15d8c
 
-PODFILE CHECKSUM: 8cf76c5198f7658e9c4b73cc47b9cef9c2a05ba8
+PODFILE CHECKSUM: e3533bbcb5a44cdecaad57729c04b5ac411031a5
 
-COCOAPODS: 1.0.1
+COCOAPODS: 1.1.0.beta.1

@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <DZNEmptyDataSet/UIScrollView+EmptyDataSet.h>
+#import "UIScrollView+SVPullToRefresh.h"
 
 @interface BaseTableView : UITableViewController<DZNEmptyDataSetSource, DZNEmptyDataSetDelegate>
 
