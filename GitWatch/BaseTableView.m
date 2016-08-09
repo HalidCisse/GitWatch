@@ -23,16 +23,17 @@ alpha:1.0]
 - (void)viewDidLoad {
     
     emptyStateTitle = @"No content to show";
-    [super viewDidLoad];
     
-    self.isBusy = false;
-    self.tableView.showsPullToRefresh = NO;
+    self.isBusy                                 = true;
+    self.tableView.showsPullToRefresh           = NO;
     self.tableView.pullToRefreshView.arrowColor = UIColorFromRGB(0x313B47);
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    self.tableView.separatorStyle               = UITableViewCellSeparatorStyleSingleLine;
     
-    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
+    self.navigationController.navigationBar.barStyle    = UIBarStyleBlack;
     [self.navigationController.navigationBar setBarTintColor:UIColorFromRGB(0x313B47)];
     self.navigationController.navigationBar.translucent = NO;
+    
+    [super viewDidLoad];
 }
 
 
@@ -46,6 +47,10 @@ alpha:1.0]
 
 - (NSAttributedString *)titleForEmptyDataSet:(UIScrollView *)scrollView
 {
+    if (emptyStateTitle == nil) {
+        return nil;
+    }
+    
     NSDictionary *attributes = @{NSFontAttributeName: [UIFont boldSystemFontOfSize:18.0f],
                                  NSForegroundColorAttributeName: [UIColor darkGrayColor]};
     
@@ -71,12 +76,9 @@ alpha:1.0]
 
 - (UIView *)customViewForEmptyDataSet:(UIScrollView *)scrollView
 {
-    if (self.isBusy) {
-        UIActivityIndicatorView *activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-        [activityView startAnimating];
-        return activityView;
-    }
-    return nil;
+    UIActivityIndicatorView *activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    [activityView startAnimating];
+    return activityView;
 }
 
 - (UIColor *)backgroundColorForEmptyDataSet:(UIScrollView *)scrollView
@@ -126,8 +128,10 @@ alpha:1.0]
     self.tableView.tableFooterView      = [UIView new];
     self.tableView.emptyDataSetSource   = self;
     self.tableView.emptyDataSetDelegate = self;
-    emptyStateTitle                      = title;
-    emptyStateDescription                = description;
+    emptyStateTitle                     = title;
+    emptyStateDescription               = description;
+    [self showBusyState];
+    
 }
 
 @end

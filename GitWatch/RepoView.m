@@ -170,22 +170,28 @@
                               completionBlock:^(FSNConnection *c) {
                                   
                                   @try {
+                                      self.lastCommitLabel.text       = @"";
+                                      self.lastCommitDate.text        = @"";
+                                      self.lastCommitLabel.text       = @"";
+                                      self.lastCommiterName.text      = @"";
+                                      self.lastCommiterImage.image    = [UIImage imageNamed:@"Octocat.png"];
+                                      
                                       NSDictionary *commitDic = (NSDictionary *) c.parseResult;
                                       if (commitDic == nil) {
                                           return;
                                       }
-                                      NSDictionary *commitCommit = [commitDic objectForKey:@"commit"];
-                                      if (commitCommit == nil) {
-                                          return;
-                                      }
-                                      NSDictionary *commitCommitter = [commitCommit objectForKey:@"committer"];
                                       
-                                      if (commitCommitter != nil) {
-                                          NSString *dateAgo =[[NSDate dateFromString:[commitCommitter objectForKey:@"date"] withFormat:@"yyyy-MM-dd'T'HH:mm:ssZ"] timeAgoSinceNow];
+                                      NSDictionary *commitCommit = [commitDic objectForKey:@"commit"];
+                                      if (commitCommit != nil) {
+                                          NSDictionary *commitCommitter = [commitCommit objectForKey:@"committer"];
                                           
-                                          self.lastCommitLabel.text =[NSString stringWithFormat:@"%@", [commitCommit objectForKey:@"message"]];
-                                          
-                                          self.lastCommitDate.text = [NSString  stringWithFormat:@"committed %@", dateAgo];
+                                          if (commitCommitter != nil) {
+                                              NSString *dateAgo =[[NSDate dateFromString:[commitCommitter objectForKey:@"date"] withFormat:@"yyyy-MM-dd'T'HH:mm:ssZ"] timeAgoSinceNow];
+                                              
+                                              self.lastCommitLabel.text =[NSString stringWithFormat:@"%@", [commitCommit objectForKey:@"message"]];
+                                              
+                                              self.lastCommitDate.text = [NSString  stringWithFormat:@"committed %@", dateAgo];
+                                          }
                                       }
                                       
                                       NSDictionary *author = [commitDic objectForKey:@"author"];

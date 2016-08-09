@@ -37,8 +37,7 @@
     
     self.clearsSelectionOnViewWillAppear = NO;
     self.tableView.separatorStyle        = UITableViewCellSeparatorStyleSingleLine;
-
-    self.organisations = [NSMutableArray new];
+    self.organisations                   = [NSMutableArray new];
     
     [self showBusyState];
     [self fetchOrgs];
@@ -113,7 +112,6 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self performSegueWithIdentifier:@"GoToRepos" sender:self];
 }
-
 
 - (NSAttributedString *)buttonTitleForEmptyDataSet:(UIScrollView *)scrollView forState:(UIControlState)state
 {

@@ -1,6 +1,7 @@
 use_frameworks!
 target ‘GitWatch’ do
     
+  pod 'SVPullToRefresh'
   pod 'IQKeyboardManager'
   pod 'DZNEmptyDataSet'
   pod 'SSKeychain'

@@ -140,7 +140,11 @@
     return [self.repositories count];
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (DashCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (self.repositories.count == 0) {
+        return [DashCell new];
+    }
     
     static NSString *identifier = @"DashCell";
     
