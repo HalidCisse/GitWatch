@@ -66,12 +66,6 @@ alpha:1.0]
 
 - (IBAction)OnLogin_Click:(id)sender
 {
-    //[self setNeedsStatusBarAppearanceUpdate];
-    
-//    [MWKProgressIndicator show];
-//    [MWKProgressIndicator updateMessage:@"connecting ..."];
-//    [MWKProgressIndicator updateProgress:0.5f];
-    
     [self displaySafari];
 }
 

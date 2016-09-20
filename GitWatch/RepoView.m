@@ -139,6 +139,12 @@
 
 - (void)fetchLastCommit
 {
+    self.lastCommitLabel.text       = @"";
+    self.lastCommitDate.text        = @"";
+    self.lastCommitLabel.text       = @"";
+    self.lastCommiterName.text      = @"";
+    self.lastCommiterImage.image    = [UIImage imageNamed:@"Octocat"];
+    
     NSString *repoPath = [self.repository.HTMLURL.absoluteString stringByReplacingOccurrencesOfString:@"https://github.com/" withString:@""];
     NSString *url =[[NSString alloc] initWithFormat:@"https://api.github.com/repos/%@/branches", repoPath];
     
@@ -175,11 +181,6 @@
                               completionBlock:^(FSNConnection *c) {
                                   
                                   @try {
-                                      self.lastCommitLabel.text       = @"";
-                                      self.lastCommitDate.text        = @"";
-                                      self.lastCommitLabel.text       = @"";
-                                      self.lastCommiterName.text      = @"";
-                                      self.lastCommiterImage.image    = [UIImage imageNamed:@"Octocat"];
                                       
                                       NSDictionary *commitDic = (NSDictionary *) c.parseResult;
                                       if (commitDic == nil) {

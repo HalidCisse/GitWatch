@@ -52,7 +52,7 @@
     
     [[[self.gitClient fetchRepositoriesForOrganization:self.organisation] deliverOn:RACScheduler.mainThreadScheduler]
      subscribeNext:^(OCTRepository *repository) {
-         [self.repositories insertObject:repository atIndex:0];
+         [self.repositories insertObject:repository atIndex:self.repositories.count > 0 ? self.repositories.count-1 : 0];
          [self hideBusyState];
      }
      error:^(NSError *error)

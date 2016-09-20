@@ -44,7 +44,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self setEmptyState:@"This is your Dashboard." description:@"When you add your favorites repos, they will show up here!"];
+    [self setEmptyState:@"This is your Dashboard." description:@"Click on the + button to select your favorites repos"]; //When you add your favorites repos, they will show up here!
     
     self.title = @"Dashboard";
     
@@ -115,7 +115,7 @@
              OCTRepository *repository = response.parsedResult;
              
              if ([Helper isFavorite:repository.name]) {
-                 [self.repositories insertObject:repository atIndex:0];
+                 [self.repositories insertObject:repository atIndex:self.repositories.count > 0 ? self.repositories.count-1 : 0];
                  dispatch_async(dispatch_get_main_queue(), ^{
                      [self hideBusyState];
                  });

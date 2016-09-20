@@ -52,7 +52,7 @@ alpha:1.0]
     }
     
     NSDictionary *attributes = @{NSFontAttributeName: [UIFont boldSystemFontOfSize:18.0f],
-                                 NSForegroundColorAttributeName: [UIColor darkGrayColor]};
+                                 NSForegroundColorAttributeName: [UIColor lightGrayColor]};
     
     return [[NSAttributedString alloc] initWithString:emptyStateTitle attributes:attributes];
 }

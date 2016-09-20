@@ -56,7 +56,7 @@
     
     [[request deliverOn:RACScheduler.mainThreadScheduler]
      subscribeNext:^(OCTOrganization *organisation) {
-         [self.organisations insertObject:organisation atIndex:0];
+         [self.organisations insertObject:organisation atIndex:self.organisations.count > 0 ? self.organisations.count-1 : 0];
      } error:^(NSError *error) {
          [self hideBusyState];
          UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Whoops" message:[NSString stringWithFormat:@"Something went wrong."] preferredStyle:UIAlertControllerStyleAlert];
