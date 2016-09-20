@@ -19,7 +19,7 @@
 #import "NSDate+Helper.h"
 
 
-@interface RepoView ()
+@interface RepoView ()<UIGestureRecognizerDelegate>
 
 @property NSString* tokenHeader;
 @property NSDictionary* headers;
@@ -179,7 +179,7 @@
                                       self.lastCommitDate.text        = @"";
                                       self.lastCommitLabel.text       = @"";
                                       self.lastCommiterName.text      = @"";
-                                      self.lastCommiterImage.image    = [UIImage imageNamed:@"Octocat.png"];
+                                      self.lastCommiterImage.image    = [UIImage imageNamed:@"Octocat"];
                                       
                                       NSDictionary *commitDic = (NSDictionary *) c.parseResult;
                                       if (commitDic == nil) {
@@ -200,10 +200,18 @@
                                       }
                                       
                                       NSDictionary *author = [commitDic objectForKey:@"author"];
-                                      
-                                      if (author != nil && [author objectForKey:@"avatar_url"] != nil) {
-                                          [self.lastCommiterImage sd_setImageWithURL:[NSURL URLWithString:[author objectForKey:@"avatar_url"]] placeholderImage:[UIImage imageNamed:@"Octocat.png"]];
+                                    if (author != nil && [author objectForKey:@"avatar_url"] != nil) {
                                           self.lastCommiterName.text =[author objectForKey:@"login"];
+
+                                          dispatch_async(dispatch_get_global_queue(0,0), ^{
+                                              NSData * data = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString: [author objectForKey:@"avatar_url"]]];
+                                              if ( data == nil )
+                                                  return;
+                                              dispatch_async(dispatch_get_main_queue(), ^{
+                                                  self.lastCommiterImage.image = [UIImage imageWithData: data];
+                                              });
+                                          });
+                                          // [self.lastCommiterImage sd_setImageWithURL:[NSURL URLWithString:[author objectForKey:@"avatar_url"]] placeholderImage:[UIImage imageNamed:@"Octocat"]];
                                       }
                                   }
                                   @catch (NSException *exception) {
@@ -220,22 +228,17 @@
 }
 
 //- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-//
+//    // you can get the title you statically defined in the storyboard
 //    NSString *sectionTitle = [self tableView:tableView titleForHeaderInSection:section];
-//    if (sectionTitle == nil) {
-//        return nil;
-//    }
 //    
-//    static NSString *HeaderCellIdentifier = @"Header";
-//    
-//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:HeaderCellIdentifier];
-//    if (cell == nil) {
-//        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:HeaderCellIdentifier];
-//    }
-//    
-//    
-//   
-//    return cell;
+//    // create and return a custom view
+//    UILabel *customLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 200.0f, 50.0f)];
+//    customLabel.text = sectionTitle;
+//    return customLabel;
+//}
+//
+//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+//    return 50.0f;
 //}
 
 - (void) customBackButton {
