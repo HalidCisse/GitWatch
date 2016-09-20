@@ -44,6 +44,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self setEmptyState:@"This is your Dashboard." description:@"When you add your favorites repos, they will show up here!"];
+    
+    self.title = @"Dashboard";
+    
     self.repositories = [NSMutableArray new];
     [self showBusyState];
     
@@ -73,9 +77,6 @@
         }
     }
     
-    [self setEmptyState:@"This is your Dashboard." description:@"When you add your favorites repos, they will show up here!"];
-    
-    self.title = @"Dashboard";
     self.refresh = false;
     
     __weak typeof(self) weakSelf = self;
@@ -93,9 +94,18 @@
     }
 }
 
+- (void)hideBusyStateIfEmptyRepos {
+    if (self.repositories.count == 0) {
+        [self hideBusyState];
+    }
+}
+
 - (void)FetchRepos
 {
+    [self showBusyState];
     [self.repositories removeAllObjects];
+    
+    [self performSelector:@selector(hideBusyStateIfEmptyRepos) withObject:self afterDelay:10];
     
     [[self.gitClient fetchUserOrganizations]
      subscribeNext:^(OCTOrganization *organization) {
@@ -124,16 +134,15 @@
          });
      }
      completed:^{
-         dispatch_async(dispatch_get_main_queue(), ^{
-             [self hideBusyState];
-             if (Helper.favoriteCount == 0 && self.fromLogin){
-                 self.fromLogin = false;
-                 // if first time loged in and no repo, redirect user to orgs view to select repos
+//         dispatch_async(dispatch_get_main_queue(), ^{
+//             if (Helper.favoriteCount == 0 && self.fromLogin){
+//                 self.fromLogin = false;
+//                  //if first time loged in and no repo, redirect user to orgs view to select repos
 //                 OrgsContainer *view = [self.storyboard instantiateViewControllerWithIdentifier:@"OrgsContainer"];
 //                 view.gitClient = self.gitClient;
 //                 [self.navigationController pushViewController:view animated:YES];
-             }
-         });
+//             }
+//         });
      }];
 }
 
@@ -184,7 +193,7 @@
         return;
     }
     
-    [self showBusyState];
+    //[self showBusyState];
     NSString *repoPath = [cell.repository.HTMLURL.absoluteString stringByReplacingOccurrencesOfString:@"https://github.com/" withString:@""];
     NSString *url =[[NSString alloc] initWithFormat:@"https://api.github.com/repos/%@/pulls", repoPath];
         
@@ -198,13 +207,13 @@
                     }
                completionBlock:^(FSNConnection *c) {
                    if (!c.didSucceed) {
-                       [self hideBusyState];
+                       //[self hideBusyState];
                        return;
                    }
                    NSArray *pulls = (NSArray *) c.parseResult;
                    
                    if (pulls.count == 0) {
-                       [self hideBusyState];
+                       //[self hideBusyState];
                        return;
                    }
                    
@@ -222,13 +231,13 @@
                               completionBlock:^(FSNConnection *c) {
                                   
                                   if (!c.didSucceed) {
-                                      [self hideBusyState];
+                                      //[self hideBusyState];
                                       return;
                                   }
                                   NSDictionary *pullRequest = (NSDictionary *) c.parseResult;
                                   
                                   if (pullRequest.count == 0) {
-                                      [self hideBusyState];
+                                      //[self hideBusyState];
                                       return;
                                   }
                                   
@@ -247,7 +256,7 @@
                        
                        [connection start];
                    }
-                   [self hideBusyState];
+                   //[self hideBusyState];
                } progressBlock:^(FSNConnection *c) {}];
         
         [connection start];
@@ -317,8 +326,7 @@
                    NSString *accesToken = [result objectForKey:@"access_token"];
                    
                    if (accesToken == nil) {
-                       [self hideBusyState];
-                       
+                       //[self hideBusyState];
                        return ;
                    }
                    
@@ -345,7 +353,7 @@
                                   
                                   [self FetchRepos];
                               }
-                              [self hideBusyState];
+                              //[self hideBusyState];
                           } progressBlock:^(FSNConnection *c) {}];
                    [connection start];
                }

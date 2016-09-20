@@ -21,10 +21,9 @@ alpha:1.0]
 
 
 - (void)viewDidLoad {
-    
-    emptyStateTitle = @"No content to show";
-    
+   
     self.isBusy                                 = true;
+    emptyStateTitle                             = @"No content to show";
     self.tableView.showsPullToRefresh           = NO;
     self.tableView.pullToRefreshView.arrowColor = UIColorFromRGB(0x313B47);
     self.tableView.separatorStyle               = UITableViewCellSeparatorStyleSingleLine;
@@ -32,6 +31,7 @@ alpha:1.0]
     self.navigationController.navigationBar.barStyle    = UIBarStyleBlack;
     [self.navigationController.navigationBar setBarTintColor:UIColorFromRGB(0x313B47)];
     self.navigationController.navigationBar.translucent = NO;
+    [self.tableView reloadData];
     
     [super viewDidLoad];
 }

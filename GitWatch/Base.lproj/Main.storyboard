@@ -1737,7 +1737,7 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <state key="normal" title="Click here to authorize GitWatch to access your private organizations">
-                                    <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleColor" red="0.19215686274509802" green="0.23137254901960785" blue="0.27843137254901962" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="authorizeOnGitHub" destination="0cI-fn-L0h" eventType="touchUpInside" id="X1r-kb-zY2"/>
