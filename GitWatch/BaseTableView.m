@@ -76,9 +76,14 @@ alpha:1.0]
 
 - (UIView *)customViewForEmptyDataSet:(UIScrollView *)scrollView
 {
-    UIActivityIndicatorView *activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    [activityView startAnimating];
-    return activityView;
+    if (self.isBusy) {
+        UIActivityIndicatorView *activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        activityView.color = [UIColor grayColor];
+        [activityView startAnimating];
+        return activityView;
+    }else {
+        return nil;
+    }
 }
 
 - (UIColor *)backgroundColorForEmptyDataSet:(UIScrollView *)scrollView

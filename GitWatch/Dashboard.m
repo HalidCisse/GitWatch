@@ -125,11 +125,13 @@
      }
      completed:^{
          dispatch_async(dispatch_get_main_queue(), ^{
+             [self hideBusyState];
              if (Helper.favoriteCount == 0 && self.fromLogin){
                  self.fromLogin = false;
-                 OrgsContainer *view = [self.storyboard instantiateViewControllerWithIdentifier:@"OrgsContainer"];
-                 view.gitClient = self.gitClient;
-                 [self.navigationController pushViewController:view animated:YES];
+                 // if first time loged in and no repo, redirect user to orgs view to select repos
+//                 OrgsContainer *view = [self.storyboard instantiateViewControllerWithIdentifier:@"OrgsContainer"];
+//                 view.gitClient = self.gitClient;
+//                 [self.navigationController pushViewController:view animated:YES];
              }
          });
      }];

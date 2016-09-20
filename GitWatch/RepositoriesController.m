@@ -94,7 +94,7 @@
     
     [cell.checkbox setSelected:[Helper isFavorite:repo.name]];
         
-    cell.repositoryImage.layer.cornerRadius = 5;
+    cell.repositoryImage.layer.cornerRadius  = 5;
     cell.repositoryImage.layer.masksToBounds = YES;
     
     cell.layoutMargins                   = UIEdgeInsetsZero;
@@ -117,7 +117,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 64;
+    return 62;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{

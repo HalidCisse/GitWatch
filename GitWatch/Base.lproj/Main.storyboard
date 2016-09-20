@@ -888,7 +888,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
-                        <inset key="separatorInset" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        <inset key="separatorInset" minX="7" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <sections>
                             <tableViewSection headerTitle="Activities" id="9vx-gc-qZh">
                                 <cells>
@@ -1447,7 +1447,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Dashboard" id="mK4-MF-X6h">
-                        <barButtonItem key="leftBarButtonItem" image="edit" style="plain" id="VPM-Aa-BQ1">
+                        <barButtonItem key="leftBarButtonItem" style="plain" systemItem="add" id="VPM-Aa-BQ1">
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="editButton:" destination="ybq-fC-gPw" id="msf-NF-QtP"/>
@@ -1789,7 +1789,6 @@
         <image name="Octocat" width="800" height="665"/>
         <image name="bg" width="375" height="667"/>
         <image name="de" width="87" height="57"/>
-        <image name="edit" width="22" height="22"/>
         <image name="flech" width="20" height="19"/>
         <image name="lightGreenBg" width="993" height="150"/>
         <image name="logo" width="210" height="210"/>
