@@ -38,19 +38,19 @@
     
     self.pullRequestSwitch.on = [SettingsHelper getPullsOption];
     
-    self.activitiesLabel.text = [[NSString alloc] initWithFormat:@"Flag if no activity for %i days", (int)self.activitiesStepper.value];
+    self.activitiesLabel.text = [[NSString alloc] initWithFormat:@"%i days", (int)self.activitiesStepper.value];
     
-    self.issuesLabel.text = [[NSString alloc] initWithFormat:@"Flag if any open issue older than %i days", (int)self.issuesStepper.value];
+    self.issuesLabel.text = [[NSString alloc] initWithFormat:@"%i days", (int)self.issuesStepper.value];
 }
 
 - (IBAction)activitiesStepperOnValueChanged:(id)sender {
-    self.activitiesLabel.text = [[NSString alloc] initWithFormat:@"Flag if no activity for %i days", (int)self.activitiesStepper.value];
+    self.activitiesLabel.text = [[NSString alloc] initWithFormat:@"%i days", (int)self.activitiesStepper.value];
     
     [SettingsHelper saveActivitiesInterval:self.activitiesStepper.value];
 }
 
 - (IBAction)issuesSteeperOnValueChanged:(id)sender {
-    self.issuesLabel.text = [[NSString alloc] initWithFormat:@"Flag if any open issue older than %i days", (int)self.issuesStepper.value];
+    self.issuesLabel.text = [[NSString alloc] initWithFormat:@"%i days", (int)self.issuesStepper.value];
     
     [SettingsHelper saveIssuesInterval:self.issuesStepper.value];
 }

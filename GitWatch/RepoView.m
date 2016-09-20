@@ -53,7 +53,8 @@
     [self fetchLastNonMergeablePulls];
 }
 
-- viewDidDisappear{
+- (void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
     self.navigationController.interactivePopGestureRecognizer.enabled = YES;
 }
 
@@ -269,10 +270,10 @@
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:self.repository.HTMLURL.absoluteString]];
 }
 
-- (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated {
-    [super pushViewController:viewController animated:animated];
-    self.interactivePopGestureRecognizer.enabled = NO;
-}
+//- (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated {
+//    [super pushViewController:viewController animated:animated];
+//    self.interactivePopGestureRecognizer.enabled = NO;
+//}
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
