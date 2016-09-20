@@ -34,7 +34,7 @@
     [backButton addTarget:self action:@selector(onBackClick:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
     
-    [self setEmptyState:self.organisation.name description:[NSString stringWithFormat:@"When you add repos to %@, they will show up here!", self.organisation.name]];
+    [self setEmptyState:self.organisation.name description:[NSString stringWithFormat:@"%@ have no repo", self.organisation.name]];
     self.title = [NSString stringWithFormat:@"%@ Repositories", self.organisation.name];
     
     [self showBusyState];

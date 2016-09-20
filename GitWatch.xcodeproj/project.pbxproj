@@ -90,7 +90,6 @@
 		1F7BE7D71CEF179B008A61BE /* PullModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PullModel.m; sourceTree = "<group>"; };
 		1F7BE7D91CEF17AC008A61BE /* CommitModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommitModel.h; sourceTree = "<group>"; };
 		1F7BE7DA1CEF17AC008A61BE /* CommitModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommitModel.m; sourceTree = "<group>"; };
-		1F80E4551D1AC9DF009ED81B /* GitWatch-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GitWatch-Bridging-Header.h"; sourceTree = "<group>"; };
 		1F81EFF91D00322800271D28 /* SettingsHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsHelper.h; sourceTree = "<group>"; };
 		1F81EFFA1D00322800271D28 /* SettingsHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsHelper.m; sourceTree = "<group>"; };
 		1F81EFFC1D00336D00271D28 /* SettingsList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SettingsList.plist; sourceTree = "<group>"; };
@@ -165,10 +164,6 @@
 		1F0DA37A1CE478D3005DBE35 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				1F9F5EB11CE086FF004D73D3 /* ViewController.h */,
-				1F9F5EB21CE086FF004D73D3 /* ViewController.m */,
-				1F0DA3851CE490D5005DBE35 /* HomeController.h */,
-				1F0DA3861CE490D5005DBE35 /* HomeController.m */,
 				1F147D801CFEFE9A0024F773 /* Dashboard.h */,
 				1F147D811CFEFE9A0024F773 /* Dashboard.m */,
 				1F147D831CFEFEEF0024F773 /* DashCell.h */,
@@ -176,8 +171,6 @@
 				1F147D851CFEFEEF0024F773 /* DashCell.xib */,
 				1F147D8B1CFF27170024F773 /* Settings.h */,
 				1F147D8C1CFF27170024F773 /* Settings.m */,
-				1F66A26C1D254EAF003AE781 /* DirectLoginController.h */,
-				1F66A26D1D254EAF003AE781 /* DirectLoginController.m */,
 			);
 			name = Home;
 			sourceTree = "<group>";
@@ -193,15 +186,6 @@
 				1F7BE7D21CEF14A4008A61BE /* CommitCell.xib */,
 			);
 			name = PullRequests;
-			sourceTree = "<group>";
-		};
-		1F0DE9731CEE127C00C5315F /* Controls */ = {
-			isa = PBXGroup;
-			children = (
-				1F0DE9741CEE129600C5315F /* MWKProgressIndicator.h */,
-				1F0DE9751CEE129600C5315F /* MWKProgressIndicator.m */,
-			);
-			name = Controls;
 			sourceTree = "<group>";
 		};
 		1F6F435A1CE36AC500FE84B1 /* Organisations */ = {
@@ -232,7 +216,10 @@
 		1F80E4451D1AC213009ED81B /* OAuth */ = {
 			isa = PBXGroup;
 			children = (
-				1F80E4551D1AC9DF009ED81B /* GitWatch-Bridging-Header.h */,
+				1F9F5EB11CE086FF004D73D3 /* ViewController.h */,
+				1F9F5EB21CE086FF004D73D3 /* ViewController.m */,
+				1F66A26C1D254EAF003AE781 /* DirectLoginController.h */,
+				1F66A26D1D254EAF003AE781 /* DirectLoginController.m */,
 			);
 			name = OAuth;
 			sourceTree = "<group>";
@@ -240,20 +227,12 @@
 		1F9B4B1D1CE3337600EAFD29 /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
-				1FA95A9E1CEDC32A0028BDEC /* StatusController.h */,
-				1FA95A9F1CEDC32A0028BDEC /* StatusController.m */,
 				1FA87EE21CE1D56B00E0A7DE /* RepositoriesController.h */,
 				1FA87EE31CE1D56B00E0A7DE /* RepositoriesController.m */,
 				1FA87EE61CE1EC5300E0A7DE /* RepositoryCell.h */,
 				1FA87EE71CE1EC5300E0A7DE /* RepositoryCell.m */,
 				1F9B4B1E1CE3340D00EAFD29 /* RepositoryCell.xib */,
-				1F6A992B1CE5F37800B61F50 /* StatusCell.h */,
-				1F6A992C1CE5F37800B61F50 /* StatusCell.m */,
 				1F6A992D1CE5F37800B61F50 /* StatusCell.xib */,
-				1FB4AD961CE9BF5B002B12A1 /* RepositoryController.h */,
-				1FB4AD971CE9BF5B002B12A1 /* RepositoryController.m */,
-				1FDA29331CF34BFA00528BA6 /* SettingsController.h */,
-				1FDA29341CF34BFA00528BA6 /* SettingsController.m */,
 				1F147D8E1CFF27E40024F773 /* RepoView.h */,
 				1F147D8F1CFF27E40024F773 /* RepoView.m */,
 			);
@@ -285,7 +264,6 @@
 				1F81EFFA1D00322800271D28 /* SettingsHelper.m */,
 				1F81EFFE1D00343D00271D28 /* PlistHelper.h */,
 				1F81EFFF1D00343D00271D28 /* PlistHelper.m */,
-				1FEDD1FB1D1D7524000CACA6 /* Trash.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -299,6 +277,7 @@
 				1F9F5EC61CE087B8004D73D3 /* OctoKit.framework */,
 				1F9F5EC71CE087B8004D73D3 /* ReactiveCocoa.framework */,
 				1F9F5EAA1CE086FF004D73D3 /* GitWatch */,
+				1FDD12F51D919862000A459E /* Deprecated */,
 				1F9F5EA91CE086FF004D73D3 /* Products */,
 				86B7ED1AAB5F879FDC79BC6E /* Pods */,
 				222ED01DC67E9C99A2E163F1 /* Frameworks */,
@@ -316,21 +295,19 @@
 		1F9F5EAA1CE086FF004D73D3 /* GitWatch */ = {
 			isa = PBXGroup;
 			children = (
+				1F9F5EB91CE086FF004D73D3 /* LaunchScreen.storyboard */,
 				1F10A9C21D05A89000C5AA37 /* Main.storyboard */,
-				1FDBE8AF1D38E49F0044B58E /* Base */,
-				1F80E4451D1AC213009ED81B /* OAuth */,
-				1F0DE9731CEE127C00C5315F /* Controls */,
-				1F0DE96F1CEE04CC00C5315F /* PullRequests */,
-				1F0DA37A1CE478D3005DBE35 /* Home */,
-				1F6F435A1CE36AC500FE84B1 /* Organisations */,
-				1F9B4B1D1CE3337600EAFD29 /* Repositories */,
-				1F9B4B231CE3572000EAFD29 /* Helpers */,
-				1F9B4B201CE34BC800EAFD29 /* Data */,
 				1F9F5EAE1CE086FF004D73D3 /* AppDelegate.h */,
 				1F9F5EAF1CE086FF004D73D3 /* AppDelegate.m */,
-				1F9F5EB71CE086FF004D73D3 /* Assets.xcassets */,
-				1F9F5EB91CE086FF004D73D3 /* LaunchScreen.storyboard */,
 				1F9F5EBC1CE086FF004D73D3 /* Info.plist */,
+				1F9F5EB71CE086FF004D73D3 /* Assets.xcassets */,
+				1FDBE8AF1D38E49F0044B58E /* BaseClass */,
+				1F9B4B201CE34BC800EAFD29 /* Data */,
+				1F9B4B231CE3572000EAFD29 /* Helpers */,
+				1F0DA37A1CE478D3005DBE35 /* Home */,
+				1F80E4451D1AC213009ED81B /* OAuth */,
+				1F6F435A1CE36AC500FE84B1 /* Organisations */,
+				1F9B4B1D1CE3337600EAFD29 /* Repositories */,
 				1F9F5EAB1CE086FF004D73D3 /* Supporting Files */,
 			);
 			path = GitWatch;
@@ -344,13 +321,35 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		1FDBE8AF1D38E49F0044B58E /* Base */ = {
+		1FDBE8AF1D38E49F0044B58E /* BaseClass */ = {
 			isa = PBXGroup;
 			children = (
 				1FDBE8B01D38E4DB0044B58E /* BaseTableView.h */,
 				1FDBE8B11D38E4DB0044B58E /* BaseTableView.m */,
 			);
-			name = Base;
+			name = BaseClass;
+			sourceTree = "<group>";
+		};
+		1FDD12F51D919862000A459E /* Deprecated */ = {
+			isa = PBXGroup;
+			children = (
+				1F0DE96F1CEE04CC00C5315F /* PullRequests */,
+				1FEDD1FB1D1D7524000CACA6 /* Trash.m */,
+				1F0DE9741CEE129600C5315F /* MWKProgressIndicator.h */,
+				1F0DE9751CEE129600C5315F /* MWKProgressIndicator.m */,
+				1FDA29331CF34BFA00528BA6 /* SettingsController.h */,
+				1FDA29341CF34BFA00528BA6 /* SettingsController.m */,
+				1FB4AD961CE9BF5B002B12A1 /* RepositoryController.h */,
+				1FB4AD971CE9BF5B002B12A1 /* RepositoryController.m */,
+				1F6A992B1CE5F37800B61F50 /* StatusCell.h */,
+				1F6A992C1CE5F37800B61F50 /* StatusCell.m */,
+				1FA95A9E1CEDC32A0028BDEC /* StatusController.h */,
+				1FA95A9F1CEDC32A0028BDEC /* StatusController.m */,
+				1F0DA3851CE490D5005DBE35 /* HomeController.h */,
+				1F0DA3861CE490D5005DBE35 /* HomeController.m */,
+			);
+			name = Deprecated;
+			path = GitWatch;
 			sourceTree = "<group>";
 		};
 		222ED01DC67E9C99A2E163F1 /* Frameworks */ = {
