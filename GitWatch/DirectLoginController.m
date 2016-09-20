@@ -12,6 +12,7 @@
 #import "Dashboard.h"
 #import "AMSmoothAlertView.h"
 #import "MBProgressHUD.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface DirectLoginController ()
 
@@ -27,6 +28,9 @@
     _passLabel.delegate = self;
     
     _nameLabel.text = [Helper getLogin];
+    
+    [_nameLabel.layer setCornerRadius:5];
+    [_passLabel.layer setCornerRadius:5];
 }
 
 - (IBAction)onLogin:(UIButton *)sender {

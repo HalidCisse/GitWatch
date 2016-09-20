@@ -1127,7 +1127,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             </imageView>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="92f-fJ-oON">
-                                <rect key="frame" x="149" y="285" width="300" height="40"/>
+                                <rect key="frame" x="150" y="280" width="300" height="40"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="300" id="Fof-xR-Suy"/>
@@ -1138,7 +1138,7 @@
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="password " textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Daf-4u-OhF">
-                                <rect key="frame" x="150" y="338" width="300" height="40"/>
+                                <rect key="frame" x="150" y="328" width="300" height="40"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="300" id="bL2-EL-nct"/>
@@ -1149,7 +1149,7 @@
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" returnKeyType="go" enablesReturnKeyAutomatically="YES" secureTextEntry="YES"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login to GitHub" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z5r-VF-NiT">
-                                <rect key="frame" x="207" y="137" width="184" height="31"/>
+                                <rect key="frame" x="207" y="132" width="184" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="184" id="Kps-9p-pHk"/>
                                     <constraint firstAttribute="height" constant="31" id="lBI-qy-Imi"/>
@@ -1159,7 +1159,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A Github client to watch the repositories you care about" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f05-fB-N5v">
-                                <rect key="frame" x="163" y="185" width="272" height="42"/>
+                                <rect key="frame" x="163" y="180" width="272" height="42"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="42" id="8i4-YG-kGc"/>
                                     <constraint firstAttribute="width" constant="272" id="lO1-N4-Bk0"/>
@@ -1169,7 +1169,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Tjp-nQ-AWa">
-                                <rect key="frame" x="150" y="396" width="300" height="50"/>
+                                <rect key="frame" x="150" y="386" width="300" height="50"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wIU-yR-cpZ">
                                         <rect key="frame" x="0.0" y="0.0" width="300" height="50"/>
@@ -1196,21 +1196,21 @@
                                 </variation>
                             </stackView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="GitHub-Mark-Light-64px" translatesAutoresizingMaskIntoConstraints="NO" id="TWR-VP-doj">
-                                <rect key="frame" x="369" y="64" width="50" height="50"/>
+                                <rect key="frame" x="369" y="59" width="50" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" id="Gn7-Zw-wWh"/>
                                     <constraint firstAttribute="height" constant="50" id="gPE-2M-RJe"/>
                                 </constraints>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="de" translatesAutoresizingMaskIntoConstraints="NO" id="b4r-1w-b3u">
-                                <rect key="frame" x="287" y="76" width="30" height="30"/>
+                                <rect key="frame" x="287" y="71" width="30" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="SGB-MU-3mQ"/>
                                     <constraint firstAttribute="width" constant="30" id="WZl-zj-nn2"/>
                                 </constraints>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="D2V-VJ-dxA">
-                                <rect key="frame" x="185" y="66" width="50" height="50"/>
+                                <rect key="frame" x="185" y="61" width="50" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" id="7FM-zT-THV"/>
                                     <constraint firstAttribute="height" constant="50" id="Rbd-D5-IYS"/>
@@ -1254,10 +1254,10 @@
                             <constraint firstItem="b4r-1w-b3u" firstAttribute="centerY" secondItem="D2V-VJ-dxA" secondAttribute="centerY" id="h72-uU-EAF"/>
                             <constraint firstItem="92f-fJ-oON" firstAttribute="centerX" secondItem="GpP-J3-enW" secondAttribute="centerX" constant="-1" id="hyh-Ba-iyl"/>
                             <constraint firstItem="TWR-VP-doj" firstAttribute="trailing" secondItem="92f-fJ-oON" secondAttribute="trailing" constant="1" id="kV0-1G-VOQ"/>
-                            <constraint firstItem="92f-fJ-oON" firstAttribute="centerY" secondItem="GpP-J3-enW" secondAttribute="centerY" constant="5" id="mkg-FM-nwX"/>
-                            <constraint firstItem="92f-fJ-oON" firstAttribute="centerX" secondItem="GpP-J3-enW" secondAttribute="centerX" constant="-1" id="ptR-vt-rdd"/>
+                            <constraint firstItem="92f-fJ-oON" firstAttribute="centerY" secondItem="GpP-J3-enW" secondAttribute="centerY" id="mkg-FM-nwX"/>
+                            <constraint firstItem="92f-fJ-oON" firstAttribute="centerX" secondItem="GpP-J3-enW" secondAttribute="centerX" id="ptR-vt-rdd"/>
                             <constraint firstItem="GpP-J3-enW" firstAttribute="centerX" secondItem="92f-fJ-oON" secondAttribute="centerX" id="wHf-ys-QWq"/>
-                            <constraint firstItem="Daf-4u-OhF" firstAttribute="top" secondItem="92f-fJ-oON" secondAttribute="bottom" constant="13" id="wXq-3B-Hd2"/>
+                            <constraint firstItem="Daf-4u-OhF" firstAttribute="top" secondItem="92f-fJ-oON" secondAttribute="bottom" constant="8" symbolic="YES" id="wXq-3B-Hd2"/>
                             <constraint firstItem="GpP-J3-enW" firstAttribute="bottom" secondItem="GKa-MS-TwK" secondAttribute="top" id="zg7-HA-Jkc"/>
                             <constraint firstItem="92f-fJ-oON" firstAttribute="centerY" secondItem="GpP-J3-enW" secondAttribute="centerY" id="zq7-HO-zSe"/>
                         </constraints>
