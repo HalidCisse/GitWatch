@@ -18,6 +18,7 @@
 #import <DateTools/DateTools.h>
 #import "NSDate+Helper.h"
 #import "GitHubApi.h"
+#import "SectionHeader.h"
 
 
 @interface RepoView ()<UIGestureRecognizerDelegate>
@@ -52,15 +53,28 @@
     self.parameters  = nil;
     
     [self fetchLastIssue];
-    //[self fetchLastCommit];
     [self fetchLastNonMergeablePulls];
     
+    self.lastCommitLabel.text       = @"";
+    self.lastCommitDate.text        = @"";
+    self.lastCommiterName.text      = @"";
+    self.lastCommiterImage.image    = [UIImage imageNamed:@"Octocat"];
+    
     NSString *repoPath = [self.repository.HTMLURL.absoluteString stringByReplacingOccurrencesOfString:@"https://github.com/" withString:@""];
+    
     [gitHubApi getGeneralLastCommit:repoPath success:^(NSDictionary *commitDic) {
         self.lastCommitLabel.text       = commitDic[@"message"];
         self.lastCommitDate.text        = [NSString  stringWithFormat:@"committed %@", [(NSDate*)commitDic[@"dateCommited"] timeAgoSinceNow]];
         self.lastCommiterName.text      = commitDic[@"login"];
-        self.lastCommiterImage.image    = [UIImage imageNamed:@"Octocat"];
+        
+        dispatch_async(dispatch_get_global_queue(0,0), ^{
+            NSData * data = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString: [commitDic objectForKey:@"avatar_url"]]];
+            if ( data == nil )
+                return;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.lastCommiterImage.image = [UIImage imageWithData: data];
+            });
+        });
     }];
 }
 
@@ -238,19 +252,26 @@
 
 
 
-//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-//    // you can get the title you statically defined in the storyboard
-//    NSString *sectionTitle = [self tableView:tableView titleForHeaderInSection:section];
-//
-//    // create and return a custom view
-//    UILabel *customLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 200.0f, 50.0f)];
-//    customLabel.text = sectionTitle;
-//    return customLabel;
-//}
-//
-//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-//    return 50.0f;
-//}
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    SectionHeader *header = [[[NSBundle mainBundle] loadNibNamed:@"SectionHeader" owner:self options:nil] objectAtIndex:0];
+    
+    header.sectionName.text = [self tableView:tableView titleForHeaderInSection:section];
+    header.backgroundColor = self.tableView.backgroundColor;
+    
+    if (section == 0) {
+        header.sectionImage.image = [UIImage imageNamed:@"section_activities"];
+    } else if (section == 1) {
+        header.sectionImage.image = [UIImage imageNamed:@"section_issues"];
+    } else if (section == 2) {
+        header.sectionImage.image = [UIImage imageNamed:@"section_pull_requests"];
+    }
+    return header;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 35;
+}
 
 - (void) customBackButton {
     UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];

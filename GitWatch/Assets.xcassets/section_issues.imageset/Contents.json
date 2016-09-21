@@ -2,15 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "feather_1-1-0_plus_256_0_ffffff_none.png",
+      "filename" : "section_issues.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "section_issues@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
+      "filename" : "section_issues@3x.png",
       "scale" : "3x"
     }
   ],

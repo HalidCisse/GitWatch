@@ -183,7 +183,6 @@
         
         [self resolvePullsRequest:cell];
         [self resolveIssues:cell];
-        //[self resolveActivities:cell];
         
         NSString *repoPath = [cell.repository.HTMLURL.absoluteString stringByReplacingOccurrencesOfString:@"https://github.com/" withString:@""];
         
@@ -212,7 +211,6 @@
         return;
     }
     
-    //[self showBusyState];
     NSString *repoPath = [cell.repository.HTMLURL.absoluteString stringByReplacingOccurrencesOfString:@"https://github.com/" withString:@""];
     NSString *url =[[NSString alloc] initWithFormat:@"https://api.github.com/repos/%@/pulls", repoPath];
         
@@ -226,13 +224,11 @@
                     }
                completionBlock:^(FSNConnection *c) {
                    if (!c.didSucceed) {
-                       //[self hideBusyState];
                        return;
                    }
                    NSArray *pulls = (NSArray *) c.parseResult;
                    
                    if (pulls.count == 0) {
-                       //[self hideBusyState];
                        return;
                    }
                    
@@ -250,13 +246,11 @@
                               completionBlock:^(FSNConnection *c) {
                                   
                                   if (!c.didSucceed) {
-                                      //[self hideBusyState];
                                       return;
                                   }
                                   NSDictionary *pullRequest = (NSDictionary *) c.parseResult;
                                   
                                   if (pullRequest.count == 0) {
-                                      //[self hideBusyState];
                                       return;
                                   }
                                   
@@ -275,7 +269,6 @@
                        
                        [connection start];
                    }
-                   //[self hideBusyState];
                } progressBlock:^(FSNConnection *c) {}];
         
         [connection start];
@@ -289,13 +282,6 @@
         cell.issuesIcon.image = [UIImage imageNamed:@"issuesNormal"];
     }
 }
-
-//- (void)resolveActivities:(DashCell *)cell{
-//
-//    NSLog(@"date Pushed   %@", cell.repository.datePushed);
-//    
-//    
-//}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
@@ -324,11 +310,11 @@
     FSNConnection *connection =
     [FSNConnection withUrl:[[NSURL alloc] initWithString:@"https://github.com/login/oauth/access_token"]
                     method:FSNRequestMethodPOST
-                   headers:@{@"Accept": @"application/json"}
+                   headers:@{@"Accept"       : @"application/json"}
                 parameters:@{
-                             @"client_id": @"84291409629d7f93ab31",
+                             @"client_id"    : @"84291409629d7f93ab31",
                              @"client_secret": @"299b432a32332b5926c5bb12887ac89b46bbcfa4",
-                             @"code": code
+                             @"code"         : code
                              }
                 parseBlock:^id(FSNConnection *c, NSError **error) {
                     return [c.responseData dictionaryFromJSONWithError:error];
@@ -366,7 +352,6 @@
                                   
                                   [self FetchRepos];
                               }
-                              //[self hideBusyState];
                           } progressBlock:^(FSNConnection *c) {}];
                    [connection start];
                }

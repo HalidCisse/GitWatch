@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SectionHeader"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="SectionHeader">
+            <rect key="frame" x="0.0" y="0.0" width="386" height="35"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Uz1-eO-fku">
+                    <rect key="frame" x="8" y="11" width="13" height="13"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="13" id="MC6-8g-WT1"/>
+                        <constraint firstAttribute="width" constant="13" id="dbP-BJ-xYn"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gAp-mF-gB5">
+                    <rect key="frame" x="29" y="8" width="349" height="20"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <color key="textColor" red="0.58431372549019611" green="0.58431372549019611" blue="0.58431372549019611" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="Uz1-eO-fku" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="7Ld-xw-tdh"/>
+                <constraint firstItem="Uz1-eO-fku" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="topMargin" id="AzP-uE-TlB"/>
+                <constraint firstItem="gAp-mF-gB5" firstAttribute="trailing" secondItem="iN0-l3-epB" secondAttribute="trailingMargin" id="IAS-eT-3Wl"/>
+                <constraint firstAttribute="bottom" secondItem="Uz1-eO-fku" secondAttribute="bottom" constant="14" id="NfW-oa-8FQ"/>
+                <constraint firstItem="gAp-mF-gB5" firstAttribute="leading" secondItem="Uz1-eO-fku" secondAttribute="trailing" constant="8" symbolic="YES" id="aFc-F1-ule"/>
+                <constraint firstItem="gAp-mF-gB5" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="7" id="qd3-K0-fNX"/>
+                <constraint firstItem="Uz1-eO-fku" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leadingMargin" id="uJ0-v4-NA3"/>
+                <constraint firstItem="gAp-mF-gB5" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="yZ2-h5-EPb"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="AzP-uE-TlB"/>
+                    <exclude reference="NfW-oa-8FQ"/>
+                    <exclude reference="qd3-K0-fNX"/>
+                </mask>
+            </variation>
+            <connections>
+                <outlet property="sectionImage" destination="Uz1-eO-fku" id="cvW-wA-hPk"/>
+                <outlet property="sectionName" destination="gAp-mF-gB5" id="eFp-nI-yg6"/>
+            </connections>
+            <point key="canvasLocation" x="235" y="584.5"/>
+        </view>
+    </objects>
+</document>
