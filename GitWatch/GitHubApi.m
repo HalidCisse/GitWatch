@@ -42,30 +42,28 @@
                [df setDateFormat:@"yyyy-MM-dd hh:mm:ss"];
                NSDate *minDate = [df dateFromString: @"0001-01-01 00:00:00"];
                
-               __block NSDictionary* lastCommit = @{@"dateCommited":minDate}; //
+               __block NSDictionary* lastCommit = @{@"dateCommited":minDate};
                
                for (NSDictionary *branch in branches) {
                    NSDictionary *commit = [branch objectForKey:@"commit"];
                    if (commit == nil) {
-                       return;
+                       continue;
                    }
                    
                    NSString *commitLink = [commit objectForKey:@"url"];
                    if (commitLink == nil) {
-                       return;
+                       continue;
                    }
                    
                    [self fetchCommit:commitLink success:^(NSDictionary *commitDic) {
                        NSDate* lastCommitDate = (NSDate*)lastCommit[@"dateCommited"];
-                       
-                       NSDate* commitDate = (NSDate*)commitDic[@"dateCommited"];
+                       NSDate* commitDate     = (NSDate*)commitDic[@"dateCommited"];
                        
                        if ([commitDate isLaterThan:lastCommitDate]) {
                            lastCommit = commitDic;
                            success(lastCommit);
                        }
-                   } error:^(NSString *errorMessage) {
-                   }];
+                   } error:^(NSString *errorMessage) {}];
                }
            } progressBlock:^(FSNConnection *c) {}];
     [connection start];

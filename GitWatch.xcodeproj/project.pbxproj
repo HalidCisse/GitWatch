@@ -397,6 +397,7 @@
 				1F9F5EC21CE0878C004D73D3 /* Run Script */,
 				52F64F169BC9FC458CA914CE /* [CP] Embed Pods Frameworks */,
 				67BFDFB610CD3387A8266799 /* [CP] Copy Pods Resources */,
+				1FCBF5031D92E6AE000D1EE8 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -481,6 +482,19 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+		1FCBF5031D92E6AE000D1EE8 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "${PODS_ROOT}/Fabric/run 8e7cc9deb8fa93179d4580b6c47d8985445d86d1 b7135abc0da51932b56a9b8e691acb8893c499ff14ac65428ca12f53f59ef4b4";
 		};
 		21931127D082D3E0C4905152 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;

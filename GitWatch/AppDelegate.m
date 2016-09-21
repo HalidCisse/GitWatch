@@ -8,6 +8,8 @@
 
 #import "AppDelegate.h"
 #import <OctoKit/OctoKit.h>
+#import <Fabric/Fabric.h>
+#import <Crashlytics/Crashlytics.h>
 
 @interface AppDelegate ()
 
@@ -19,6 +21,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [NSThread sleepForTimeInterval:1];
     // set the github Auth client
+    [Fabric with:@[[Crashlytics class]]];
     [OCTClient setClientID:@"84291409629d7f93ab31" clientSecret:@"299b432a32332b5926c5bb12887ac89b46bbcfa4"];
     
     return YES;
@@ -45,6 +48,8 @@
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    
+        [[Crashlytics sharedInstance] crash];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
