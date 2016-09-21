@@ -49,6 +49,7 @@
 		1FB4AD981CE9BF5B002B12A1 /* RepositoryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FB4AD971CE9BF5B002B12A1 /* RepositoryController.m */; };
 		1FB4AD9A1CEA256D002B12A1 /* RepositoryIntervals.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1FB4AD991CEA256D002B12A1 /* RepositoryIntervals.plist */; };
 		1FBDFFAD1D019F0200EB17D9 /* NSDate+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FBDFFAC1D019F0200EB17D9 /* NSDate+Helper.m */; };
+		1FCBF4FD1D929F6B000D1EE8 /* GitHubApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FCBF4FC1D929F6B000D1EE8 /* GitHubApi.m */; };
 		1FDA29351CF34BFA00528BA6 /* SettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FDA29341CF34BFA00528BA6 /* SettingsController.m */; };
 		1FDBE8B21D38E4DB0044B58E /* BaseTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FDBE8B11D38E4DB0044B58E /* BaseTableView.m */; };
 		1FE63DF01CFD8EC300CE28FA /* NS-Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FE63DEF1CFD8EC300CE28FA /* NS-Extensions.m */; };
@@ -126,6 +127,8 @@
 		1FB4AD991CEA256D002B12A1 /* RepositoryIntervals.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = RepositoryIntervals.plist; sourceTree = "<group>"; };
 		1FBDFFAB1D019F0200EB17D9 /* NSDate+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDate+Helper.h"; path = "../../nsdate-helper/NSDate+Helper.h"; sourceTree = "<group>"; };
 		1FBDFFAC1D019F0200EB17D9 /* NSDate+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+Helper.m"; path = "../../nsdate-helper/NSDate+Helper.m"; sourceTree = "<group>"; };
+		1FCBF4FB1D929F6B000D1EE8 /* GitHubApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GitHubApi.h; sourceTree = "<group>"; };
+		1FCBF4FC1D929F6B000D1EE8 /* GitHubApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GitHubApi.m; sourceTree = "<group>"; };
 		1FDA29331CF34BFA00528BA6 /* SettingsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsController.h; sourceTree = "<group>"; };
 		1FDA29341CF34BFA00528BA6 /* SettingsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsController.m; sourceTree = "<group>"; };
 		1FDBE8B01D38E4DB0044B58E /* BaseTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseTableView.h; sourceTree = "<group>"; };
@@ -326,6 +329,8 @@
 			children = (
 				1FDBE8B01D38E4DB0044B58E /* BaseTableView.h */,
 				1FDBE8B11D38E4DB0044B58E /* BaseTableView.m */,
+				1FCBF4FB1D929F6B000D1EE8 /* GitHubApi.h */,
+				1FCBF4FC1D929F6B000D1EE8 /* GitHubApi.m */,
 			);
 			name = BaseClass;
 			sourceTree = "<group>";
@@ -523,6 +528,7 @@
 				1F7BE7D31CEF14A4008A61BE /* CommitCell.m in Sources */,
 				1F9F5EB31CE086FF004D73D3 /* ViewController.m in Sources */,
 				1F6A992E1CE5F37800B61F50 /* StatusCell.m in Sources */,
+				1FCBF4FD1D929F6B000D1EE8 /* GitHubApi.m in Sources */,
 				1F9F5EB01CE086FF004D73D3 /* AppDelegate.m in Sources */,
 				1F7BE7D81CEF179B008A61BE /* PullModel.m in Sources */,
 				1FE63DF01CFD8EC300CE28FA /* NS-Extensions.m in Sources */,

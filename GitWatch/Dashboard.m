@@ -25,6 +25,7 @@
 #import "NSDate+Helper.h"
 #import <MBProgressHUD/MBProgressHUD.h>
 #import <DZNEmptyDataSet/UIScrollView+EmptyDataSet.h>
+#import "GitHubApi.h"
 
 
 @interface Dashboard ()
@@ -33,10 +34,11 @@
 
 @property NSMutableArray *repositories;
 
-@property NSString*      tokenHeader;
+@property NSString    *  tokenHeader;
 @property NSDictionary*  headers;
 @property NSDictionary*  parameters;
-
+@property GitHubApi   *  gitHubApi;
+@property NSDate      *  activityIntervalDaysAgo;
 @end
 
 @implementation Dashboard
@@ -51,6 +53,8 @@
     self.repositories = [NSMutableArray new];
     [self showBusyState];
     
+    _activityIntervalDaysAgo = [[NSCalendar currentCalendar] dateByAddingUnit:NSCalendarUnitDay value:-[SettingsHelper getActivitiesInterval] toDate:[NSDate date] options:0];
+    
     if (_fromLogin && _code.length != 0 ) {
         [self getAccesToken:_code];
     } else {
@@ -64,9 +68,11 @@
         } else if (self.gitClient == nil) {
             OCTUser *lastUser = [OCTUser userWithRawLogin:login server:OCTServer.dotComServer];
             self.gitClient = [OCTClient authenticatedClientWithUser:lastUser token:token];
+            self.gitHubApi = [GitHubApi new];
             
-            self.tokenHeader = [[NSString alloc] initWithFormat:@"Bearer %@", self.gitClient.token];
-            self.headers     = @{self.tokenHeader: @"Authorization"};
+            self.tokenHeader = self.gitHubApi.tokenHeader = [[NSString alloc] initWithFormat:@"Bearer %@", self.gitClient.token];
+            self.headers     = self.gitHubApi.headers = [NSDictionary dictionaryWithObjectsAndKeys:
+                                                         self.tokenHeader, @"Authorization", nil];
             self.parameters  = nil;
             
             [self showBusyState];
@@ -177,7 +183,20 @@
         
         [self resolvePullsRequest:cell];
         [self resolveIssues:cell];
-        [self resolveActivities:cell];
+        //[self resolveActivities:cell];
+        
+        NSString *repoPath = [cell.repository.HTMLURL.absoluteString stringByReplacingOccurrencesOfString:@"https://github.com/" withString:@""];
+        
+        [self.gitHubApi getGeneralLastCommit:repoPath success:^(NSDictionary *commitDic) {
+            
+            if([(NSDate*)commitDic[@"dateCommited"] isEarlierThan:_activityIntervalDaysAgo])
+            {
+                cell.statusIcon.image = [UIImage imageNamed:@"redStatus"];
+                cell.activitiesIcon.image = [UIImage imageNamed:@"activityRed"];
+            }else {
+                cell.activitiesIcon.image = [UIImage imageNamed:@"activityNormal"];
+            }
+        }];
     }
     
     cell.layoutMargins = UIEdgeInsetsZero;
@@ -271,18 +290,12 @@
     }
 }
 
-- (void)resolveActivities:(DashCell *)cell{
-    int activityInterval = [SettingsHelper getActivitiesInterval];
-    NSDate *daysAgo = [[NSCalendar currentCalendar] dateByAddingUnit:NSCalendarUnitDay value:-activityInterval toDate:[NSDate date] options:0];
-    
-    if([cell.repository.datePushed isEarlierThan:daysAgo])
-    {
-        cell.statusIcon.image = [UIImage imageNamed:@"redStatus"];
-        cell.activitiesIcon.image = [UIImage imageNamed:@"activityRed"];
-    }else {
-        cell.activitiesIcon.image = [UIImage imageNamed:@"activityNormal"];
-    }
-}
+//- (void)resolveActivities:(DashCell *)cell{
+//
+//    NSLog(@"date Pushed   %@", cell.repository.datePushed);
+//    
+//    
+//}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;

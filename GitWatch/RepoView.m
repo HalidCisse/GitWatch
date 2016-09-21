@@ -17,6 +17,7 @@
 #import "ColorHelper.h"
 #import <DateTools/DateTools.h>
 #import "NSDate+Helper.h"
+#import "GitHubApi.h"
 
 
 @interface RepoView ()<UIGestureRecognizerDelegate>
@@ -43,14 +44,24 @@
     
     self.title = self.repository.name;
     
-    self.tokenHeader = [[NSString alloc] initWithFormat:@"Bearer %@", self.gitClient.token];
-    self.headers     = [NSDictionary dictionaryWithObjectsAndKeys:
+    GitHubApi* gitHubApi = [GitHubApi new];
+    
+    self.tokenHeader = gitHubApi.tokenHeader = [[NSString alloc] initWithFormat:@"Bearer %@", self.gitClient.token];
+    self.headers   = gitHubApi.headers   = [NSDictionary dictionaryWithObjectsAndKeys:
                         self.tokenHeader, @"Authorization", nil];
     self.parameters  = nil;
     
     [self fetchLastIssue];
-    [self fetchLastCommit];
+    //[self fetchLastCommit];
     [self fetchLastNonMergeablePulls];
+    
+    NSString *repoPath = [self.repository.HTMLURL.absoluteString stringByReplacingOccurrencesOfString:@"https://github.com/" withString:@""];
+    [gitHubApi getGeneralLastCommit:repoPath success:^(NSDictionary *commitDic) {
+        self.lastCommitLabel.text       = commitDic[@"message"];
+        self.lastCommitDate.text        = [NSString  stringWithFormat:@"committed %@", [(NSDate*)commitDic[@"dateCommited"] timeAgoSinceNow]];
+        self.lastCommiterName.text      = commitDic[@"login"];
+        self.lastCommiterImage.image    = [UIImage imageNamed:@"Octocat"];
+    }];
 }
 
 - (void)viewDidDisappear:(BOOL)animated{
@@ -141,7 +152,6 @@
 {
     self.lastCommitLabel.text       = @"";
     self.lastCommitDate.text        = @"";
-    self.lastCommitLabel.text       = @"";
     self.lastCommiterName.text      = @"";
     self.lastCommiterImage.image    = [UIImage imageNamed:@"Octocat"];
     
@@ -192,10 +202,9 @@
                                           NSDictionary *commitCommitter = [commitCommit objectForKey:@"committer"];
                                           
                                           if (commitCommitter != nil) {
-                                              NSString *dateAgo =[[NSDate dateFromString:[commitCommitter objectForKey:@"date"] withFormat:@"yyyy-MM-dd'T'HH:mm:ssZ"] timeAgoSinceNow];
-                                              
                                               self.lastCommitLabel.text =[NSString stringWithFormat:@"%@", [commitCommit objectForKey:@"message"]];
                                               
+                                              NSString *dateAgo =[[NSDate dateFromString:[commitCommitter objectForKey:@"date"] withFormat:@"yyyy-MM-dd'T'HH:mm:ssZ"] timeAgoSinceNow];
                                               self.lastCommitDate.text = [NSString  stringWithFormat:@"committed %@", dateAgo];
                                           }
                                       }
@@ -225,13 +234,14 @@
                }
            } progressBlock:^(FSNConnection *c) {}];
     [connection start];
-    
 }
+
+
 
 //- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
 //    // you can get the title you statically defined in the storyboard
 //    NSString *sectionTitle = [self tableView:tableView titleForHeaderInSection:section];
-//    
+//
 //    // create and return a custom view
 //    UILabel *customLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 200.0f, 50.0f)];
 //    customLabel.text = sectionTitle;
