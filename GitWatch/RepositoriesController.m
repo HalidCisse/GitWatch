@@ -57,9 +57,7 @@
     [self.repositories removeAllObjects];
     
     if (self.organisation == nil) {
-        NSMutableURLRequest *request = [self.gitClient requestWithMethod:@"GET" path:@"/user/repos" parameters:@{@"type":@"owner"}];
-        
-        [[self.gitClient enqueueRequest:request resultClass:[OCTRepository class]]
+        [[self.gitClient enqueueRequest:[self.gitClient requestWithMethod:@"GET" path:@"/user/repos" parameters:@{@"type":@"owner"}] resultClass:[OCTRepository class]]
          subscribeNext:^(OCTResponse *response) {
             OCTRepository *repository = response.parsedResult;
             

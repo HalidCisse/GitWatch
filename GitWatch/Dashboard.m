@@ -120,6 +120,31 @@
     
     // hide empty state after 10 s if not closed
     [self performSelector:@selector(hideBusyStateIfEmptyRepos) withObject:self afterDelay:10];
+        
+    [[self.gitClient enqueueRequest:[self.gitClient requestWithMethod:@"GET" path:@"/user/repos" parameters:@{@"type":@"owner"}] resultClass:[OCTRepository class]]
+     subscribeNext:^(OCTResponse *response) {
+         OCTRepository *repository = response.parsedResult;
+         
+         if ([Helper isFavorite:repository.name]) {
+             [self.cells insertObject:[self createCell:repository] atIndex:self.cells.count > 0 ? self.cells.count-1 : 0];
+             
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 [self hideBusyState];
+             });
+         }
+         
+     } error:^(NSError *error) {
+         dispatch_async(dispatch_get_main_queue(), ^{
+             [self hideBusyState];
+             
+             NSNumber *code = [error.userInfo objectForKey:@"OCTClientErrorHTTPStatusCodeKey"];
+             if (code.intValue == 401) {
+                 [Helper clearCredentials];
+                 ViewController *view = [self.storyboard instantiateViewControllerWithIdentifier:@"DirectLoginController"];
+                 [self.navigationController pushViewController:view animated:YES];
+             }
+         });
+     } completed:^{}];
     
     [[self.gitClient fetchUserOrganizations]
      subscribeNext:^(OCTOrganization *organization) {
@@ -135,7 +160,6 @@
                  
                  dispatch_async(dispatch_get_main_queue(), ^{
                      [self hideBusyState];
-                     //[self.tableView.pullToRefreshView stopAnimating];
                  });
              }
           } completed:^{}];
