@@ -42,13 +42,41 @@
       signInAsUser:user password:_passLabel.text oneTimePassword:nil scopes:OCTClientAuthorizationScopesRepository note:nil noteURL:nil fingerprint:nil]
      deliverOn:RACScheduler.mainThreadScheduler]
      subscribeNext:^(OCTClient *client) {
-         [_hud hide:YES];
-         [Helper saveCredentials:client];
-         
-         Dashboard *view = [self.storyboard instantiateViewControllerWithIdentifier:@"Dashboard"];
-         view.gitClient  = client;
-         view.fromLogin  = true;
-         [self.navigationController pushViewController:view animated:YES];
+         [[[client fetchUserInfo] deliverOn:RACScheduler.mainThreadScheduler ] subscribeNext:^(OCTUser* usr) {
+             [_hud hide:YES];
+             [Helper saveCredentials:client];
+             
+             [[NSUserDefaults standardUserDefaults] setObject:usr.name forKey:@"userName"];
+             [[NSUserDefaults standardUserDefaults] setObject:usr.avatarURL forKey:@"userAvatar"];
+             [[NSUserDefaults standardUserDefaults] synchronize];
+             
+             Dashboard *view = [self.storyboard instantiateViewControllerWithIdentifier:@"Dashboard"];
+             view.gitClient  = client;
+             view.fromLogin  = true;
+             [self.navigationController pushViewController:view animated:YES];
+         } error:^(NSError *error) {
+             [_hud hide:YES];
+             
+             if ([error.domain isEqual:OCTClientErrorDomain] && error.code == OCTClientErrorTwoFactorAuthenticationOneTimePasswordRequired) {
+                 
+                 AMSmoothAlertView *alert = [[AMSmoothAlertView alloc] initDropAlertWithTitle:@"Error" andText:@"This app does not support 2FA authentication" andCancelButton:false forAlertType:AlertFailure ];
+                 
+                 [alert setTitleFont:[UIFont fontWithName:@"Verdana" size:25.0f]];
+                 [alert setTextFont:[UIFont fontWithName:@"Futura-Medium" size:13.0f]];
+                 [alert.logoView setImage:[UIImage imageNamed:@"checkmark"]];
+                 
+                 [alert show];
+             } else {
+                 
+                 AMSmoothAlertView *alert = [[AMSmoothAlertView alloc] initDropAlertWithTitle:@"Error" andText:@"Can't login please try again" andCancelButton:false forAlertType:AlertFailure ];
+                 
+                 [alert setTitleFont:[UIFont fontWithName:@"Verdana" size:25.0f]];
+                 [alert setTextFont:[UIFont fontWithName:@"Futura-Medium" size:13.0f]];
+                 [alert.logoView setImage:[UIImage imageNamed:@"checkmark"]];
+                 
+                 [alert show];
+             }
+         }];
      } error:^(NSError *error) {
          [_hud hide:YES];
          

@@ -52,6 +52,9 @@
 - (void)fetchOrgs {
     [self.organisations removeAllObjects];
     
+    [self.organisations addObject:[[NSUserDefaults standardUserDefaults]
+                                   stringForKey:@"userName"]];
+    
     RACSignal *request = [self.gitClient fetchUserOrganizations];
     
     [[request deliverOn:RACScheduler.mainThreadScheduler]
@@ -90,8 +93,15 @@
     }
     
     OCTOrganization *org =[self.organisations objectAtIndex:indexPath.row];
-    cell.organizationName.text = org.name;
-    [cell.organizationLogo sd_setImageWithURL:org.avatarURL placeholderImage:[UIImage imageNamed:@"repoIcon.png"]];
+    if ([org isKindOfClass:OCTOrganization.class]) {
+        cell.organizationName.text = org.name;
+        [cell.organizationLogo sd_setImageWithURL:org.avatarURL placeholderImage:[UIImage imageNamed:@"repoIcon.png"]];
+
+    }else{
+        cell.organizationName.text = org.description;
+        [cell.organizationLogo sd_setImageWithURL:[[NSUserDefaults standardUserDefaults]
+                                                   URLForKey:@"userAvatar"] placeholderImage:[UIImage imageNamed:@"repoIcon.png"]];
+    }
     
     cell.organizationLogo.layer.cornerRadius = 5;
     cell.organizationLogo.layer.masksToBounds = YES;
@@ -155,7 +165,11 @@
         RepositoriesController *view = segue.destinationViewController;
         NSIndexPath *path = [self.tableView indexPathForSelectedRow];
         view.gitClient = self.gitClient;
-        view.organisation = [self.organisations objectAtIndex:path.row];
+        
+        NSObject* selected = [self.organisations objectAtIndex:path.row];
+        if ([selected isKindOfClass:OCTOrganization.class]) {
+            view.organisation = [self.organisations objectAtIndex:path.row];
+        }
     }
 }
 

@@ -32,7 +32,8 @@
 
 - (IBAction)editButton:(UIBarButtonItem *)sender;
 
-@property NSMutableArray *repositories;
+//@property NSMutableArray *repositories;
+@property NSMutableArray *cells;
 
 @property NSString    *  tokenHeader;
 @property NSDictionary*  headers;
@@ -50,7 +51,8 @@
     
     self.title = @"Dashboard";
     
-    self.repositories = [NSMutableArray new];
+    //self.repositories = [NSMutableArray new];
+    self.cells        = [NSMutableArray new];
     [self showBusyState];
     
     _activityIntervalDaysAgo = [[NSCalendar currentCalendar] dateByAddingUnit:NSCalendarUnitDay value:-[SettingsHelper getActivitiesInterval] toDate:[NSDate date] options:0];
@@ -88,6 +90,7 @@
     __weak typeof(self) weakSelf = self;
     [self.tableView addPullToRefreshWithActionHandler:^{
         // prepend data to dataSource, insert cells at top of table view
+        
         [weakSelf FetchRepos];
         [weakSelf.tableView.pullToRefreshView stopAnimating];
     }];
@@ -101,7 +104,10 @@
 }
 
 - (void)hideBusyStateIfEmptyRepos {
-    if (self.repositories.count == 0) {
+//    if (self.repositories.count == 0) {
+//        [self hideBusyState];
+//    }
+    if (self.cells.count == 0) {
         [self hideBusyState];
     }
 }
@@ -109,8 +115,10 @@
 - (void)FetchRepos
 {
     [self showBusyState];
-    [self.repositories removeAllObjects];
+    //[self.repositories removeAllObjects];
+    [self.cells removeAllObjects];
     
+    // hide empty state after 10 s if not closed
     [self performSelector:@selector(hideBusyStateIfEmptyRepos) withObject:self afterDelay:10];
     
     [[self.gitClient fetchUserOrganizations]
@@ -121,9 +129,13 @@
              OCTRepository *repository = response.parsedResult;
              
              if ([Helper isFavorite:repository.name]) {
-                 [self.repositories insertObject:repository atIndex:self.repositories.count > 0 ? self.repositories.count-1 : 0];
+                 //[self.repositories insertObject:repository atIndex:self.repositories.count > 0 ? self.repositories.count-1 : 0];
+                 
+                 [self.cells insertObject:[self createCell:repository] atIndex:self.cells.count > 0 ? self.cells.count-1 : 0];
+                 
                  dispatch_async(dispatch_get_main_queue(), ^{
                      [self hideBusyState];
+                     //[self.tableView.pullToRefreshView stopAnimating];
                  });
              }
           } completed:^{}];
@@ -154,31 +166,77 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.repositories count];
+    if (self.cells.count) {
+      return [self.cells count];
+    }
+    return 0;
 }
 
 - (DashCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (self.repositories.count == 0) {
+    if (self.cells.count) {
+        return [self.cells objectAtIndex:indexPath.row];
+    }
+    return [DashCell new];
+//    if (self.repositories.count == 0) {
+//        return [DashCell new];
+//    }
+//    
+//    static NSString *identifier = @"DashCell";
+//    
+//    DashCell *cell = (DashCell *)[tableView dequeueReusableCellWithIdentifier:identifier];
+//    if (cell == nil)
+//    {
+//        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"DashCell" owner:cell options:nil];
+//        cell = [nib objectAtIndex:0];
+//    }
+//    
+//    cell.repository =[self.repositories objectAtIndex:indexPath.row];
+//    
+//    if(cell != nil && cell.repository != nil){
+//        cell.repoName.text = cell.repository.name;
+//        cell.statusIcon.image = [UIImage imageNamed:@"greenStatus"];
+//        cell.pullsIcons.image = [UIImage imageNamed:@"pullsNormal"];
+//        cell.issuesIcon.image = [UIImage imageNamed:@"issuesNormal"];
+//        cell.activitiesIcon.image = [UIImage imageNamed:@"activityNormal"];
+//        
+//        [self resolvePullsRequest:cell];
+//        [self resolveIssues:cell];
+//        
+//        NSString *repoPath = [cell.repository.HTMLURL.absoluteString stringByReplacingOccurrencesOfString:@"https://github.com/" withString:@""];
+//        
+//        [self.gitHubApi getGeneralLastCommit:repoPath success:^(NSDictionary *commitDic) {
+//            
+//            if([(NSDate*)commitDic[@"dateCommited"] isEarlierThan:_activityIntervalDaysAgo])
+//            {
+//                cell.statusIcon.image = [UIImage imageNamed:@"redStatus"];
+//                cell.activitiesIcon.image = [UIImage imageNamed:@"activityRed"];
+//            }else {
+//                cell.activitiesIcon.image = [UIImage imageNamed:@"activityNormal"];
+//            }
+//        }];
+//    }
+//    
+//    cell.layoutMargins = UIEdgeInsetsZero;
+//    cell.preservesSuperviewLayoutMargins = NO;
+//    cell.accessoryType = UITableViewCellAccessoryNone;
+//    cell.selectionStyle = UITableViewCellSelectionStyleDefault;
+//    return cell;
+}
+
+- (DashCell *) createCell:(OCTRepository *)repo {
+    if (repo == nil) {
         return [DashCell new];
     }
     
-    static NSString *identifier = @"DashCell";
-    
-    DashCell *cell = (DashCell *)[tableView dequeueReusableCellWithIdentifier:identifier];
-    if (cell == nil)
-    {
-        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"DashCell" owner:cell options:nil];
-        cell = [nib objectAtIndex:0];
-    }
-    
-    cell.repository =[self.repositories objectAtIndex:indexPath.row];
+    DashCell *cell = [[[NSBundle mainBundle] loadNibNamed:@"DashCell" owner:self.tableView options:nil] objectAtIndex:0];
+    cell.repository = repo;
     
     if(cell != nil && cell.repository != nil){
-        cell.repoName.text = cell.repository.name;
-        cell.statusIcon.image = [UIImage imageNamed:@"greenStatus"];
-        cell.pullsIcons.image = [UIImage imageNamed:@"pullsNormal"];
-        cell.issuesIcon.image = [UIImage imageNamed:@"issuesNormal"];
+        cell.repoName.text        = cell.repository.name;
+        cell.statusIcon.image     = [UIImage imageNamed:@"greenStatus"];
+        cell.pullsIcons.image     = [UIImage imageNamed:@"pullsNormal"];
+        cell.issuesIcon.image     = [UIImage imageNamed:@"issuesNormal"];
         cell.activitiesIcon.image = [UIImage imageNamed:@"activityNormal"];
         
         [self resolvePullsRequest:cell];
@@ -198,10 +256,10 @@
         }];
     }
     
-    cell.layoutMargins = UIEdgeInsetsZero;
+    cell.layoutMargins                   = UIEdgeInsetsZero;
     cell.preservesSuperviewLayoutMargins = NO;
-    cell.accessoryType = UITableViewCellAccessoryNone;
-    cell.selectionStyle = UITableViewCellSelectionStyleDefault;
+    cell.accessoryType                   = UITableViewCellAccessoryNone;
+    cell.selectionStyle                  = UITableViewCellSelectionStyleDefault;
     return cell;
 }
 
@@ -294,10 +352,10 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    RepositoryController *view = [[RepositoryController alloc] init];
+    RepositoryController *view = [RepositoryController new];
     view.gitClient = self.gitClient;
     
-    if (self.repositories == nil || [self.repositories count] == 0) {
+    if (self.cells == nil || [self.cells count] == 0) {
         return;
     }
     
@@ -392,11 +450,12 @@
         RepositoryController *view = (RepositoryController *) segue.destinationViewController;
         NSIndexPath *index = [self.tableView indexPathForSelectedRow];
         
-        OCTRepository *repository = [self.repositories objectAtIndex:index.row];
+        //OCTRepository *repository = [self.repositories objectAtIndex:index.row];
+        DashCell *cell  = [self.cells objectAtIndex:index.row];
         
-        view.gitClient = self.gitClient;
-        view.repository = repository;
-        self.refresh = false;
+        view.gitClient  = self.gitClient;
+        view.repository = cell.repository;
+        self.refresh    = false;
     }
     
     if ([segue.identifier isEqualToString:@"Settings"])

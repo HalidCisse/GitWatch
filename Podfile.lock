@@ -1,8 +1,11 @@
 PODS:
   - AMSmoothAlert (1.1):
     - GPUImage
+  - Crashlytics (3.8.0):
+    - Fabric (~> 1.6.3)
   - DateTools (1.7.0)
   - DZNEmptyDataSet (1.8.1)
+  - Fabric (1.6.8)
   - FSNetworking (0.0.1)
   - GPUImage (0.1.7)
   - IQKeyboardManager (4.0.3)
@@ -15,8 +18,10 @@ PODS:
 
 DEPENDENCIES:
   - AMSmoothAlert (~> 1.0)
+  - Crashlytics
   - DateTools
   - DZNEmptyDataSet
+  - Fabric
   - FSNetworking
   - IQKeyboardManager
   - MBProgressHUD
@@ -26,8 +31,10 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   AMSmoothAlert: 108cf0fc3eea9256ccfdcd9deaa283999ac1e47e
+  Crashlytics: 8601d9c74a4c4d28f3e7f408bf4c0e490c70e8b4
   DateTools: 53288ee8b905fdc75897a1e6b5cc0144b14cba60
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
+  Fabric: 5755268d0171435ab167e3d0878a28a777deaf10
   FSNetworking: 596048151bffc5917b2bcfa3a840624f49e309fa
   GPUImage: 733a5f0fab92df9de1c37ba9df520a833ccb406d
   IQKeyboardManager: be9695ffc5a52077deb4847608f338771022d6d1
@@ -36,6 +43,6 @@ SPEC CHECKSUMS:
   SSKeychain: c71293fa57216a40ab06c23f4085387583293de4
   SVPullToRefresh: ba2e718695a43253d8bea6852d2960097dc15d8c
 
-PODFILE CHECKSUM: e3533bbcb5a44cdecaad57729c04b5ac411031a5
+PODFILE CHECKSUM: 4e57a31243b5d9b25c9f9bc43f56a5bdb33ecf9b
 
 COCOAPODS: 1.1.0.beta.1

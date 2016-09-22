@@ -35,8 +35,14 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
     
     [self setEmptyState:self.organisation.name description:[NSString stringWithFormat:@"%@ have no repo", self.organisation.name]];
-    self.title = [NSString stringWithFormat:@"%@ Repositories", self.organisation.name];
     
+    if (self.organisation) {
+        self.title = [NSString stringWithFormat:@"%@ Repositories", self.organisation.name];
+    }else{
+        self.title = [NSString stringWithFormat:@"%@ Repositories", [[NSUserDefaults standardUserDefaults]
+                                                                     stringForKey:@"userName"]];
+    }
+        
     [self showBusyState];
     [self fetchRepos];
     
@@ -50,21 +56,44 @@
     
     [self.repositories removeAllObjects];
     
-    [[[self.gitClient fetchRepositoriesForOrganization:self.organisation] deliverOn:RACScheduler.mainThreadScheduler]
-     subscribeNext:^(OCTRepository *repository) {
-         [self.repositories insertObject:repository atIndex:self.repositories.count > 0 ? self.repositories.count-1 : 0];
-         [self hideBusyState];
-     }
-     error:^(NSError *error)
-     {
-         [self hideBusyState];
-         UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Whoops" message:[NSString stringWithFormat:@"Something went wrong."] preferredStyle:UIAlertControllerStyleAlert];
-         
-         UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {}];
-         
-         [alert addAction:defaultAction];
-         [self presentViewController:alert animated:YES completion:nil];
-     } completed:^{}];
+    if (self.organisation == nil) {
+        NSMutableURLRequest *request = [self.gitClient requestWithMethod:@"GET" path:@"/user/repos" parameters:@{@"type":@"owner"}];
+        
+        [[self.gitClient enqueueRequest:request resultClass:[OCTRepository class]]
+         subscribeNext:^(OCTResponse *response) {
+            OCTRepository *repository = response.parsedResult;
+            
+            [self.repositories insertObject:repository atIndex:self.repositories.count > 0 ? self.repositories.count-1 : 0];
+            [self hideBusyState];
+             
+        } error:^(NSError *error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self hideBusyState];
+                UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Whoops" message:[NSString stringWithFormat:@"Something went wrong."] preferredStyle:UIAlertControllerStyleAlert];
+                
+                UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {}];
+                
+                [alert addAction:defaultAction];
+                [self presentViewController:alert animated:YES completion:nil];
+            });
+        } completed:^{}];
+    } else {
+        [[[self.gitClient fetchRepositoriesForOrganization:self.organisation] deliverOn:RACScheduler.mainThreadScheduler]
+         subscribeNext:^(OCTRepository *repository) {
+             [self.repositories insertObject:repository atIndex:self.repositories.count > 0 ? self.repositories.count-1 : 0];
+             [self hideBusyState];
+         }
+         error:^(NSError *error)
+         {
+             [self hideBusyState];
+             UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Whoops" message:[NSString stringWithFormat:@"Something went wrong."] preferredStyle:UIAlertControllerStyleAlert];
+             
+             UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {}];
+             
+             [alert addAction:defaultAction];
+             [self presentViewController:alert animated:YES completion:nil];
+         } completed:^{}];
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
